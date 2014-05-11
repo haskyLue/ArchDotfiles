@@ -1,0 +1,75 @@
+#------------------------
+#	alias for .bashrc
+#------------------------
+# modified commands
+alias diff='colordiff'              # requires colordiff package
+alias grep='grep --color=auto'
+alias df='df -h'
+alias du='du -c -h'
+alias mkdir='mkdir -p -v'
+alias ping='ping -c 5'
+alias ..='cd ..'
+alias da='date "+%A, %B %d, %Y [%T]"'
+alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
+
+# privileged access
+if [ $UID -ne 0 ]; then
+	alias scat='sudo cat'
+	alias smount='sudo mount'
+	alias sumount='sudo umount'
+	alias svim='sudo vim'
+	alias root='sudo su'
+	alias reboot='sudo systemctl reboot'
+	alias poweroff='sudo systemctl poweroff'
+	alias netcfg='sudo netcfg2'
+fi
+
+# ls
+alias ls='ls -hF --color=auto'
+alias l='ls -a'
+alias lr='ls -R'                    # recursive ls
+alias ll='ls -l'
+alias la='ll -A'
+alias lx='ll -BX'                   # sort by extension
+alias lz='ll -rS'                   # sort by size
+alias lt='ll -rt'                   # sort by date
+
+# safety features
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -I'                    # 'rm -i' prompts for every file
+alias ln='ln -i'
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+
+# pacman aliases (if applicable, replace 'pacman' with 'yaourt'/'pacaur'/whatever)
+alias pac="sudo pacman -S"      # default action     - install one or more packages
+alias pacu="sudo pacman -Syu"   # '[u]pdate'         - upgrade all packages to their newest version
+alias pacs="sudo pacman -Ss"    # '[s]earch'         - search for a package using one or more keywords
+alias paci="sudo pacman -Si"    # '[i]nfo'           - show information about a package
+alias pacr="sudo pacman -Rns"     # '[r]emove'         - uninstall one or more packages
+alias pacl="sudo pacman -Sl"    # '[l]ist'           - list all packages of a repository
+alias pacll="sudo pacman -Qq"  # '[l]ist [l]ocal'   - list all packages which were locally installed (e.g. AUR packages)
+alias paco="sudo pacman -Qo"    # '[o]wner'          - determine which package owns a given file
+alias pacf="sudo pacman -Ql"    # '[f]iles'          - list all files installed by a given package
+alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently installed package files
+alias yaourt="yaourt"
+alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
+
+# somemore
+alias tpoff="sudo modprobe -r psmouse"
+alias tpon="sudo modprobe psmouse"
+alias goagent="sudo /usr/share/goagent/local/goagent"
+alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3"
+alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?connect=1&wan=1' > /dev/zero"
+alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=1&wan=1' > /dev/zero"
+alias t-en="translate {en=zh-CN} $1"
+alias t-ch="translate {zh-CN=en} $1"
+alias trash="sudo gvfs-trash"
+alias wifi="wicd-cli -y"
+
+# enter directory
+alias Cd="cd /home/hasky/Documents/dotfiles&&l"
+alias Ct="cd /home/hasky/temp&&ll"
+alias Cn="cd /home/hasky/Documents/note&&ll"
+alias Ca="cd /home/hasky/.config/awesome/&&ll"
