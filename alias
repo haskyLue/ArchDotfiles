@@ -41,7 +41,6 @@ alias rm='rm -I'                    # 'rm -i' prompts for every file
 alias ln='ln -i'
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
 
 # pacman aliases (if applicable, replace 'pacman' with 'yaourt'/'pacaur'/whatever)
 alias pac="sudo pacman -S"      # default action     - install one or more packages
@@ -68,6 +67,7 @@ alias t-en="translate {en=zh-CN} $1"
 alias t-ch="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
 alias wifi="wicd-cli -y"
-clear
-archey3
-#fortune -a | fmt -w 80 -s | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
+
+# enter directory
+alias Cd="cd /home/hasky/Documents/dotfiles&&l"
+alias Ct="cd /home/hasky/temp&&ll"
