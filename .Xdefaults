@@ -1,7 +1,7 @@
 URxvt.geometry  : 100x40
  
-URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=true,xft:Hiragino Sans GB:size=8:style=Regular:antialias=true
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,xft:Hiragino Sans GB:size=8:style=Bold:antialias=true
+URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=true,xft:Hiragino Sans GB:size=9:style=Regular:antialias=true
+URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,xft:Hiragino Sans GB:size=9:style=Bold:antialias=true
 URxvt.letterSpace : 0
 URxvt.termName    : rxvt-256color
 URxvt.iso14755    : false

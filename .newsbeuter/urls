@@ -2,5 +2,59 @@
 http://voice.hupu.com/generated/voice/news_nba.xml
 # zhihu
 http://www.zhihu.com/rss
+# 果壳网
+http://www.guokr.com/rss/
+# 科学公园
+http://www.scipark.net/feed/
+# 战隼的学习探索
+http://www.read.org.cn/feed
 # 王道论坛
 http://www.cskaoyan.com/rss.php?auth=0
+# github
+https://github.com/haskyLue.private.atom?token=2785445__eyJzY29wZSI6IkF0b206L2hhc2t5THVlLnByaXZhdGUuYXRvbSIsImV4cGlyZXMiOjI5Nzc3ODIyNDh9--0155813a0dd028e2ff3db9e44fd6f734c5a7e44a
+# hacker news
+https://news.ycombinator.com/rss
+# startip news
+http://news.dbanotes.net/rss
+# google news
+https://news.google.com/news/feeds?pz=1&cf=all&ned=us&hl=en&topic=tc&output=rss
+# linux.com
+http://www.linux.com/feeds/all-content
+http://www.linux.com/news/hardware/laptops?format=feed&type=rss
+http://www.linux.com/news/enterprise/networking?format=feed&type=rss
+http://www.linux.com/news/enterprise/systems-management?format=feed&type=rss
+http://www.linux.com/news/hardware/servers?format=feed&type=rss
+http://www.linux.com/news/software/developer?format=feed&type=rss
+http://www.linux.com/news/software/linux-kernel?format=feed&type=rss
+http://www.linux.com/news/featured-blogs?format=feed&type=rss
+http://www.linux.com/learn?format=feed&type=rss
+http://www.linux.com/learn/tutorials?format=feed&type=rss
+http://www.linux.com/learn/linux-career-center?format=feed&type=rss
+# MS亚洲研究院
+http://emuch.net/bbs/rss.php?fid=300
+# engadget中国
+http://cn.engadget.com/rss.xml
+# 36氪
+http://www.36kr.com/feed/
+# v2ex
+http://www.v2ex.com/index.xml
+# stackoverflow
+http://stackoverflow.com/feeds
+# 政见
+http://cnpolitics.org/feed/
+# 谷奥
+http://www.guao.hk/feed
+# 开源中国
+http://www.oschina.net/news/rss
+# 小木虫论坛
+http://emuch.net/bbs/rss.php?fid=300
+# 异次元
+http://feed.iplaysoft.com/
+# 维基百科
+http://zh.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday
+# 糗事百科
+http://feed.qiushibaike.com/rss
+# 博客类
+http://diaorui.net/feed
+# 月光博客
+http://www.williamlong.info/blog/rss.xml
