@@ -2,6 +2,8 @@
 https://bugs.archlinux.org/feed.php?feed_type=rss2&project=1
 # nba
 http://voice.hupu.com/generated/voice/news_nba.xml
+http://bbs.hupu.com/rss.php?fid=1048
+http://bbs.hupu.com/rss.php?fid=34
 # zhihu
 http://www.zhihu.com/rss
 # 果壳网
@@ -12,8 +14,6 @@ http://www.scipark.net/feed/
 http://www.read.org.cn/feed
 # 王道论坛
 http://www.cskaoyan.com/rss.php?auth=0
-# github
-https://github.com/haskyLue.private.atom?token=2785445__eyJzY29wZSI6IkF0b206L2hhc2t5THVlLnByaXZhdGUuYXRvbSIsImV4cGlyZXMiOjI5Nzc3ODIyNDh9--0155813a0dd028e2ff3db9e44fd6f734c5a7e44a
 # hacker news
 https://news.ycombinator.com/rss
 # startip news
