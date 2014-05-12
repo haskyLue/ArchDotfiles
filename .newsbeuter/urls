@@ -1,3 +1,5 @@
+# archlinux
+https://bugs.archlinux.org/feed.php?feed_type=rss2&project=1
 # nba
 http://voice.hupu.com/generated/voice/news_nba.xml
 # zhihu
@@ -36,6 +38,14 @@ http://emuch.net/bbs/rss.php?fid=300
 http://cn.engadget.com/rss.xml
 # 36氪
 http://www.36kr.com/feed/
+# 奇舞团
+http://www.75team.com/feed
+# dailyjs
+http://feeds.feedburner.com/dailyjs?format=xml
+# html5rocks
+http://feeds.feedburner.com/html5rocks?fmt=xml
+# javscript weekly
+http://javascriptweekly.com/rss/1c58mj7l
 # v2ex
 http://www.v2ex.com/index.xml
 # stackoverflow
