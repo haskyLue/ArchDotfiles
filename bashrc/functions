@@ -1,4 +1,9 @@
 # functions for .bashrc
+function parse_string(){
+# 处理字符串变量部分字符的转义 for sed
+	echo $1 | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g' 
+}
+
 function proxyon(){
  	export http_proxy="127.0.0.1:8087"
  	export https_proxy=$http_proxy
@@ -23,4 +28,22 @@ function proxyoff(){
 	unset rsync_proxy
  	echo -e "\nProxy environment variable removed."
 }
-
+function addrss(){
+	local _path="/home/hasky/Documents/dotfiles/.newsbeuter/urls"
+	if [ $# -eq 1 ];then
+		echo $1 >> $_path
+	else
+		echo -e "# $1\n$2" >> $_path
+	fi
+	echo '...'
+	tail -n 3 $_path
+}
+function delrss(){
+	local _path="/home/hasky/Documents/dotfiles/.newsbeuter/urls"
+	if grep -i $1 $_path
+	then
+		sed -i.bak  "/$(parse_string $1)/d" $_path # 备份后写入
+	else
+		echo "rss 地址不存在"
+	fi
+}

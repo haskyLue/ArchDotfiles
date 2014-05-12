@@ -67,9 +67,11 @@ alias t-en="translate {en=zh-CN} $1"
 alias t-ch="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
 alias wifi="wicd-cli -y"
+alias c-s="scrot -s -q 100" #截图
 
 # enter directory
 alias Cd="cd /home/hasky/Documents/dotfiles&&l"
 alias Ct="cd /home/hasky/temp&&ll"
 alias Cn="cd /home/hasky/Documents/note&&ll"
 alias Ca="cd /home/hasky/.config/awesome/&&ll"
+alias Vt="vim /home/hasky/Documents/task.md"
