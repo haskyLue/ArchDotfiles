@@ -1,18 +1,17 @@
 URxvt.geometry  : 100x40
 ! 启动快了
 URxvt*preeditType:Root 
- 
+URxvt.saveLines   : 12000
+
+!---apperance--------------------------------------------------------------------------
 URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=true,xft:Hiragino Sans GB:size=9:style=Regular:antialias=true
 URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,xft:Hiragino Sans GB:size=9:style=Bold:antialias=true
 URxvt.letterSpace : 0
 URxvt.termName    : rxvt-256color
-URxvt.iso14755    : false
- 
-URxvt.urgentOnBell: true
- 
-URxvt.saveLines   : 12000
+! disable default binding 
+URxvt.iso14755: false
+URxvt.iso14755_52: false 
 URxvt.scrollBar   : false
-URxvt.scrollstyle : rxvt
  
 !XFT
 Xft.dpi: 96
@@ -27,7 +26,6 @@ URxvt.cursorColor            : #93A1A1
 URxvt*cursorBlink:      true
  
 URxvt.pointerColorBackground : #586E75
-URxvt.urlLuncher:     google-chrome-stable
 URxvt.pointerColorForeground : #93A1A1
  
 URxvt.Depth : 32
@@ -39,53 +37,67 @@ URxvt*.shading: 10
 !---color---
 URxvt.colorBD : #FFFFFF
 URxvt.colorUL : #CCCC66
- 
 ! black
 URxvt.color0  : #2E3436
 URxvt.color8  : #555753
- 
 ! red
 URxvt.color1  : #9e1828
 URxvt.color9  : #cf6171
- 
 ! green
 URxvt.color2  : #aece92
 URxvt.color10 : #c5f779
- 
 ! yellow
 URxvt.color3  : #968a38
 URxvt.color11 : #fff796
- 
 ! blue
 URxvt.color4  : #414171
 URxvt.color12 : #4186be
- 
 ! magenta
 URxvt.color5  : #963c59
 URxvt.color13 : #cf9ebe
- 
 ! cyan
 URxvt.color6  : #418179
 URxvt.color14 : #71bebe
- 
 ! white
 URxvt.color7  : #bebebe
 URxvt.color15 : #ffffff
 
-!---Extentions---
-! URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard,tabbed
+!---Extentions--------------------------------------------------------------------------
+!Ctrl+Insert can be used to copy and Shift+Insert to paste.
+
+URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
 ! URxvt.tabbed.tabbar-fg: 0
 ! URxvt.tabbed.tabbar-bg: 0
 ! URxvt.tabbed.tab-fg: 3
 ! URxvt.tabbed.tab-bg: 0
 
-URxvt.keysym.M-x           : perl:keyboard-select:activate
-URxvt.keysym.M-u           : perl:url-select:select_next
-URxvt.keysym.M-c           : perl:clipboard:copy
-URxvt.keysym.M-v           : perl:clipboard:paste
-URxvt.keysym.M-s           : perl:keyboard-select:search
-URxvt.keysym.M-C-v         : perl:clipboard:paste_escaped
+! Alt+u Enter selection mode. The last URL on your screen will be selected. 
+! k Select next upward URL
+! j Select next downward URL
+! Return Open selected URL in browser and quit selection mode
+! o Open selected URL in browser without quitting selection mode
+! Esc Cancel URL selection mode
+URxvt.keysym.M-u			: perl:url-select:select_next
+URxvt.url-select.launcher	: google-chrome-stable  -new-tab
+URxvt.url-select.underline	: true
+URxvt.url-select.autocopy	: true
 
-URxvt.url-select.launcher  : google-chrome-stable
-URxvt.url-select.autocopy  : true
-URxvt.url-select.underline : true
+! copy paste
+URxvt.keysym.Control-Shift-C: perl:clipboard:copy
+URxvt.keysym.Control-Shift-V: perl:clipboard:paste
+
+! move key
+URxvt.keysym.Shift-Up:          \033[1;2A
+URxvt.keysym.Shift-Down:        \033[1;2B
+URxvt.keysym.Shift-Right:       \033[1;2C
+URxvt.keysym.Shift-Left:        \033[1;2D
+URxvt.keysym.Control-b:         \002
+URxvt.keysym.Control-c:         \003
+URxvt.keysym.Control-r:         \022
+URxvt.keysym.Control-v:         \026
+URxvt.keysym.Control-Up:        \033[1;5A
+URxvt.keysym.Control-Down:      \033[1;5B
+URxvt.keysym.Control-Left:      \033[1;5D
+URxvt.keysym.Control-Right:     \033[1;5C
+URxvt.keysym.Control-Page_Up:   \033[5;5~
+URxvt.keysym.Control-Page_Down: \033[6;5~

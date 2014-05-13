@@ -47,3 +47,7 @@ function delrss(){
 		echo "rss 地址不存在"
 	fi
 }
+function cwall(){
+	cp -f $1 /home/hasky/.config/awesome/themes/multicolor/wall.png
+	echo '<mod4+ctrl+r>重启awesome!'
+}
