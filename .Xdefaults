@@ -4,8 +4,8 @@ URxvt*preeditType:Root
 URxvt.saveLines   : 12000
 
 !---apperance--------------------------------------------------------------------------
-URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=true,xft:Hiragino Sans GB:size=9:style=Regular:antialias=true
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,xft:Hiragino Sans GB:size=9:style=Bold:antialias=true
+URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=false,xft:文泉驿微米黑:size=11:style=Regular:antialias=false
+URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=false,xft:文泉驿微米黑:size=11:style=Bold:antialias=false
 URxvt.letterSpace : 0
 URxvt.termName    : rxvt-256color
 ! disable default binding 
@@ -28,11 +28,12 @@ URxvt*cursorBlink:      true
 URxvt.pointerColorBackground : #586E75
 URxvt.pointerColorForeground : #93A1A1
  
-URxvt.Depth : 32
-URxvt.background : black
+URxvt*depth: 32
+URxvt*background: rgba:0000/0000/0200/c800
 URxvt.foreground : white
-URxvt*.transparent  : True
-URxvt*.shading: 10
+! URxvt.background : black
+! URxvt*.transparent  : True
+! URxvt*.shading: 10
 
 !---color---
 URxvt.colorBD : #FFFFFF

@@ -44,7 +44,7 @@ alias chmod='chmod --preserve-root'
 
 # pacman aliases (if applicable, replace 'pacman' with 'yaourt'/'pacaur'/whatever)
 alias pac="sudo pacman -S"      # default action     - install one or more packages
-alias pacu="sudo pacman -Syu"   # '[u]pdate'         - upgrade all packages to their newest version
+# alias pacu="sudo pacman -Syu"   # '[u]pdate'         - upgrade all packages to their newest version
 alias pacs="sudo pacman -Ss"    # '[s]earch'         - search for a package using one or more keywords
 alias paci="sudo pacman -Si"    # '[i]nfo'           - show information about a package
 alias pacr="sudo pacman -Rns"     # '[r]emove'         - uninstall one or more packages
@@ -55,12 +55,13 @@ alias pacf="sudo pacman -Ql"    # '[f]iles'          - list all files installed 
 alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently installed package files
 alias yaourt="yaourt"
 alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
+alias update="sudo yaourt -Syua"
 
 # somemore
 alias tpoff="sudo modprobe -r psmouse"
 alias tpon="sudo modprobe psmouse"
 alias goagent="sudo /usr/share/goagent/local/goagent"
-alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3"
+# alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
 alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?connect=1&wan=1' > /dev/zero"
 alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=1&wan=1' > /dev/zero"
 alias t-en="translate {en=zh-CN} $1"
@@ -68,6 +69,7 @@ alias t-ch="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
 alias wifi="wicd-cli -y"
 alias c-s="scrot -s -q 100" #截图
+alias qq="pidgin &"
 
 # enter directory
 alias Cd="cd /home/hasky/Documents/dotfiles&&l"
