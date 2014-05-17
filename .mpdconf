@@ -450,7 +450,7 @@ audio_output {
        name		"Local Music Player Daemon"
        server		"127.0.0.1"
 }
-music_directory    "/home/hasky/Music"          # Can keep commented if XDG music dir.
+music_directory    "/home/hasky/Music"         
 playlist_directory "/home/hasky/.mpd/playlists"
 db_file            "/home/hasky/.mpd/database"
 log_file           "/home/hasky/.mpd/log"

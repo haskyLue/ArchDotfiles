@@ -6,6 +6,7 @@ export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 fcitx &
 # unagi &
+compton -bC &
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do

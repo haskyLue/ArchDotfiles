@@ -28,12 +28,12 @@ URxvt*cursorBlink:      true
 URxvt.pointerColorBackground : #586E75
 URxvt.pointerColorForeground : #93A1A1
  
-! URxvt*depth: 32
-! URxvt*background: rgba:0000/0000/0200/D000
-URxvt.foreground : white
-URxvt.background : black
+URxvt*depth: 32
+URxvt.background: [70]#000000
+URxvt.foreground : #F6F3E8
+!! background image
 ! URxvt*.transparent  : True
-! URxvt*.shading: 10
+! URxvt*.shading: 40
 
 !---color---
 URxvt.colorBD : #FFFFFF
