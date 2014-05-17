@@ -443,7 +443,13 @@ input {
 #
 ###############################################################################
 
-bind_to_address    "127.0.0.1"
+user				"hasky"
+bind_to_address		"127.0.0.1"
+audio_output {
+       type		"alsa"
+       name		"Local Music Player Daemon"
+       server		"127.0.0.1"
+}
 music_directory    "/home/hasky/Music"          # Can keep commented if XDG music dir.
 playlist_directory "/home/hasky/.mpd/playlists"
 db_file            "/home/hasky/.mpd/database"

@@ -141,8 +141,8 @@ set nowb
 "显示行号
 set number
 
-"clipboard
-set clipboard=unnamed
+" 高亮当前行
+ :set cursorline 
 
 "modify
 set modifiable

@@ -69,7 +69,8 @@ alias t-ch="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
 alias wifi="wicd-cli -y"
 alias c-s="scrot -s -q 100" #截图
-alias qq="pidgin &"
+alias qq="pidgin & >> /dev/null"
+alias gmail="checkgmail -no_cookies & >> /dev/null"
 
 # enter directory
 alias Cd="cd /home/hasky/Documents/dotfiles&&l"
