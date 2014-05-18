@@ -51,3 +51,10 @@ function cwall(){
 	cp -f $1 /home/hasky/.config/awesome/themes/multicolor/wall.png
 	echo '<mod4+ctrl+r>重启awesome!'
 }
+function Xflux(){
+	if ps -e | grep xflux ;then
+		echo "已运行"
+	else 
+		xflux -l 32.054829 -g 118.795193 &
+	fi
+}
