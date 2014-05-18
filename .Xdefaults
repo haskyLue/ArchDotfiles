@@ -29,7 +29,7 @@ URxvt.pointerColorBackground : #586E75
 URxvt.pointerColorForeground : #93A1A1
  
 URxvt*depth: 32
-URxvt.background: [70]#000000
+URxvt.background: [80]#000000
 URxvt.foreground : #F6F3E8
 !! background image
 ! URxvt*.transparent  : True

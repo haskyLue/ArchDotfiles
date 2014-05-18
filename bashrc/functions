@@ -29,20 +29,20 @@ function proxyoff(){
  	echo -e "\nProxy environment variable removed."
 }
 function addrss(){
-	local _path="/home/hasky/Documents/dotfiles/.newsbeuter/urls"
+	local URL_PATH="/home/hasky/Documents/dotfiles/.newsbeuter/urls"
 	if [ $# -eq 1 ];then
-		echo $1 >> $_path
+		echo $1 >> $URL_PATH
 	else
-		echo -e "# $1\n$2" >> $_path
+		echo -e "# $1\n$2" >> $URL_PATH
 	fi
 	echo '...'
-	tail -n 3 $_path
+	tail -n 3 $URL_PATH
 }
 function delrss(){
-	local _path="/home/hasky/Documents/dotfiles/.newsbeuter/urls"
-	if grep -i $1 $_path
+	local URL_PATH="/home/hasky/Documents/dotfiles/.newsbeuter/urls"
+	if grep -i $1 $URL_PATH
 	then
-		sed -i.bak  "/$(parse_string $1)/d" $_path # 备份后写入
+		sed -i.bak  "/$(parse_string $1)/d" $URL_PATH # 备份后写入
 	else
 		echo "rss 地址不存在"
 	fi
