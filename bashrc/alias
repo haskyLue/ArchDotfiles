@@ -58,27 +58,28 @@ alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD fil
 alias update="sudo yaourt -Syua"
 
 # somemore
-alias goagent="sudo /usr/share/goagent/local/goagent"
 # alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
+alias goagent="sudo /usr/share/goagent/local/goagent"
 alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?connect=1&wan=1' > /dev/zero"
 alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=1&wan=1' > /dev/zero"
 alias Te="translate {en=zh-CN} $1"
 alias Tc="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
 alias wifi="wicd-curses"
-alias Cscreen="scrot -s -q 100" #截图
 alias qq="pidgin -f & > /dev/null"
 alias gmail="proxyon;checkgmail -no_cookies & > /dev/null"
 alias Tps="sh /home/hasky/Documents/script/toggle_psmouse.sh" # 切换触控板
+alias Cscreen="scrot -s -q 100" #截图
 # adjust volume
 alias Su="amixer set Master 5+"
 alias Sd="amixer set Master 5-"
 alias Smute="amixer set Master mute"
 alias Sunmute="amixer set Master unmute"
 
-# enter directory
+# enter directory & edit
 alias Cd="cd /home/hasky/Documents/dotfiles&&l"
 alias Ct="cd /home/hasky/temp&&ll"
 alias Cn="cd /home/hasky/Documents/note&&ll"
 alias Ca="cd /home/hasky/.config/awesome/&&ll"
-alias Vt="vim /home/hasky/Documents/task.md"
+alias Vtask="vim /home/hasky/Documents/task.md"
+alias Valias="vim /run/media/storage/Documents/dotfiles/bashrc/alias"
