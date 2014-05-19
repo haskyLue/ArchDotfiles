@@ -33,7 +33,7 @@ export BROWSER="google-chrome-stable"
 source "/home/hasky/Documents/dotfiles/bashrc/functions"
 source "/home/hasky/Documents/dotfiles/bashrc/alias"
 
-Xflux > /dev/null # 运行xflux
+# Xflux # 运行xflux
 clear
 archey3
 #fortune -a | fmt -w 80 -s | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
