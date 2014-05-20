@@ -66,6 +66,7 @@ alias Te="translate {en=zh-CN} $1"
 alias Tc="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
 alias wifi="wicd-curses"
+alias lampp="/opt/lampp/xampp"
 alias qq="pidgin -f &"
 alias gmail="checkgmail -no_cookies &"
 alias Tps="sh /home/hasky/Documents/script/toggle_psmouse.sh" # 切换触控板
