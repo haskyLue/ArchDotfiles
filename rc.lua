@@ -14,6 +14,9 @@ local drop      = require("scratchdrop")
 local lain      = require("lain")
 -- }}}
 
+-- keydoc
+local keydoc = require('keydoc')
+
 -- {{{ Error handling
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
@@ -390,109 +393,75 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    -- Take a screenshot
-    -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
+	awful.key({ modkey }, "F1",				   keydoc.display),
 
-    -- Tag browsing
-    awful.key({ modkey }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey }, "Escape", awful.tag.history.restore),
-
-    -- Non-empty tag browsing
-    -- awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end),
-    -- awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
-
-    -- Default client focus
-    -- awful.key({ altkey }, "k",
-    --     function ()
-    --         awful.client.focus.byidx( 1)
-    --         if client.focus then client.focus:raise() end
-    --     end),
-    -- awful.key({ altkey }, "j",
-    --     function ()
-    --         awful.client.focus.byidx(-1)
-    --         if client.focus then client.focus:raise() end
-    --     end),
-    --
-    -- By direction client focus
+    -- Navigation {{{
+    keydoc.group("navigation"),
+	awful.key({ modkey,           }, "Left",   awful.tag.viewprev,"Previous Tag" ),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,"Next tag" ),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,"Clear Choice"),
     awful.key({ modkey }, "j",
         function()
             awful.client.focus.bydirection("down")
             if client.focus then client.focus:raise() end
-        end),
+        end, "Focus client"),
     awful.key({ modkey }, "k",
         function()
             awful.client.focus.bydirection("up")
             if client.focus then client.focus:raise() end
-        end),
+        end,"Focus client"),
     awful.key({ modkey }, "h",
         function()
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
-        end),
+        end,"Focus client"),
     awful.key({ modkey }, "l",
         function()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
-        end),
-
-    -- Show Menu
-    awful.key({ modkey }, "w",
-        function ()
-            mymainmenu:show({ keygrabber = true })
-        end),
-
-    -- Show/Hide Wibox
-    awful.key({ modkey }, "b", function ()
-        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-        mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
-    end),
- 
-	awful.key({ modkey, "Control" }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end),
-    awful.key({ modkey, "Control" }, "Up",    function () awful.client.moveresize(  0, -20,   0,   0) end),
-    awful.key({ modkey, "Control" }, "Left",  function () awful.client.moveresize(-20,   0,   0,   0) end),
-    awful.key({ modkey, "Control" }, "Right", function () awful.client.moveresize( 20,   0,   0,   0) end),
-    awful.key({ modkey, "Control" }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
-    awful.key({ modkey, "Control" }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end),
-
-    -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+        end,"Focus client"),
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
             if client.focus then
                 client.focus:raise()
             end
-        end),
-
-    -- Standard program
-    awful.key({ modkey,           }, "]",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "[",     function () awful.tag.incmwfact(-0.05)    end),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-
-    awful.key({ modkey, "Control" }, "n", awful.client.restore),
-
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey, "Control" }, "r",      awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
+        end,"foucs previous client"),
+	-- }}}		
+ 
+    -- Layout manipulation {{{
+	keydoc.group("Layout"),
+    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,"Focus next screen"),
+    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end, "Focus previous screen"),
+    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto ," Focus first urgent client"),
+    awful.key({ modkey,           }, "]",     function () awful.tag.incmwfact( 0.05)    end,"Increase master width factor by 5%"),
+    awful.key({ modkey,           }, "[",     function () awful.tag.incmwfact(-0.05)    end,"Decrease master width factor by 5%"),
+    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end,"Increase number of master windows by 1"),
+    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end,"Decrease number of master windows by 1"),
+    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end,"Increase number of columns for non-master windows by 1"),
+    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end,"Decrease number of columns for non-master windows by 1"),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end,"Switch to next layout"),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end,"Switch to previous layout"),
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,"Switch to floating layout"),
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,"Swap focused client with master"),
+    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ,"Send client to next screen"),
+	-- }}}
 
     -- Dropdown terminal
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
+    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
 
-    -- Widgets popups
-    -- awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
-    -- awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
-    -- awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
+    -- Show Menu resize
+    awful.key({ modkey }, "w",
+        function ()
+            mymainmenu:show({ keygrabber = true })
+        end),
+    awful.key({ modkey }, "b", function ()
+        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+        mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
+    end),
 
+    -- asus 多媒体按键绑定 {{{
     -- ALSA volume control
     awful.key({}, "XF86AudioRaiseVolume",
         function ()
@@ -509,7 +478,6 @@ globalkeys = awful.util.table.join(
             awful.util.spawn("amixer -q set Master playback toggle")
             volumewidget.update()
         end),
-
     -- MPD control
     awful.key({}, "XF86AudioStop",
         function ()
@@ -530,19 +498,19 @@ globalkeys = awful.util.table.join(
         function ()
             awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")
             mpdwidget.update()
-        end),
-	
+        end),	
 	-- 切换触控板
     awful.key({}, "XF86ScreenSaver",
         function ()
             awful.util.spawn_with_shell("sh /home/hasky/Documents/script/toggle_psmouse.sh")
         end),
-
 	-- 截屏
     awful.key({}, "XF86WebCam",
         function ()
             awful.util.spawn_with_shell("scrot -q 100")
         end),
+    -- asus 多媒体按键绑定 }}}
+
 
     -- Copy to clipboard
     awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
@@ -559,27 +527,39 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+
+	-- awesome
+    awful.key({ modkey, "Control" }, "r",      awesome.restart),
+    awful.key({ modkey, "Shift"   }, "q",      awesome.quit)
+
 )
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+	keydoc.group("Client"),
+    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end,"Fullscreen"),
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,"Close client"),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,"Set client on-top"),
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
-        end),
+        end,"Minimize client"),
+    awful.key({ modkey, "Control" }, "n", awful.client.restore,"Restore minimized client"),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
-        end)
+        end,"Maximize client"),
+	awful.key({ modkey, "Control" }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end,"move client window"),
+    awful.key({ modkey, "Control" }, "Up",    function () awful.client.moveresize(  0, -20,   0,   0) end,"move client window"),
+    awful.key({ modkey, "Control" }, "Left",  function () awful.client.moveresize(-20,   0,   0,   0) end,"move client window"),
+    awful.key({ modkey, "Control" }, "Right", function () awful.client.moveresize( 20,   0,   0,   0) end,"move client window"),
+    awful.key({ modkey, "Control" }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end,"scale client window"),
+    awful.key({ modkey, "Control" }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end,"scale client window"),
+    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,"Switch client with next client"),
+    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,"Switch client with previous client")
 )
 
 -- Bind all key numbers to tags.

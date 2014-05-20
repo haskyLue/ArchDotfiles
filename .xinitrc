@@ -15,6 +15,7 @@ fi
 
 xflux -l 32.054829 -g 118.795193 &
 compton -bC &
-exec awesome
+
+exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 
 # exec startxfce4
