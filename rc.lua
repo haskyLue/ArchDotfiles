@@ -69,7 +69,7 @@ editor_cmd = terminal .. " -e " .. editor
 -- user defined
 browser    = "google-chrome-stable"
 gui_editor = "subl"
-mail       = terminal .. " -e mutt "
+-- mail       = terminal .. " -e mutt "
 
 local layouts = {
     awful.layout.suit.floating,
@@ -134,26 +134,26 @@ fswidget = lain.widgets.fs({
     end
 })
 
---[[ Mail IMAP check
+-- Mail IMAP check
 -- commented because it needs to be set before use
-mailicon = wibox.widget.imagebox()
-mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail) end)))
-mailwidget = lain.widgets.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        if mailcount > 0 then
-            mailicon:set_image(beautiful.widget_mail)
-            widget:set_markup(markup("#cccccc", mailcount .. " "))
-        else
-            widget:set_text("")
-            mailicon:set_image(nil)
-        end
-    end
-})
-]]
+-- mailicon = wibox.widget.imagebox()
+-- mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("google-chrome-stable") end)))
+-- mailwidget = lain.widgets.imap({
+--     timeout  = 60,
+--     server   = "imap.gmail.com",
+--     mail     = "ludebing@gmail.com",
+--     password = "ldb19920204ldb",
+--     settings = function()
+--         if mailcount > 0 then
+--             mailicon:set_image(beautiful.widget_mail)
+--             widget:set_markup(markup("#cccccc", mailcount .. " "))
+--         else
+--             widget:set_text("")
+--             mailicon:set_image(nil)
+--         end
+--     end
+-- })
+--
 
 -- CPU
 cpuicon = wibox.widget.imagebox()
@@ -332,8 +332,8 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the upper right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    --right_layout:add(mailicon)
-    --right_layout:add(mailwidget)
+    -- right_layout:add(mailicon)
+    -- right_layout:add(mailwidget)
     right_layout:add(netdownicon)
     right_layout:add(netdowninfo)
     right_layout:add(netupicon)

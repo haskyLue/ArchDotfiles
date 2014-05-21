@@ -1,5 +1,5 @@
 #!/bin/sh
-# gstreamer后端的播放器mp3 tag编码
+# 以gstreamer后端的播放器mp3 tag编码
 export GST_ID3_TAG_ENCODING=GBK:UTF-8:GB18030
 export GST_ID3V2_TAG_ENCODING=GBK:UTF-8:GB18030
 
@@ -14,7 +14,6 @@ export XIM_PROGRAM="fcitx"
 export XMODIFIERS="@im=fcitx"
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
-fcitx &
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
@@ -23,11 +22,13 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f 
 fi
 
-wicd-gtk -t & 
-stardict -h &
-xflux -l 32.054829 -g 118.795193 &
-compton -bC &
+(fcitx &)
+(wicd-gtk -t &) 
+(stardict -h &)
+(xflux -l 32.054829 -g 118.795193 &)
+(urxvtd -q -f -o &) && (compton -bC &)
 
+(xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
 exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 
 # exec startxfce4
