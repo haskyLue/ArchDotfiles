@@ -42,7 +42,7 @@ filetype plugin on
 "设置编码
 set encoding=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
-set fileencodings=utf-8,ucs-bom,chinese
+set fileencodings=utf8,cp936,gb18030,big5
 
 "语言设置
 set langmenu=zh_CN.UTF-8
