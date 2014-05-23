@@ -445,6 +445,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,"Switch to floating layout"),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,"Swap focused client with master"),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ,"Send client to next screen"),
+    awful.key({ modkey, "Control" }, "n", awful.client.restore,"Restore minimized client"), -- client
 	-- }}}
 
     -- Dropdown terminal
@@ -546,7 +547,6 @@ clientkeys = awful.util.table.join(
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end,"Minimize client"),
-    awful.key({ modkey, "Control" }, "n", awful.client.restore,"Restore minimized client"),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
