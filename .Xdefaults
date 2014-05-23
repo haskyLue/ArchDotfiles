@@ -1,11 +1,13 @@
+!大小
 URxvt.geometry  : 100x40
 ! 启动快了
 URxvt*preeditType:Root 
 URxvt.saveLines   : 12000
+URxvt.loginShell: True
 
 !---apperance--------------------------------------------------------------------------
-URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=false,xft:文泉驿微米黑:size=11:style=Regular:antialias=false
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=false,xft:文泉驿微米黑:size=11:style=Bold:antialias=false
+URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=false,xft:Hiragino Sans GB:size=10:style=Regular:antialias=false
+URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=false,xft:Hiragino Sans GB:size=10:style=Bold:antialias=false
 URxvt.letterSpace : 0
 URxvt.termName    : rxvt-256color
 ! disable default binding 
@@ -21,47 +23,50 @@ Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
 
-!Solarized + tangerine + random colours
-URxvt.cursorColor            : #93A1A1
-URxvt*cursorBlink:      true
+!---color--具体色样参考~/Workspace/echo_color.sh----------------------------
+URxvt.cursorColor: #93A1A1
+URxvt*cursorBlink: true
  
 URxvt.pointerColorBackground : #586E75
 URxvt.pointerColorForeground : #93A1A1
  
 URxvt*depth: 32
-URxvt.background: [80]#000000
-URxvt.foreground : #F6F3E8
-!! background image
 ! URxvt*.transparent  : True
 ! URxvt*.shading: 40
+urxvt*foreground: #f2f2f2
+urxvt*background: #101010
 
-!---color---
-URxvt.colorBD : #FFFFFF
-URxvt.colorUL : #CCCC66
-! black
-URxvt.color0  : #2E3436
-URxvt.color8  : #555753
-! red
-URxvt.color1  : #9e1828
-URxvt.color9  : #cf6171
-! green
-URxvt.color2  : #aece92
-URxvt.color10 : #c5f779
-! yellow
-URxvt.color3  : #968a38
-URxvt.color11 : #fff796
-! blue
-URxvt.color4  : #414171
-URxvt.color12 : #4186be
-! magenta
-URxvt.color5  : #963c59
-URxvt.color13 : #cf9ebe
-! cyan
-URxvt.color6  : #418179
-URxvt.color14 : #71bebe
-! white
-URxvt.color7  : #bebebe
-URxvt.color15 : #ffffff
+!Black
+URxvt*color0:        #444546
+URxvt*color8:        #6d6d6e
+
+!Red
+URxvt*color1:        #ad6f71
+URxvt*color9:        #d4878a
+
+!Green
+URxvt*color2:        #7bad6f
+URxvt*color10:       #93d487
+
+!Yellow
+URxvt*color3:        #ada16f
+URxvt*color11:       #d2c085
+
+!Blue
+URxvt*color4:        #6f88ad
+URxvt*color12:       #87abd4
+
+!Magenta
+URxvt*color5:        #a06fad
+URxvt*color13:       #c887d4
+
+!Cyan
+URxvt*color6:        #6ca9a1
+URxvt*color14:       #84d0c5
+
+!White
+URxvt*color7:        #ababab
+URxvt*color15:       #cdcecf
 
 !---Extentions--------------------------------------------------------------------------
 !Ctrl+Insert can be used to copy and Shift+Insert to paste.
@@ -79,7 +84,7 @@ URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
 ! o Open selected URL in browser without quitting selection mode
 ! Esc Cancel URL selection mode
 URxvt.keysym.M-u			: perl:url-select:select_next
-URxvt.url-select.launcher	: google-chrome-stable  -new-tab
+URxvt.url-select.launcher	: chromium  -new-tab
 URxvt.url-select.underline	: true
 URxvt.url-select.autocopy	: true
 

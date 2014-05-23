@@ -67,7 +67,7 @@ editor     = os.getenv("EDITOR") or "nano" or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
-browser    = "google-chrome-stable"
+browser    = "chromium"
 gui_editor = "subl"
 -- mail       = terminal .. " -e mutt "
 

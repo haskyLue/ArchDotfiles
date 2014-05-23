@@ -26,7 +26,8 @@ fi
 (wicd-gtk -t &) 
 (stardict -h &)
 (xflux -l 32.054829 -g 118.795193 &)
-(urxvtd -q -f -o &) && (compton -bC &)
+(urxvtd -q -f -o &) 
+# (compton -bC &)
 
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
 exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr

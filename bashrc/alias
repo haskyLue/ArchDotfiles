@@ -59,24 +59,26 @@ alias update="sudo yaourt -Syua"
 
 # somemore
 # alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
-alias goagent="sudo /usr/share/goagent/local/goagent"
-alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?connect=1&wan=1' > /dev/zero"
-alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=1&wan=1' > /dev/zero"
-alias Te="translate {en=zh-CN} $1"
-alias Tc="translate {zh-CN=en} $1"
-alias trash="sudo gvfs-trash"
-alias wifi="wicd-curses"
-alias dict="stardict &"
-alias lampp="sudo /opt/lampp/xampp"
-alias qq="pidgin -f &"
-alias gmail="checkgmail -no_cookies &"
+alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?connect=1&wan=1' > /dev/null"
+alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=1&wan=1' > /dev/null"
 alias Tps="sh /home/hasky/Documents/script/toggle_psmouse.sh" # 切换触控板
-alias Cscreen="scrot -s -q 100" #截图
-# adjust volume
+# --- adjust volume
 alias Su="amixer set Master 5+"
 alias Sd="amixer set Master 5-"
 alias Smute="amixer set Master mute"
 alias Sunmute="amixer set Master unmute"
+
+# start app 
+alias goagent="sudo /usr/share/goagent/local/goagent"
+alias Te="translate {en=zh-CN} $1"
+alias Tc="translate {zh-CN=en} $1"
+alias trash="sudo gvfs-trash"
+alias wifi="wicd-curses"
+alias lampp="sudo /opt/lampp/xampp"
+alias qq="pidgin -f &"
+alias gmail="checkgmail -no_cookies &"
+alias news="newsbeuter 2>> /dev/null"
+alias Cscreen="scrot -s -q 100" #截图
 
 # enter directory & edit
 alias Cd="cd /home/hasky/Documents/dotfiles&&l"
