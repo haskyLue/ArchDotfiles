@@ -6,8 +6,8 @@ URxvt.saveLines   : 12000
 URxvt.loginShell: true
 
 !---apperance--------------------------------------------------------------------------
-URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=false,xft:Hiragino Sans GB:size=10:style=Regular:antialias=false
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=false,xft:Hiragino Sans GB:size=10:style=Bold:antialias=false
+URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=false,xft:Hiragino Sans GB:size=9:style=Regular:antialias=false
+URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=false,xft:Hiragino Sans GB:size=9:style=Bold:antialias=false
 URxvt.letterSpace : 0
 URxvt.termName    : rxvt-256color
 ! disable default binding 
@@ -28,7 +28,7 @@ URxvt*depth: 32
 ! URxvt*.transparent  : True
 ! URxvt*.shading: 40
 
-*background: #002b36
+*background: [95]#002b36
 *foreground: #657b83
 
 *fadeColor: #002b36

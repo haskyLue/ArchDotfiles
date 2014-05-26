@@ -503,7 +503,7 @@ globalkeys = awful.util.table.join(
 	-- 切换触控板
     awful.key({}, "XF86ScreenSaver",
         function ()
-            awful.util.spawn_with_shell("sh /home/hasky/Documents/script/toggle_psmouse.sh")
+            awful.util.spawn_with_shell("sh /home/hasky/Documents/dotfiles/script/toggle_psmouse.sh")
         end),
 	-- 截屏
     awful.key({}, "XF86WebCam",
