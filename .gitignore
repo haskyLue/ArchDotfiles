@@ -1,2 +1,2 @@
 *.swp
-.newsbeuter/cache.db
+.newsbeuter/cache.db*
