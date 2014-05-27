@@ -28,7 +28,7 @@ URxvt*depth: 32
 ! URxvt*.transparent  : True
 ! URxvt*.shading: 40
 
-*background: [95]#002b36
+*background: #002b36
 *foreground: #657b83
 
 *fadeColor: #002b36
