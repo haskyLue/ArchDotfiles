@@ -1,4 +1,11 @@
 #!/bin/sh
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/*; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f 
+fi
+
 # 以gstreamer后端的播放器mp3 tag编码
 export GST_ID3_TAG_ENCODING=GBK:UTF-8:GB18030
 export GST_ID3V2_TAG_ENCODING=GBK:UTF-8:GB18030
@@ -15,23 +22,20 @@ export XMODIFIERS="@im=fcitx"
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f 
-fi
-
+# 启动应用程序 system tray icon
 (fcitx &)
 (wicd-gtk -t &) 
+(checkgmail -numbers -update -no_cookies &)
 (stardict -h &)
 (xflux -l 32.054829 -g 118.795193 &)
 (urxvtd -q -f -o &) 
 # (compton -bC &)
 
-
+# 重新生效keymap,urxvt配置
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
+
+# 启动WM/DE 
 # exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+# exec startxfce4
 exec /usr/bin/awesome 
 
-# exec startxfce4
