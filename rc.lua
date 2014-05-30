@@ -48,8 +48,13 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
--- run_once("urxvtd")
 -- run_once("unclutter")
+run_once("compton -bC")
+run_once("urxvtd")
+run_once("checkgmail -numbers -private -no_cookies")
+run_once("stardict -h")
+run_once("wicd-gtk -t")
+run_once("xflux -l 32.054829 -g 118.795193")
 -- }}}
 
 -- {{{ Variable definitions
@@ -65,9 +70,9 @@ modkey     = "Mod4"
 terminal   = "urxvtc" or "xterm"
 editor     = os.getenv("EDITOR") or "nano" or "vi"
 editor_cmd = terminal .. " -e " .. editor
+browser    = os.getenv("BROWSER") 
 
 -- user defined
-browser    = "chromium"
 gui_editor = "subl"
 -- mail       = terminal .. " -e mutt "
 

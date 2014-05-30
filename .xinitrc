@@ -21,14 +21,15 @@ export XIM_PROGRAM="fcitx"
 export XMODIFIERS="@im=fcitx"
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
-
-# 启动应用程序 system tray icon
 (fcitx &)
-(wicd-gtk -t &) 
-(checkgmail -numbers -update -no_cookies &)
-(stardict -h &)
-(xflux -l 32.054829 -g 118.795193 &)
-(urxvtd -q -f -o &) 
+
+export BROWSER="google-chrome-unstable"
+
+# 启动应用程序(已写入rc.lua) system tray icon
+# (wicd-gtk -t &) 
+# (stardict -h &)
+# (xflux -l 32.054829 -g 118.795193 &)
+# (urxvtd -q -f -o &) 
 # (compton -bC &)
 
 # 重新生效keymap,urxvt配置

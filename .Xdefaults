@@ -25,49 +25,38 @@ Xft.rgba      : rgb
 
 !---color--具体色样参考~/Workspace/echo_color.sh----------------------------
 URxvt*depth: 32
-! URxvt*.transparent  : True
-! URxvt*.shading: 40
-
-*background: #002b36
-*foreground: #657b83
-
 *fadeColor: #002b36
 *cursorColor: #93a1a1
 *cursorBlink: true
 *pointerColorBackground: #586e75
 *pointerColorForeground: #93a1a1
  
-!! black dark/light
-*color0: #073642
-*color8: #002b36
- 
-!! red dark/light
-*color1: #dc322f
-*color9: #cb4b16
- 
-!! green dark/light
-*color2: #859900
-*color10: #586e75
- 
-!! yellow dark/light
-*color3: #b58900
-*color11: #657b83
- 
-!! blue dark/light
-*color4: #268bd2
-*color12: #839496
- 
-!! magenta dark/light
-*color5: #d33682
-*color13: #6c71c4
- 
-!! cyan dark/light
-*color6: #2aa198
-*color14: #93a1a1
- 
-!! white dark/light
-*color7: #eee8d5
-*color15: #fdf6e3
+URxvt*foreground:	rgb:ff/ff/ff
+URxvt*background:	rgba:1111/1111/1111/eeee
+!black
+*color0:		rgb:16/16/16
+*color8:		rgb:85/7B/6F
+!red
+*color1:		rgb:e5/78/6d
+*color9:		rgb:9d/2a/3a
+!green
+*color2:		rgb:ca/e6/82
+*color10:		rgb:8b/be/34
+!brown/yellow
+*color3:		rgb:ff/e1/61
+*color11:		rgb:ff/c4/42
+!blue
+*color4:		rgb:52/83/d7
+*color12:		rgb:3b/5d/9a
+!magenta
+*color5:		rgb:b6/98/d9
+*color13:		rgb:a5/7a/c4
+!cyan
+*color6:		rgb:a8/c6/f2
+*color14:		rgb:5d/a7/e1
+!white
+*color7:		rgb:f6/f3/e8
+*color15:		rgb:d3/d7/cf
 
 !---Extentions--------------------------------------------------------------------------
 !Ctrl+Insert can be used to copy and Shift+Insert to paste.
