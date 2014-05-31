@@ -44,7 +44,6 @@ alias chmod='chmod --preserve-root'
 
 # pacman aliases (if applicable, replace 'pacman' with 'yaourt'/'pacaur'/whatever)
 alias pac="sudo pacman -S"      # default action     - install one or more packages
-# alias pacu="sudo pacman -Syu"   # '[u]pdate'         - upgrade all packages to their newest version
 alias pacs="sudo pacman -Ss"    # '[s]earch'         - search for a package using one or more keywords
 alias paci="sudo pacman -Si"    # '[i]nfo'           - show information about a package
 alias pacr="sudo pacman -Rns"     # '[r]emove'         - uninstall one or more packages
@@ -86,6 +85,7 @@ alias Ct="cd /home/hasky/temp&&ll"
 alias Cn="cd /home/hasky/Documents/note&&ll"
 alias Ca="cd /home/hasky/.config/awesome/&&ll"
 alias Ci="cd /home/hasky/Downloads/image"
+alias Cgo="cd /opt/goagent"
 alias Vtask="vim /home/hasky/Documents/task.md"
 alias Valias="vim /run/media/storage/Documents/dotfiles/bashrc/alias"
 alias Vfunctions="vim /run/media/storage/Documents/dotfiles/bashrc/functions"
