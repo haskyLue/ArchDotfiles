@@ -6,8 +6,8 @@ URxvt.saveLines   : 12000
 URxvt.loginShell: true
 
 !---apperance--------------------------------------------------------------------------
-URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=false,xft:Hiragino Sans GB:size=9:style=Regular:antialias=false
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=false,xft:Hiragino Sans GB:size=9:style=Bold:antialias=false
+URxvt.font:xft:Ubuntu Mono:size=10:style=Regular:antialias=false,xft:文泉驛微米黑:size=10:style=Regular:antialias=false
+URxvt.boldfont:xft:Ubuntu Mono:size=10:style=Bold:antialias=false,xft:文泉驛微米黑:size=10:style=Bold:antialias=false
 URxvt.letterSpace : 0
 URxvt.termName    : rxvt-256color
 ! disable default binding 
@@ -33,30 +33,23 @@ URxvt*depth: 32
  
 URxvt*foreground:	rgb:ff/ff/ff
 URxvt*background:	rgba:1111/1111/1111/eeee
-!black
-*color0:		rgb:16/16/16
-*color8:		rgb:85/7B/6F
-!red
-*color1:		rgb:e5/78/6d
-*color9:		rgb:9d/2a/3a
-!green
-*color2:		rgb:ca/e6/82
-*color10:		rgb:8b/be/34
-!brown/yellow
-*color3:		rgb:ff/e1/61
-*color11:		rgb:ff/c4/42
-!blue
-*color4:		rgb:52/83/d7
-*color12:		rgb:3b/5d/9a
-!magenta
-*color5:		rgb:b6/98/d9
-*color13:		rgb:a5/7a/c4
-!cyan
-*color6:		rgb:a8/c6/f2
-*color14:		rgb:5d/a7/e1
-!white
-*color7:		rgb:f6/f3/e8
-*color15:		rgb:d3/d7/cf
+URxvt.colorUL        : #8ae234
+URxvt.underlineColor : #92659a
+URxvt.color0         : #2e3436
+URxvt.color8         : #6e706b
+URxvt.color1         : #cc0000
+URxvt.color9         : #ef2929
+URxvt.color2         : #4e9a06
+URxvt.color10        : #8ae234
+URxvt.color3         : #edd400
+URxvt.color11        : #fce94f
+URxvt.color4         : #3465a4
+URxvt.color12        : #729fcf
+URxvt.color5         : #92659a
+URxvt.color13        : #c19fbe
+URxvt.color6         : #07c7ca
+URxvt.color14        : #63e9e9
+URxvt.color7         : #d3d7cf
 
 !---Extentions--------------------------------------------------------------------------
 !Ctrl+Insert can be used to copy and Shift+Insert to paste.

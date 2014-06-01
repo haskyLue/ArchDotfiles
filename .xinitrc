@@ -26,7 +26,7 @@ export QT_IM_MODULE="fcitx"
 export BROWSER="google-chrome-unstable"
 
 # 启动应用程序(已写入rc.lua) system tray icon
-# (wicd-gtk -t &) 
+(wicd-gtk -t &) 
 # (stardict -h &)
 # (xflux -l 32.054829 -g 118.795193 &)
 # (urxvtd -q -f -o &) 
