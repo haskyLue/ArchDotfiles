@@ -49,8 +49,6 @@ function run_once(cmd)
 end
 
 -- run_once("unclutter")
-run_once("compton -bC")
-run_once("urxvtd")
 run_once("checkgmail -numbers -private -no_cookies")
 run_once("stardict -h")
 run_once("xflux -l 32.054829 -g 118.795193")
@@ -328,24 +326,23 @@ for s = 1, screen.count() do
         
     -- Widgets that are aligned to the upper left
     local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(mytaglist[s])
+    if s == 1 then left_layout:add(wibox.widget.systray()) end
     left_layout:add(mypromptbox[s])
-    left_layout:add(mpdicon)
-    left_layout:add(mpdwidget)
 
     -- Widgets that are aligned to the upper right
     local right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(mpdicon)
+    right_layout:add(mpdwidget)
     -- right_layout:add(mailicon)
     -- right_layout:add(mailwidget)
-    right_layout:add(netdownicon)
-    right_layout:add(netdowninfo)
-    right_layout:add(netupicon)
-    right_layout:add(netupinfo)
-    right_layout:add(volicon)
+    -- right_layout:add(netdownicon)
+    -- right_layout:add(netdowninfo)
+    -- right_layout:add(netupicon)
+    -- right_layout:add(netupinfo)
+    -- right_layout:add(volicon)
     right_layout:add(volumewidget)
-    -- right_layout:add(memicon)
-    -- right_layout:add(memwidget)
+    right_layout:add(memicon)
+    right_layout:add(memwidget)
     right_layout:add(cpuicon)
     right_layout:add(cpuwidget)
     -- right_layout:add(fsicon)
@@ -376,6 +373,7 @@ for s = 1, screen.count() do
                         
     -- Widgets that are aligned to the bottom right
     bottom_right_layout = wibox.layout.fixed.horizontal()
+    bottom_right_layout:add(mytaglist[s])
     bottom_right_layout:add(mylayoutbox[s])
                                             
     -- Now bring it all together (with the tasklist in the middle)

@@ -58,3 +58,9 @@ function cwall(){
 # 		xflux -l 32.054829 -g 118.795193 &
 # 	fi
 # }
+
+function Uhosts(){
+	local HOSTS_URL=https://smarthosts.googlecode.com/svn/trunk/hosts
+	cat /etc/hosts.bak > /etc/hosts 
+	curl -x localhost:8087 $HOSTS_URL >> /etc/hosts
+}

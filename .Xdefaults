@@ -6,9 +6,9 @@ URxvt.saveLines   : 12000
 URxvt.loginShell: true
 
 !---apperance--------------------------------------------------------------------------
-URxvt.font:xft:Ubuntu Mono:size=10:style=Regular:antialias=false,xft:文泉驛微米黑:size=10:style=Regular:antialias=false
-URxvt.boldfont:xft:Ubuntu Mono:size=10:style=Bold:antialias=false,xft:文泉驛微米黑:size=10:style=Bold:antialias=false
-URxvt.letterSpace : 0
+URxvt.font:xft:Ubuntu Mono:size=10:style=Regular:antialias=false,xft:方正黑体_GBK:size=11:style=Regular:antialias=false
+URxvt.boldfont:xft:Ubuntu Mono:size=10:style=Bold:antialias=false,xft:方正黑体_GBK:size=11:style=Bold:antialias=false
+URxvt.letterSpace : -1
 URxvt.termName    : rxvt-256color
 ! disable default binding 
 URxvt.iso14755: false
@@ -67,7 +67,7 @@ URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
 ! o Open selected URL in browser without quitting selection mode
 ! Esc Cancel URL selection mode
 URxvt.keysym.M-u			: perl:url-select:select_next
-URxvt.url-select.launcher	: chromium  -new-tab
+URxvt.url-select.launcher	: google-chrome-beta  -new-tab
 URxvt.url-select.underline	: true
 URxvt.url-select.autocopy	: true
 

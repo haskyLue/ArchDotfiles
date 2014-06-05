@@ -23,14 +23,15 @@ export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 (fcitx &)
 
-export BROWSER="google-chrome-unstable"
+export BROWSER="google-chrome-beta"
+export EDITOR="vim"
 
 # 启动应用程序(已写入rc.lua) system tray icon
 (wicd-gtk -t &) 
 # (stardict -h &)
 # (xflux -l 32.054829 -g 118.795193 &)
-# (urxvtd -q -f -o &) 
-# (compton -bC &)
+ (compton -bC &)
+ (urxvtd -q -f -o  &) 
 
 # 重新生效keymap,urxvt配置
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
@@ -39,4 +40,3 @@ export BROWSER="google-chrome-unstable"
 # exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 # exec startxfce4
 exec /usr/bin/awesome 
-
