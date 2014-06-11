@@ -30,9 +30,9 @@ URxvt*depth: 32
 *cursorBlink: true
 *pointerColorBackground: #586e75
 *pointerColorForeground: #93a1a1
- 
-URxvt*foreground:	rgb:ff/ff/ff
-URxvt*background:	rgba:1111/1111/1111/eeee
+
+URxvt*foreground:	grey
+URxvt*background:	#002b36
 URxvt.colorUL        : #8ae234
 URxvt.underlineColor : #92659a
 URxvt.color0         : #2e3436
@@ -43,7 +43,7 @@ URxvt.color2         : #4e9a06
 URxvt.color10        : #8ae234
 URxvt.color3         : #edd400
 URxvt.color11        : #fce94f
-URxvt.color4         : #3465a4
+URxvt.color4         : #3465a4 
 URxvt.color12        : #729fcf
 URxvt.color5         : #92659a
 URxvt.color13        : #c19fbe

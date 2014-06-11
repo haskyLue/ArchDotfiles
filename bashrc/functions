@@ -60,7 +60,17 @@ function cwall(){
 # }
 
 function Uhosts(){
-	local HOSTS_URL=https://smarthosts.googlecode.com/svn/trunk/hosts
-	cat /etc/hosts.bak > /etc/hosts 
-	curl -x localhost:8087 $HOSTS_URL >> /etc/hosts
+	local HOSTS_URL=https://gist.githubusercontent.com/phoenixlzx/9799447/raw/6dab87289f39337ee2f5dd90c3703866443db2d5/imouto.hosts
+	# cat /etc/hosts.bak > /etc/hosts 
+	curl -x localhost:8087 $HOSTS_URL > /etc/hosts
+}
+function update(){
+	if [ $UID -eq 0 ]; then
+		echo "Update packages..."
+		sudo yaourt -Syua 
+		# echo "Update hosts..."
+		# Uhosts
+	else
+		echo "root 先~~"
+	fi
 }

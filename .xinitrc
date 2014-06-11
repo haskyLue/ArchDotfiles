@@ -30,9 +30,8 @@ export EDITOR="vim"
 (wicd-gtk -t &) 
 # (stardict -h &)
 # (xflux -l 32.054829 -g 118.795193 &)
- (compton -bC &)
- (urxvtd -q -f -o  &) 
-
+# (compton -bC &)
+(urxvtd -q -f -o  &) 
 # 重新生效keymap,urxvt配置
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
 
@@ -40,3 +39,4 @@ export EDITOR="vim"
 # exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 # exec startxfce4
 exec /usr/bin/awesome 
+
