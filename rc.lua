@@ -49,7 +49,7 @@ function run_once(cmd)
 end
 
 -- run_once("unclutter")
-run_once("checkgmail -numbers -private -no_cookies")
+-- run_once("checkgmail -numbers -private -no_cookies")
 run_once("stardict -h")
 run_once("xflux -l 32.054829 -g 118.795193")
 -- }}}
@@ -621,7 +621,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
 	                   size_hints_honor = false } },
     { rule = { class = "URxvt" },
-          properties = { opacity = 0.99 } },
+          properties = { opacity = 0.8 } },
 
     { rule = { class = "MPlayer" },
           properties = { floating = true } },
@@ -633,7 +633,7 @@ awful.rules.rules = {
           properties = { tag = tags[1][1] } },
 
     { rule = { instance = "plugin-container" },
-          properties = { tag = tags[1][1] } },
+          properties = { floating = true  } },
 
 	  { rule = { class = "Gimp" },
      	    properties = { tag = tags[1][4] } },

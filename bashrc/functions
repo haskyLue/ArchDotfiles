@@ -64,13 +64,13 @@ function Uhosts(){
 	# cat /etc/hosts.bak > /etc/hosts 
 	curl -x localhost:8087 $HOSTS_URL > /etc/hosts
 }
-function update(){
-	if [ $UID -eq 0 ]; then
-		echo "Update packages..."
-		sudo yaourt -Syua 
-		# echo "Update hosts..."
-		# Uhosts
-	else
-		echo "root 先~~"
-	fi
-}
+# function update(){
+# 	if [ $UID -eq 0 ]; then
+# 		echo "Update packages..."
+# 		sudo yaourt -Syua 
+# 		# echo "Update hosts..."
+# 		# Uhosts
+# 	else
+# 		echo "root 先~~"
+# 	fi
+# }

@@ -6,8 +6,8 @@ URxvt.saveLines   : 12000
 URxvt.loginShell: true
 
 !---apperance--------------------------------------------------------------------------
-URxvt.font:xft:Ubuntu Mono:size=10:style=Regular:antialias=false,xft:方正黑体_GBK:size=11:style=Regular:antialias=false
-URxvt.boldfont:xft:Ubuntu Mono:size=10:style=Bold:antialias=false,xft:方正黑体_GBK:size=11:style=Bold:antialias=false
+URxvt.font:xft:Ubuntu Mono:size=10:style=Regular:antialias=false,xft:WenQuanYi Micro Hei:size=11:style=Regular:antialias=false
+URxvt.boldfont:xft:Ubuntu Mono:size=10:style=Bold:antialias=false,xft:WenQuanYi Micro Hei:size=11:style=Bold:antialias=false
 URxvt.letterSpace : -1
 URxvt.termName    : rxvt-256color
 ! disable default binding 
