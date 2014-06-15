@@ -6,25 +6,27 @@ URxvt.saveLines   : 12000
 URxvt.loginShell: true
 
 !---apperance--------------------------------------------------------------------------
-URxvt.font:xft:Ubuntu Mono:size=10:style=Regular:antialias=false,xft:WenQuanYi Micro Hei:size=11:style=Regular:antialias=false
-URxvt.boldfont:xft:Ubuntu Mono:size=10:style=Bold:antialias=false,xft:WenQuanYi Micro Hei:size=11:style=Bold:antialias=false
-URxvt.letterSpace : -1
 URxvt.termName    : rxvt-256color
 ! disable default binding 
 URxvt.iso14755: false
 URxvt.iso14755_52: false 
 URxvt.scrollBar   : false
  
-!XFT
+!XFT font
 Xft.dpi: 96
 Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintslight
+Xft.hintstyle : hintsfull
 Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
+URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=true,\
+xft:方正黑体_GBK:style=Regular:size=10
+URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,\
+xft:方正黑体_GBK:style=Regular:size=10
+URxvt.letterSpace : -2
 
 !---color--具体色样参考~/Workspace/echo_color.sh----------------------------
-URxvt*depth: 32
+*dpth: 32
 *fadeColor: #002b36
 *cursorColor: #93a1a1
 *cursorBlink: true

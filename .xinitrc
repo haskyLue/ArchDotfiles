@@ -37,6 +37,6 @@ export EDITOR="vim"
 
 # 启动WM/DE 
 # exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
-# exec startxfce4
+# exec startxfce4 
 exec /usr/bin/awesome 
 
