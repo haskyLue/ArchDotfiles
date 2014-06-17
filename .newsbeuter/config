@@ -1,5 +1,5 @@
-color listfocus black cyan 
-color listfocus_unread white cyan bold
+color listfocus black yellow 
+color listfocus_unread cyan yellow bold
 color info black green
 
 reload-time 180	

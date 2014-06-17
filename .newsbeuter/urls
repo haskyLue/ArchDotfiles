@@ -73,3 +73,5 @@ http://feeds2.feedburner.com/thenextweb
 http://www.appletuan.com/topics.atom
 # #google news
 https://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=tc&output=rss
+# archlinux updates
+https://www.archlinux.org/feeds/packages/
