@@ -30,7 +30,7 @@ export EDITOR="vim"
 (wicd-gtk -t &) 
 # (stardict -h &)
 # (xflux -l 32.054829 -g 118.795193 &)
-# (compton -bC &)
+(compton -bC &)
 (urxvtd -q -f -o  &) 
 # 重新生效keymap,urxvt配置
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)

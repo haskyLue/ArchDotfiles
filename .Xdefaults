@@ -30,9 +30,10 @@ URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,\
 URxvt.letterSpace : -2
 
 !Colorscheme
+#include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"
+*colorBD: white
+*colorUL: green
 *dpth: 32
-#include "/home/hasky/Workspace/github/xcolors/xcolor_code/numixdarkest"
-
 
 !---Extentions--------------------------------------------------------------------------
 !Ctrl+Insert can be used to copy and Shift+Insert to paste.
