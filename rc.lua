@@ -326,11 +326,13 @@ for s = 1, screen.count() do
         
     -- Widgets that are aligned to the upper left
     local left_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then left_layout:add(wibox.widget.systray()) end
+    left_layout:add(mylayoutbox[s])
+    left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
 
     -- Widgets that are aligned to the upper right
     local right_layout = wibox.layout.fixed.horizontal()
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mpdicon)
     right_layout:add(mpdwidget)
     -- right_layout:add(mailicon)
@@ -359,29 +361,29 @@ for s = 1, screen.count() do
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    --layout:set_middle(mytasklist[s])
+    layout:set_middle(mytasklist[s])
     layout:set_right(right_layout)
     
     mywibox[s]:set_widget(layout)
 
-    -- Create the bottom wibox
-    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 20 })
-    --mybottomwibox[s].visible = false
-            
-    -- Widgets that are aligned to the bottom left
-    bottom_left_layout = wibox.layout.fixed.horizontal()
-                        
-    -- Widgets that are aligned to the bottom right
-    bottom_right_layout = wibox.layout.fixed.horizontal()
-    bottom_right_layout:add(mytaglist[s])
-    bottom_right_layout:add(mylayoutbox[s])
-                                            
-    -- Now bring it all together (with the tasklist in the middle)
-    bottom_layout = wibox.layout.align.horizontal()
-    bottom_layout:set_left(bottom_left_layout)
-    bottom_layout:set_middle(mytasklist[s])
-    bottom_layout:set_right(bottom_right_layout)
-    mybottomwibox[s]:set_widget(bottom_layout)
+    -- -- Create the bottom wibox
+    -- mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 20 })
+    -- --mybottomwibox[s].visible = false
+    --         
+    -- -- Widgets that are aligned to the bottom left
+    -- bottom_left_layout = wibox.layout.fixed.horizontal()
+    --                     
+    -- -- Widgets that are aligned to the bottom right
+    -- bottom_right_layout = wibox.layout.fixed.horizontal()
+    -- bottom_right_layout:add(mytaglist[s])
+    -- bottom_right_layout:add(mylayoutbox[s])
+    --                                         
+    -- -- Now bring it all together (with the tasklist in the middle)
+    -- bottom_layout = wibox.layout.align.horizontal()
+    -- bottom_layout:set_left(bottom_left_layout)
+    -- -- bottom_layout:set_middle(mytasklist[s])
+    -- bottom_layout:set_right(bottom_right_layout)
+    -- mybottomwibox[s]:set_widget(bottom_layout)
 end
 -- }}}
 
@@ -661,7 +663,7 @@ client.connect_signal("manage", function (c, startup)
         awful.placement.no_offscreen(c)
     end
 
-    local titlebars_enabled = true
+    local titlebars_enabled = false
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(

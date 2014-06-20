@@ -147,3 +147,6 @@ hi CursorLine cterm=NONE ctermbg=yellow ctermfg=black guibg=NONE guifg=NONE
 
 "modify
 set modifiable
+
+"代码折叠
+set foldmethod=marker

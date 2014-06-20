@@ -42,7 +42,7 @@ alias ln='ln -i'
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 
-# pacman aliases (if applicable, replace 'pacman' with 'yaourt'/'pacaur'/whatever)
+# pacman aliases
 alias pac="sudo pacman -S"      # default action     - install one or more packages
 alias pacs="sudo pacman -Ss"    # '[s]earch'         - search for a package using one or more keywords
 alias paci="sudo pacman -Si"    # '[i]nfo'           - show information about a package
@@ -57,16 +57,15 @@ alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently 
 alias update="yaourt -Syyu"
 alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
 
-
 # somemore
-# alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
 alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null"
 alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null"
 alias Tps="sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" # 切换触控板
 alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" # 切换触控板
+# alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
 
-# --- adjust volume
+# adjust volume
 alias Su="amixer set Master 5+"
 alias Sd="amixer set Master 5-"
 alias Smute="amixer set Master mute"
@@ -87,6 +86,8 @@ alias xm="xmradio 2>> /dev/null &"
 alias vmxp="vboxmanage startvm xp "
 alias yt-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0"
 alias iftop="sudo iftop -B"
+alias pon="sudo pon"
+alias poff="sudo poff -a"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 
 # enter directory & edit
