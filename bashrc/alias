@@ -54,7 +54,7 @@ alias paclo="pacman -Qdt"      # list orphaned package
 alias paco="sudo pacman -Qo"    # '[o]wner'          - determine which package owns a given file
 alias pacf="sudo pacman -Ql"    # '[f]iles'          - list all files installed by a given package
 alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently installed package files
-alias update="yaourt -Syyu"
+alias update="yaourt -Syyua --devel"
 alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
 
 # somemore
