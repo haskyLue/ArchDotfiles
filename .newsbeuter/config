@@ -1,5 +1,6 @@
 color listfocus black cyan
 color listnormal white black
+color listnormal_unread yellow black
 color listfocus_unread black cyan
 color info black green
 
@@ -7,7 +8,7 @@ reload-time 180
 reload-threads 6
 
 proxy localhost:8087
-use-proxy yes
+#use-proxy yes
 
 html-renderer "w3m -dump -T text/html"
 browser google-chrome-beta

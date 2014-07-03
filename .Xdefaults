@@ -6,7 +6,6 @@ URxvt.saveLines		: 12000
 URxvt.loginShell	: true
 
 ! apperance {{{
-!Misc
 URxvt.termName    : rxvt-256color
 URxvt*iconFile    : /usr/share/icons/Faenza/apps/32/xfce-terminal.png
 ! disable default binding 
@@ -20,7 +19,7 @@ URxvt.cursorBlink: true
 !XFT font
 Xft.dpi: 96
 Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintfull
+Xft.hintstyle : hintslight
 Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb

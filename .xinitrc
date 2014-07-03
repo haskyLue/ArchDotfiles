@@ -27,7 +27,8 @@ export BROWSER="google-chrome-beta"
 export EDITOR="vim"
 
 # 启动应用程序(已写入rc.lua) system tray icon
-(wicd-gtk -t &) 
+(sleep 10 && wicd-gtk -t &) 
+(sleep 10 && xfce4-power-manager &) 
 # (stardict -h &)
 # (xflux -l 32.054829 -g 118.795193 &)
 (compton -bC &)

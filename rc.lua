@@ -175,17 +175,17 @@ tempwidget = lain.widgets.temp({
 })
 
 -- Battery
-baticon = wibox.widget.imagebox(beautiful.widget_batt)
-batwidget = lain.widgets.bat({
-    settings = function()
-        if bat_now.perc == "N/A" then
-            bat_now.perc = "AC "
-        else
-            bat_now.perc = bat_now.perc .. "% "
-        end
-        widget:set_text(bat_now.perc)
-    end
-})
+-- baticon = wibox.widget.imagebox(beautiful.widget_batt)
+-- batwidget = lain.widgets.bat({
+--     settings = function()
+--         if bat_now.perc == "N/A" then
+--             bat_now.perc = "AC "
+--         else
+--             bat_now.perc = bat_now.perc .. "% "
+--         end
+--         widget:set_text(bat_now.perc)
+--     end
+-- })
 
 -- ALSA volume
 volicon = wibox.widget.imagebox(beautiful.widget_vol)
@@ -200,10 +200,10 @@ volumewidget = lain.widgets.alsa({
 
 -- Net 
 netdownicon = wibox.widget.imagebox(beautiful.widget_netdown)
---netdownicon.align = "middle"
+netdownicon.align = "middle"
 netdowninfo = wibox.widget.textbox()
 netupicon = wibox.widget.imagebox(beautiful.widget_netup)
---netupicon.align = "middle"
+netupicon.align = "middle"
 netupinfo = lain.widgets.net({
     settings = function()
         widget:set_markup(markup("#e54c62", net_now.sent .. " "))
@@ -337,10 +337,10 @@ for s = 1, screen.count() do
     right_layout:add(mpdwidget)
     -- right_layout:add(mailicon)
     -- right_layout:add(mailwidget)
-    -- right_layout:add(netdownicon)
-    -- right_layout:add(netdowninfo)
-    -- right_layout:add(netupicon)
-    -- right_layout:add(netupinfo)
+    right_layout:add(netdownicon)
+    right_layout:add(netdowninfo)
+    right_layout:add(netupicon)
+    right_layout:add(netupinfo)
     -- right_layout:add(volicon)
     right_layout:add(volumewidget)
     right_layout:add(memicon)
@@ -353,8 +353,8 @@ for s = 1, screen.count() do
     -- right_layout:add(yawn.widget)
     right_layout:add(tempicon)
     right_layout:add(tempwidget)
-    right_layout:add(baticon)
-    right_layout:add(batwidget)
+    -- right_layout:add(baticon)
+    -- right_layout:add(batwidget)
     right_layout:add(clockicon)
     right_layout:add(mytextclock)
 
@@ -452,7 +452,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore,"Restore minimized client"), -- client
 	-- }}}
 
-    -- Dropdown terminal
+    --  terminal
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
 
@@ -461,10 +461,10 @@ globalkeys = awful.util.table.join(
         function ()
             mymainmenu:show({ keygrabber = true })
         end),
-    awful.key({ modkey }, "b", function ()
-        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-        mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
-    end),
+    -- awful.key({ modkey }, "b", function ()
+    --     mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+    --     mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
+    -- end),
 
     -- asus 多媒体按键绑定 {{{
     -- ALSA volume control
@@ -522,17 +522,18 @@ globalkeys = awful.util.table.join(
 
     -- User programs
     awful.key({ modkey }, "q", function () awful.util.spawn(browser) end),
-    awful.key({ modkey }, "s", function () awful.util.spawn(gui_editor) end),
+    awful.key({ modkey }, "e", function () awful.util.spawn(gui_editor) end),
+    awful.key({ modkey }, "F2", function () awful.util.spawn("xfce4-appfinder") end),
 
     -- Prompt
     awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end),
+    -- awful.key({ modkey }, "x",
+    --           function ()
+    --               awful.prompt.run({ prompt = "Run Lua code: " },
+    --               mypromptbox[mouse.screen].widget,
+    --               awful.util.eval, nil,
+    --               awful.util.getdir("cache") .. "/history_eval")
+    --           end),
 
 	-- awesome
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
@@ -636,9 +637,6 @@ awful.rules.rules = {
 
     { rule = { instance = "plugin-container" },
           properties = { floating = true  } },
-
-	  { rule = { class = "Gimp" },
-     	    properties = { tag = tags[1][4] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized_horizontal = true,

@@ -54,15 +54,15 @@ alias paclo="pacman -Qdt"      # list orphaned package
 alias paco="sudo pacman -Qo"    # '[o]wner'          - determine which package owns a given file
 alias pacf="sudo pacman -Ql"    # '[f]iles'          - list all files installed by a given package
 alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently installed package files
-alias update="yaourt -Syyua --devel"
+alias update="yaourt -Syyua "
 alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
 
 # somemore
 alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null"
 alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null"
 alias Tps="sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
-alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" # 切换触控板
-alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" # 切换触控板
+alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
+alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
 # alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
 
 # adjust volume
