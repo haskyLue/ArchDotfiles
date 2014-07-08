@@ -26,14 +26,15 @@ export QT_IM_MODULE="fcitx"
 export BROWSER="google-chrome-beta"
 export EDITOR="vim"
 
-# 启动应用程序(已写入rc.lua) system tray icon
-(sleep 10 && wicd-gtk -t &) 
-(sleep 10 && xfce4-power-manager &) 
+# 启动应用程序(部分已写入rc.lua) system tray icon
+(sleep 10 && mpd &)
+(sleep 10 && mpdscribble &)
+(sleep 5 && wicd-gtk -t &) 
+(sleep 5 && xfce4-power-manager &) 
 # (stardict -h &)
 # (xflux -l 32.054829 -g 118.795193 &)
 (compton -bC &)
 (urxvtd -q -f -o  &) 
-# 重新生效keymap,urxvt配置
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
 
 # 启动WM/DE 

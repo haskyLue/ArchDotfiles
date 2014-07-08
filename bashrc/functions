@@ -74,3 +74,8 @@ function Uhosts(){
 # 		echo "root 先~~"
 # 	fi
 # }
+function reload_ath9k(){
+	sudo modprobe -rv ath9k
+	sleep 5
+	sudo modprobe -fv ath9k
+}

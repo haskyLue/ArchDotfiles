@@ -54,13 +54,13 @@ alias paclo="pacman -Qdt"      # list orphaned package
 alias paco="sudo pacman -Qo"    # '[o]wner'          - determine which package owns a given file
 alias pacf="sudo pacman -Ql"    # '[f]iles'          - list all files installed by a given package
 alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently installed package files
-alias update="yaourt -Syyua "
+alias update="figlet -c Package Update && yaourt -Syyua "
 alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
 
 # somemore
 alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null"
 alias onwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null"
-alias Tps="sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
+alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
 alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
 # alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
@@ -72,17 +72,15 @@ alias Smute="amixer set Master mute"
 alias Sunmute="amixer set Master unmute"
 
 # start app 
-alias goagent="sudo /usr/share/goagent/local/goagent"
+alias goagent="figlet -c Goagent && sudo /usr/share/goagent/local/goagent"
 alias Te="translate {en=zh-CN} $1"
 alias Tc="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
 alias wifi="wicd-curses"
-alias lampp="sudo /opt/lampp/xampp"
-alias qq="pidgin -f &"
+alias lampp="figlet -c Lampp Server && sudo /opt/lampp/xampp"
 alias gmail="checkgmail -numbers -private -no_cookies &"
 alias news="newsbeuter 2>> /dev/null"
-alias Cscreen="scrot -s -q 100" #截图
-alias xm="xmradio 2>> /dev/null &"
+alias Cscreen="figlet -c Screen Capture && scrot -s -q 100" #截图
 alias vmxp="vboxmanage startvm xp "
 alias yt-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0"
 alias iftop="sudo iftop -B"

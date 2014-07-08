@@ -341,7 +341,7 @@ for s = 1, screen.count() do
     right_layout:add(netdowninfo)
     right_layout:add(netupicon)
     right_layout:add(netupinfo)
-    -- right_layout:add(volicon)
+    right_layout:add(volicon)
     right_layout:add(volumewidget)
     right_layout:add(memicon)
     right_layout:add(memwidget)
@@ -424,13 +424,29 @@ globalkeys = awful.util.table.join(
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
         end,"Focus client"),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,"foucs previous client"),
+	-- awful.key({ modkey,           }, "Tab",
+	-- 	function ()
+	-- 		for c in awful.client.iterate(function (x) return true end) do
+	-- 			client.focus = c
+	-- 			client.focus:raise()
+	-- 		end
+	-- 	end),
+	awful.key({ modkey,           }, "Tab",
+		function ()
+			-- awful.client.focus.history.previous()
+			awful.client.focus.byidx(-1)
+			if client.focus then
+				client.focus:raise()
+			end
+		end),
+	awful.key({ modkey, "Shift"   }, "Tab",
+		function ()
+			-- awful.client.focus.history.previous()
+			awful.client.focus.byidx(1)
+			if client.focus then
+				client.focus:raise()
+			end
+		end),
 	-- }}}		
  
     -- Layout manipulation {{{
@@ -447,7 +463,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end,"Switch to next layout"),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end,"Switch to previous layout"),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,"Switch to floating layout"),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,"Swap focused client with master"),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ,"Send client to next screen"),
     awful.key({ modkey, "Control" }, "n", awful.client.restore,"Restore minimized client"), -- client
 	-- }}}
@@ -546,6 +561,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end,"Fullscreen"),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,"Close client"),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,"Set client on-top"),
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,"Swap focused client with master"),
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
