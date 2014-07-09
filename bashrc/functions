@@ -48,7 +48,7 @@ function delrss(){
 	fi
 }
 function cwall(){
-	cp -f $1 /home/hasky/.config/awesome/themes/multicolor/wall.png
+	cp -fv $1 /home/hasky/.config/awesome/themes/multicolor/wall.png
 	echo '<mod4+ctrl+r>重启awesome!'
 }
 # function Xflux(){

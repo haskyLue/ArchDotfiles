@@ -29,6 +29,7 @@ export EDITOR="vim"
 # 启动应用程序(部分已写入rc.lua) system tray icon
 (sleep 10 && mpd &)
 (sleep 10 && mpdscribble &)
+(sleep 10 && libreoffice --quickstart &) 
 (sleep 5 && wicd-gtk -t &) 
 (sleep 5 && xfce4-power-manager &) 
 # (stardict -h &)
