@@ -30,6 +30,7 @@ export EDITOR="vim"
 (sleep 10 && mpd &)
 (sleep 10 && mpdscribble &)
 (sleep 10 && libreoffice --quickstart &) 
+(sleep 10 && shutter --min_at_startup &) 
 (sleep 5 && wicd-gtk -t &) 
 (sleep 5 && xfce4-power-manager &) 
 # (stardict -h &)

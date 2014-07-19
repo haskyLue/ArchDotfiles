@@ -20,14 +20,14 @@ URxvt.cursorBlink: true
 Xft.dpi: 96
 Xft.autohint  : 0
 Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintfull
+Xft.hintstyle : hintmslight
 Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
-URxvt.font:xft:Source Code Pro:size=9:style=Regular:antialias=true,\
-	xft:Lihei Pro:style=Regular:size=10
+URxvt.font:xft:Source Code Pro:size=9:style=Medium:antialias=true,\
+	 xft:Lihei Pro:style=Regular:size=10
 URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,\
-	xft:Lihei Pro:style=Regular:size=10
+	 xft:Lihei Pro:style=Regular:size=10
 URxvt.letterSpace : -2
 
 !Colorscheme

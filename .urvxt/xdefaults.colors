@@ -37,7 +37,7 @@
 *cursorColor: lime
 *scrollColor: deepgravel
 *fadeColor:   snow
-*fading:      10
+*fading:      15
 
 !        black
 *color0:      blackestgravel

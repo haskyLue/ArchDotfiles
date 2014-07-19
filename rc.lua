@@ -90,7 +90,7 @@ local layouts = {
 -- {{{ Tags
 tags = {
   names = {"1", "2", "3", "4"},
-   layout = { layouts[3], layouts[1], layouts[1], layouts[1] }
+   layout = { layouts[2], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -118,7 +118,7 @@ clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
 
 -- Calendar
-lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
+-- lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 
 -- Weather
 -- weathericon = wibox.widget.imagebox(beautiful.widget_weather)
@@ -144,7 +144,7 @@ fswidget = lain.widgets.fs({
 --     timeout  = 60,
 --     server   = "imap.gmail.com",
 --     mail     = "ludebing@gmail.com",
---     password = "ldb19920204ldb",
+--     password = "",
 --     settings = function()
 --         if mailcount > 0 then
 --             mailicon:set_image(beautiful.widget_mail)
@@ -199,17 +199,17 @@ volumewidget = lain.widgets.alsa({
 })
 
 -- Net 
-netdownicon = wibox.widget.imagebox(beautiful.widget_netdown)
-netdownicon.align = "middle"
-netdowninfo = wibox.widget.textbox()
-netupicon = wibox.widget.imagebox(beautiful.widget_netup)
-netupicon.align = "middle"
-netupinfo = lain.widgets.net({
-    settings = function()
-        widget:set_markup(markup("#e54c62", net_now.sent .. " "))
-        netdowninfo:set_markup(markup("#87af5f", net_now.received .. " "))
-    end
-})
+-- netdownicon = wibox.widget.imagebox(beautiful.widget_netdown)
+-- netdownicon.align = "middle"
+-- netdowninfo = wibox.widget.textbox()
+-- netupicon = wibox.widget.imagebox(beautiful.widget_netup)
+-- netupicon.align = "middle"
+-- netupinfo = lain.widgets.net({
+--     settings = function()
+--         widget:set_markup(markup("#e54c62", net_now.sent .. " "))
+--         netdowninfo:set_markup(markup("#87af5f", net_now.received .. " "))
+--     end
+-- })
 
 -- MEM
 memicon = wibox.widget.imagebox(beautiful.widget_mem)
@@ -524,10 +524,9 @@ globalkeys = awful.util.table.join(
         function ()
             awful.util.spawn_with_shell("sh /home/hasky/Documents/dotfiles/script/toggle_psmouse.sh")
         end),
-	-- 截屏
-    awful.key({}, "XF86WebCam",
+    awful.key({}, "XF86Launch1",
         function ()
-            awful.util.spawn_with_shell("scrot -q 100")
+            awful.util.spawn_with_shell("vboxmanage startvm xp")
         end),
     -- asus 多媒体按键绑定 }}}
 
