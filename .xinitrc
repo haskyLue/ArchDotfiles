@@ -23,16 +23,19 @@ export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 (fcitx &)
 
-export BROWSER="google-chrome-beta"
+export BROWSER="chromium"
 export EDITOR="vim"
 
 # 启动应用程序(部分已写入rc.lua) system tray icon
+# autocutsel -fork &
+# autocutsel -selection PRIMARY -fork &
 (sleep 10 && mpd &)
 (sleep 10 && mpdscribble &)
 (sleep 10 && libreoffice --quickstart &) 
 (sleep 10 && shutter --min_at_startup &) 
-(sleep 5 && wicd-gtk -t &) 
+# (sleep 5 && wicd-gtk -t &) 
 (sleep 5 && xfce4-power-manager &) 
+
 # (stardict -h &)
 # (xflux -l 32.054829 -g 118.795193 &)
 (compton -bC &)

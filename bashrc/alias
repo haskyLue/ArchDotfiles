@@ -22,6 +22,7 @@ if [ $UID -ne 0 ]; then
 	alias reboot='sudo systemctl reboot'
 	alias poweroff='sudo systemctl poweroff'
 	alias netcfg='sudo netcfg2'
+	alias htop='sudo htop'
 fi
 
 # ls
@@ -73,6 +74,7 @@ alias Sunmute="amixer set Master unmute"
 
 # start app 
 alias goagent="figlet -c Goagent && sudo /usr/share/goagent/local/goagent"
+# alias goagent="figlet -c Goagent && sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
 alias Te="translate {en=zh-CN} $1"
 alias Tc="translate {zh-CN=en} $1"
 alias trash="sudo gvfs-trash"
@@ -82,9 +84,10 @@ alias gmail="checkgmail -numbers -private -no_cookies &"
 alias news="newsbeuter 2>> /dev/null"
 alias vmxp="vboxmanage startvm xp "
 alias yt-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0"
-alias iftop="sudo iftop -B"
-alias pon="sudo pon"
+alias iftop="sudo iftop -nB"
+alias pon="sudo pon" 
 alias poff="sudo poff -a"
+alias tshark="sudo tshark"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 
 # enter directory & edit

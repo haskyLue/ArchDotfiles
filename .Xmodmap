@@ -249,3 +249,5 @@
 
 clear	lock
 keycode  66 = Escape NoSymbol Escape NoSymbol Escape 
+! ! e键挂了
+! keycode  135 = e E e E e E e E

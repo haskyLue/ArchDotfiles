@@ -89,8 +89,8 @@ local layouts = {
 
 -- {{{ Tags
 tags = {
-  names = {"1", "2", "3", "4"},
-   layout = { layouts[2], layouts[1], layouts[1], layouts[1] }
+  names = {"1", "2", "3", "4", "5"},
+   layout = { layouts[2],layouts[4], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -158,13 +158,13 @@ fswidget = lain.widgets.fs({
 --
 
 -- CPU
-cpuicon = wibox.widget.imagebox()
-cpuicon:set_image(beautiful.widget_cpu)
-cpuwidget = lain.widgets.cpu({
-    settings = function()
-        widget:set_markup(markup("#e33a6e", cpu_now.usage .. "% "))
-    end
-})
+-- cpuicon = wibox.widget.imagebox()
+-- cpuicon:set_image(beautiful.widget_cpu)
+-- cpuwidget = lain.widgets.cpu({
+--     settings = function()
+--         widget:set_markup(markup("#e33a6e", cpu_now.usage .. "% "))
+--     end
+-- })
 
 -- Coretemp
 tempicon = wibox.widget.imagebox(beautiful.widget_temp)
@@ -212,12 +212,12 @@ volumewidget = lain.widgets.alsa({
 -- })
 
 -- MEM
-memicon = wibox.widget.imagebox(beautiful.widget_mem)
-memwidget = lain.widgets.mem({
-    settings = function()
-        widget:set_markup(markup("#e0da37", mem_now.used .. "M "))
-    end
-})
+-- memicon = wibox.widget.imagebox(beautiful.widget_mem)
+-- memwidget = lain.widgets.mem({
+--     settings = function()
+--         widget:set_markup(markup("#e0da37", mem_now.used .. "M "))
+--     end
+-- })
 
 -- MPD
 mpdicon = wibox.widget.imagebox()
@@ -343,10 +343,10 @@ for s = 1, screen.count() do
     -- right_layout:add(netupinfo)
     right_layout:add(volicon)
     right_layout:add(volumewidget)
-    right_layout:add(memicon)
-    right_layout:add(memwidget)
-    right_layout:add(cpuicon)
-    right_layout:add(cpuwidget)
+    -- right_layout:add(memicon)
+    -- right_layout:add(memwidget)
+    -- right_layout:add(cpuicon)
+    -- right_layout:add(cpuwidget)
     -- right_layout:add(fsicon)
     -- right_layout:add(fswidget)
     -- right_layout:add(weathericon)
@@ -628,7 +628,7 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 
--- {{{ Rules
+--  Rules
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -641,23 +641,21 @@ awful.rules.rules = {
     { rule = { class = "URxvt" },
           properties = { opacity = 0.8 } },
 
-    { rule = { class = "MPlayer" },
-          properties = { floating = true } },
+	{ rule_any = { class = {"Firefox","Chromium" }},
+		  properties = { tag = tags[1][3], switchtotag = true} },
 
-    { rule = { class = "Dwb" },
-          properties = { tag = tags[1][1] } },
+	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader"} },
+		  properties = { tag = tags[1][4], switchtotag = true} },
 
-    { rule = { class = "Iron" },
-          properties = { tag = tags[1][1] } },
-
-    { rule = { instance = "plugin-container" },
-          properties = { floating = true  } },
+	{ rule = { class = "VirtualBox" },
+		  properties = { tag = tags[1][5]}},
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
-          properties = { maximized_horizontal = true,
-                         maximized_vertical = true } },
+          properties = { maximized_horizontal = true, maximized_vertical = true } },
+
+	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"mupdf"} }, properties = { floating = true } }
 }
--- }}}
+-- 
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.

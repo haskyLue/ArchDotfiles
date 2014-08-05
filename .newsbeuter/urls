@@ -1,15 +1,16 @@
+# 步行街
+http://bbs.hupu.com/rss.php?fid=34
+# 王道论坛
+http://www.cskaoyan.com/rss.php?fid=87&auth=0
+http://www.cskaoyan.com/rss.php?fid=21&auth=0a0boGHKDirOBY6Z%2FOmtdE8FrAGPxg5ygBYrMoDrzXUDK1zPVHbxggs2JFlSjVs
+http://www.cskaoyan.com/rss.php?auth=0
+# 北邮人论坛 考研
+http://bbs.byr.cn/rss/board-AimGraduate
 # 163新闻
 http://news.163.com/special/00011K6L/rss_newsspecial.xml
 # google news
 https://news.google.com/news?cf=all&ned=cn&hl=zh-CN&topic=t&output=rss
-https://news.google.com/news?cf=all&ned=cn&hl=zh-CN&output=rss
-https://news.google.com/news?cf=all&ned=us&hl=en&q=Miami+Heat&output=rss
 https://news.google.com/news?cf=all&ned=us&hl=en&topic=tc&output=rss
-# hupu
-http://voice.hupu.com/generated/voice/news_nba.xml
-http://bbs.hupu.com/rss.php?fid=1048
-http://bbs.hupu.com/rss.php?fid=3482
-# http://bbs.hupu.com/rss.php?fid=34
 # zhihu
 http://www.zhihu.com/rss
 # 果壳网
@@ -18,8 +19,6 @@ http://www.guokr.com/rss/
 http://www.scipark.net/feed/
 # 战隼的学习探索
 http://www.read.org.cn/feed
-# 王道论坛
-http://www.cskaoyan.com/rss.php?auth=0
 # hacker news
 https://news.ycombinator.com/rss
 # startup news
@@ -32,6 +31,8 @@ http://emuch.net/bbs/rss.php?fid=300
 http://cn.engadget.com/rss.xml
 # 36氪
 http://www.36kr.com/feed/
+# 博客园
+http://feed.cnblogs.com/blog/sitehome/rss
 # 奇舞团
 http://www.75team.com/feed
 # dailyjs
@@ -50,8 +51,6 @@ http://cnpolitics.org/feed/
 http://www.guao.hk/feed
 # 开源中国
 http://www.oschina.net/news/rss
-# 博客园
-http://feed.cnblogs.com/blog/sitehome/rss
 # 小木虫论坛
 http://emuch.net/bbs/rss.php?fid=300
 # 异次元

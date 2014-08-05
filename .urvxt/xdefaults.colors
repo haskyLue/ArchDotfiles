@@ -32,11 +32,11 @@
 
 
 ! Resourses {{{
-*background:  blackgravel
+*background:  black
 *foreground:  plain
 *cursorColor: lime
 *scrollColor: deepgravel
-*fadeColor:   snow
+*fadeColor:   dirtyblonde 
 *fading:      15
 
 !        black

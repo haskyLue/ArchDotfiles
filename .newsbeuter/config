@@ -11,4 +11,5 @@ proxy localhost:8087
 #use-proxy yes
 
 html-renderer "w3m -dump -T text/html"
-browser google-chrome-beta
+browser chromium
+save-path /home/hasky/Documents/note

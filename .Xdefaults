@@ -25,9 +25,9 @@ Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
 URxvt.font:xft:Source Code Pro:size=9:style=Medium:antialias=true,\
-	 xft:Lihei Pro:style=Regular:size=10
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,\
-	 xft:Lihei Pro:style=Regular:size=10
+	 xft: LiHei Pro:size=10:style=Regular
+Rxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,\
+	 xft: LiHei Pro:size=10:style=Bold
 URxvt.letterSpace : -2
 
 !Colorscheme
@@ -54,7 +54,7 @@ URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
 ! o Open selected URL in browser without quitting selection mode
 ! Esc Cancel URL selection mode
 URxvt.keysym.M-u			: perl:url-select:select_next
-URxvt.url-select.launcher	: google-chrome-beta  -new-tab
+URxvt.url-select.launcher	: chromium -new-tab
 URxvt.url-select.underline	: true
 URxvt.url-select.autocopy	: true
 
