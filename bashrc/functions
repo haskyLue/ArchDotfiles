@@ -29,7 +29,7 @@ function proxyoff(){
  	echo -e "\nProxy environment variable removed."
 }
 function cwall(){
-	cp -fv $1 /home/hasky/.config/awesome/themes/arch/background.jpg
+	cp -fv $1 /home/hasky/Downloads/Image/background.jpg
 	echo '<mod4+ctrl+r>重启awesome!'
 }
 # function Xflux(){
@@ -40,11 +40,12 @@ function cwall(){
 # 	fi
 # }
 
-function Uhosts(){
-	local HOSTS_URL=https://gist.githubusercontent.com/phoenixlzx/9799447/raw/6dab87289f39337ee2f5dd90c3703866443db2d5/imouto.hosts
-	# cat /etc/hosts.bak > /etc/hosts 
-	curl -x localhost:8087 $HOSTS_URL > /etc/hosts
-}
+# function Uhosts(){
+# 	local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AAC-n6LmtWbdlKQRbdEa0QUoa/imouto.host.7z"
+# 	cd /tmp/
+# 	curl $HOSTS_URL -o hosts.7z
+# 	7z e hosts.7z 
+# }
 # function update(){
 # 	if [ $UID -eq 0 ]; then
 # 		echo "Update packages..."

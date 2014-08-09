@@ -10,6 +10,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local drop = require("drop")
 local themedir= "arch"
 
 
@@ -104,7 +105,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-  names = {"1", "2", "3", "4", "5"},
+  names = {"terminal1", "terminal2", "browsers", "doc", "vbox"},
    layout = { layouts[2],layouts[4], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
@@ -241,25 +242,25 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     -- 浏览 {{{
-	awful.key({ modkey,           }, "Left",   awful.tag.viewprev),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext),
+	awful.key({ modkey,           }, "Left",   awful.tag.viewprev		),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext		),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ modkey }, "j",
+    awful.key({ modkey,			  }, "j",
         function()
             awful.client.focus.bydirection("down")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey }, "k",
+    awful.key({ modkey,			  }, "k",
         function()
             awful.client.focus.bydirection("up")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey }, "h",
+    awful.key({ modkey,			  }, "h",
         function()
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey }, "l",
+    awful.key({ modkey,			 }, "l",
         function()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
@@ -283,9 +284,9 @@ globalkeys = awful.util.table.join(
 	-- }}}		
  
     -- 布局{{{
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+    awful.key({ modkey, "Control" }, "j",	  function () awful.screen.focus_relative( 1) end),
+    awful.key({ modkey, "Control" }, "k",	  function () awful.screen.focus_relative(-1) end),
+    awful.key({ modkey,           }, "u",	  awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "]",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "[",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -299,7 +300,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n",	  awful.client.restore					      ),
 	-- }}}
 
-    -- asus 多媒体按键绑定 {{{
+    -- 多媒体按键绑定 {{{
     -- ALSA volume control
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -q set Master 1%+") end),
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -q set Master 1%-") end),
@@ -312,23 +313,22 @@ globalkeys = awful.util.table.join(
 	-- 切换触控板
     awful.key({}, "XF86ScreenSaver", function () awful.util.spawn_with_shell("sh /home/hasky/Documents/dotfiles/script/toggle_psmouse.sh") end),
     awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vboxmanage startvm xp") end),
-    -- asus 多媒体按键绑定 }}}
+    -- }}}
 
-    -- 用户程序
+    -- 用户程序{{{
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey }, "q", function () awful.util.spawn(browser) end),
-    awful.key({ modkey }, "e", function () awful.util.spawn(gui_editor) end),
-    awful.key({ modkey }, "w", function () awful.util.spawn("xfce4-appfinder") end),
+    awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
+    awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
+    awful.key({ modkey,			  }, "w",	   function () awful.util.spawn("xfce4-appfinder") end),
+	--}}}
 
     -- 拷贝剪贴板
-    awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
+    awful.key({ modkey,			  }, "c",	   function () os.execute("xsel -p -o | xsel -i -b") end),
 	
-    -- Prompt
-    awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
-    awful.key({ modkey }, "p", function() menubar.show() end),
-
-	-- awesome
+    -- awesome
+    awful.key({ modkey,			  }, "r",	   function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey,			  }, "p",	   function() menubar.show() end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit)
 )
@@ -418,14 +418,16 @@ root.keys(globalkeys)
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
-    { rule = { }, properties = { border_width = beautiful.border_width,
-								 border_color = beautiful.border_normal,
-								 focus = awful.client.focus.filter,
-								 keys = clientkeys,
-								 buttons = clientuttons,
-								 size_hints_honor = false } },
+    { rule = { },
+      properties = { border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal,
+                     focus = awful.client.focus.filter,
+                     raise = true,
+                     keys = clientkeys,
+                     buttons = clientbuttons,
+					 size_hints_honor = false } },--这个diao东西貌似是消除窗口全屏留下的空隙
 								 
-    { rule = { class = "URxvt" }, properties = { opacity = 0.9 } },
+    { rule = { class = "URxvt" }, properties = { opacity = 0.8 } },
 	{ rule = { class = "VirtualBox" }, properties = { tag = tags[1][5]}},
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
 
