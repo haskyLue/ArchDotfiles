@@ -29,7 +29,7 @@ function proxyoff(){
  	echo -e "\nProxy environment variable removed."
 }
 function cwall(){
-	cp -fv $1 /home/hasky/.config/awesome/themes/multicolor/wall.png
+	cp -fv $1 /home/hasky/.config/awesome/themes/arch/background.jpg
 	echo '<mod4+ctrl+r>重启awesome!'
 }
 # function Xflux(){

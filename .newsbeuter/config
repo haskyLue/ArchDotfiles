@@ -1,8 +1,8 @@
 color listfocus black cyan
-color listnormal black white
-color listnormal_unread red white
+color listnormal black default
+color listnormal_unread red default
 color listfocus_unread black cyan
-color info white green
+color info white blue
 
 reload-time 180	
 reload-threads 6

@@ -21,7 +21,6 @@ export XIM_PROGRAM="fcitx"
 export XMODIFIERS="@im=fcitx"
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
-(fcitx &)
 
 export BROWSER="chromium"
 export EDITOR="vim"
@@ -31,9 +30,10 @@ export EDITOR="vim"
 # autocutsel -selection PRIMARY -fork &
 (sleep 10 && mpd &)
 (sleep 10 && mpdscribble &)
-(sleep 10 && libreoffice --quickstart &) 
+(sleep 10 && fcitx &)
 (sleep 10 && shutter --min_at_startup &) 
-# (sleep 5 && wicd-gtk -t &) 
+(sleep 5 && wicd-gtk -t &) 
+(sleep 5 && libreoffice --quickstart &) 
 (sleep 5 && xfce4-power-manager &) 
 
 # (stardict -h &)
@@ -43,6 +43,6 @@ export EDITOR="vim"
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
 
 # 启动WM/DE 
-# exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+# echo "" > ~/.cache/awesome/stderr > ~/.cache/awesome/stdout; exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 # exec startxfce4 
 exec /usr/bin/awesome 
