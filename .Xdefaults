@@ -8,7 +8,6 @@ URxvt.loginShell	: true
 ! apperance {{{
 URxvt.termName    : rxvt-256color
 URxvt*iconFile    : /usr/share/icons/Faenza/apps/32/xfce-terminal.png
-! disable default binding 
 URxvt.iso14755	  : false
 URxvt.iso14755_52: false 
 URxvt.scrollBar   : false
@@ -32,7 +31,7 @@ URxvt.letterSpace : -2
 
 !Colorscheme
 #include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"
-*colorBD: white
+*colorBD: black
 *colorUL: green
 *dpth: 32
 

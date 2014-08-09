@@ -13,8 +13,7 @@ shopt -s extglob
 if [[ $UID -ne 0 ]]
 then
     PROMPT='$'
-    export PS1="$BIGreen\u$BIRed@$BICyan\h $BIYellow\W $BICyan$PROMPT $Color_Off"
-    alias reboot='sudo reboot'
+    export PS1="$BIBlack\u$BIRed@$BIBlue\h $BIBlack\W $BIBlue$PROMPT $Color_Off"
 else
     PROMPT='#'
     export PS1="$BIRed\u$BIGreen@$BICyan\h $BIYellow\W $BICyan$PROMPT $Color_Off"
@@ -35,5 +34,5 @@ source "/home/hasky/Documents/dotfiles/bashrc/alias"
 source "/home/hasky/Documents/dotfiles/bashrc/functions"
 
 clear
-archey3
+archey3 -c black
 #fortune -a | fmt -w 80 -s | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n

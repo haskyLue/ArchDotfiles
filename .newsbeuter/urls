@@ -6,6 +6,11 @@ http://www.cskaoyan.com/rss.php?fid=21&auth=0a0boGHKDirOBY6Z%2FOmtdE8FrAGPxg5ygB
 http://www.cskaoyan.com/rss.php?auth=0
 # 北邮人论坛 考研
 http://bbs.byr.cn/rss/board-AimGraduate
+# 博客园
+http://feed.cnblogs.com/blog/sitehome/rss
+http://feed.cnblogs.com/blog/sitecateogry/linux/rss
+http://www.cnblogs.com/cate/algorithm/rss
+http://feed.cnblogs.com/blog/sitecateogry/c/rss
 # 163新闻
 http://news.163.com/special/00011K6L/rss_newsspecial.xml
 # google news
@@ -31,8 +36,6 @@ http://emuch.net/bbs/rss.php?fid=300
 http://cn.engadget.com/rss.xml
 # 36氪
 http://www.36kr.com/feed/
-# 博客园
-http://feed.cnblogs.com/blog/sitehome/rss
 # 奇舞团
 http://www.75team.com/feed
 # dailyjs

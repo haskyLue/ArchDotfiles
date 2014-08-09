@@ -101,7 +101,7 @@ end
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        gears.wallpaper.centered(beautiful.wallpaper, s)
     end
 end
 -- }}}
@@ -639,7 +639,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
 	                   size_hints_honor = false } },
     { rule = { class = "URxvt" },
-          properties = { opacity = 0.8 } },
+          properties = { opacity = 0.7 } },
 
 	{ rule_any = { class = {"Firefox","Chromium" }},
 		  properties = { tag = tags[1][3], switchtotag = true} },

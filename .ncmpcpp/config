@@ -1,0 +1,32 @@
+##### colors definitions #####
+
+colors_enabled = "yes"
+
+empty_tag_color = "cyan"
+
+header_window_color = "default"
+
+volume_color = "default"
+
+state_line_color = "default"
+
+state_flags_color = "default"
+
+main_window_color = "black"
+
+color1 = "white"
+
+color2 = "green"
+
+main_window_highlight_color = "yellow"
+
+progressbar_color = "default"
+
+statusbar_color = "default"
+
+active_column_color = "red"
+
+window_border_color = "green"
+
+active_window_border = "red"
+
