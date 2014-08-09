@@ -12,6 +12,7 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local drop = require("drop")
 local themedir= "arch"
+local vicious = require("vicious")
 
 
 
@@ -135,6 +136,71 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+-- 插件载入{{{
+
+local separator = wibox.widget.textbox()
+separator:set_markup('<span color="grey" >...</span>')
+
+-- cpu 占用
+cpuwidget = wibox.widget.textbox()
+-- cpu.lua widet can return: 
+-- $1 usage of all CPU/CORES -- $2 first CPU core -- $3 second CPU core -- $4 third CPU core -- $5 fourth CPU core
+vicious.register(cpuwidget, vicious.widgets.cpu,
+'<span color="white" >CPU: <span color="green">$2%/<span color="#888888">·</span>$3% </span></span>', 3)
+-- cpu 温度
+local thermalwidget = wibox.widget.textbox()
+local thermalicon = wibox.widget.imagebox()
+vicious.register(thermalwidget, vicious.widgets.thermal, '<span color="yellow" >$1°C </span>', 7, {"thermal_zone0", "sys"})
+
+
+-- 网络流量
+netwidget = wibox.widget.textbox()
+vicious.register(netwidget, vicious.widgets.net, function(widget, args)
+	local interface = ""
+	if args["{wlp3s0 carrier}"] == 1 then
+		interface = "wlp3s0"
+	elseif args["{enp7s0f5 carrier}"] == 1 then
+		interface = "enp7s0f5"
+	else
+		return ""
+	end
+	return '<span color="white" >TRAFFIC: <span color="cyan">'..args["{"..interface.." down_kb}"]..'kbps/'..args["{"..interface.." up_kb}"].."kbps "..'</span></span>' end, 11)
+
+	-- 声音
+	volume = wibox.widget.textbox()
+	-- $1 is the volume level of channel
+	-- $2 is the mute state of the channel
+	-- "Master" is my channel, to find out your ALSA channel,
+	-- enter "alsamixer" in your terminal
+	vicious.register(volume, vicious.widgets.volume,
+	'<span color="white" >VOL: <span  color="steelblue">$1 </span></span>', 0.3, "Master")
+	-- Initializes volumeicon as an image icon
+	volumeicon = wibox.widget.imagebox()
+	-- This function is responsible for making the volume icon
+	-- corespond to the channel volume level
+	vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
+		-- volume.lua will return:
+		-- args[1] as volume level as a string
+		-- args[2] as boolean, but in our case we use a special
+		-- unicode music character to denote that it is mute
+		local paraone = tonumber(args[1])
+		if args[2] == "♩" or paraone == 0 then
+			--  this is the mute state
+			volumeicon:set_image(beautiful.widget_volmute)
+		elseif paraone >= 67 and paraone <= 100 then
+			-- volume is high
+			volumeicon:set_image(beautiful.widget_volhi)
+		elseif paraone >= 33 and paraone <= 66 then
+			-- volume is medium
+			volumeicon:set_image(beautiful.widget_volmed)
+		else
+			-- volume is low
+			volumeicon:set_image(beautiful.widget_vollow)
+		end
+	end, 0.3, "Master")
+
+-- }}}
+	
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
@@ -217,9 +283,16 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+	right_layout:add(netwidget)
+		right_layout:add(separator)
+	right_layout:add(cpuwidget)
+	right_layout:add(thermalwidget)
+		right_layout:add(separator)
+	right_layout:add(volume)
     right_layout:add(mylayoutbox[s])
     right_layout:add(mytaglist[s])
     right_layout:add(mytextclock)
+
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
