@@ -106,7 +106,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-  names = {"terminal1", "terminal2", "browsers", "doc", "vbox"},
+  names = {"1", "2", "3", "4", "5"},
    layout = { layouts[2],layouts[4], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
@@ -146,7 +146,7 @@ cpuwidget = wibox.widget.textbox()
 -- cpu.lua widet can return: 
 -- $1 usage of all CPU/CORES -- $2 first CPU core -- $3 second CPU core -- $4 third CPU core -- $5 fourth CPU core
 vicious.register(cpuwidget, vicious.widgets.cpu,
-'<span color="white" >CPU: <span color="green">$2%/<span color="#888888">·</span>$3% </span></span>', 3)
+'<span color="white" >CPU: <span color="red">$2%/<span color="#888888">·</span>$3% </span></span>', 3)
 -- cpu 温度
 local thermalwidget = wibox.widget.textbox()
 local thermalicon = wibox.widget.imagebox()
