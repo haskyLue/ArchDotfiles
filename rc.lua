@@ -7,13 +7,11 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+local vicious = require("vicious")
+local drop = require("drop")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local drop = require("drop")
-local themedir= "arch"
-local vicious = require("vicious")
-
 
 
 -- {{{ Error handling
@@ -43,12 +41,12 @@ end
 
 -- {{{ Autostart applications
 function run_once(cmd)
-  findme = cmd
-  firstspace = cmd:find(" ")
-  if firstspace then
-     findme = cmd:sub(0, firstspace-1)
-  end
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+	findme = cmd
+	firstspace = cmd:find(" ")
+	if firstspace then
+		findme = cmd:sub(0, firstspace-1)
+	end
+	awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
 -- run_once("unclutter")
@@ -58,10 +56,11 @@ run_once("xflux -l 32.054829 -g 118.795193")
 -- }}}
 
 -- {{{ Variable definitions
-os.setlocale(os.getenv("LANG"))
 
 -- Themes define colours, icons, font and wallpapers.
+local themedir= "sunjack"
 beautiful.init("/home/hasky/.config/awesome/themes/" .. themedir .. "/theme.lua")
+awful.util.spawn_with_shell("ln -sf /home/hasky/.config/awesome/themes/" .. themedir .. "/theme.lua " .. "/home/hasky/.config/awesome/theme.lua") 
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -106,8 +105,8 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-  names = {"1", "2", "3", "4", "5"},
-   layout = { layouts[2],layouts[4], layouts[1], layouts[1], layouts[1] }
+	names = {"①","②","③","④","⑤"},  
+	layout = { layouts[2],layouts[4], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -139,7 +138,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- 插件载入{{{
 
 local separator = wibox.widget.textbox()
-separator:set_markup('<span color="grey" >...</span>')
+separator:set_markup('<span color="grey" > :: </span>')
 
 -- cpu 占用
 cpuwidget = wibox.widget.textbox()
@@ -149,8 +148,7 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
 '<span color="white" >CPU: <span color="red">$2%/<span color="#888888">·</span>$3% </span></span>', 3)
 -- cpu 温度
 local thermalwidget = wibox.widget.textbox()
-local thermalicon = wibox.widget.imagebox()
-vicious.register(thermalwidget, vicious.widgets.thermal, '<span color="yellow" >$1°C </span>', 7, {"thermal_zone0", "sys"})
+vicious.register(thermalwidget, vicious.widgets.thermal, '<span color="yellow" >-$1C</span>', 20, {"thermal_zone0", "sys"})
 
 
 -- 网络流量
@@ -166,38 +164,50 @@ vicious.register(netwidget, vicious.widgets.net, function(widget, args)
 	end
 	return '<span color="white" >TRAFFIC: <span color="cyan">'..args["{"..interface.." down_kb}"]..'kbps/'..args["{"..interface.." up_kb}"].."kbps "..'</span></span>' end, 11)
 
-	-- 声音
-	volume = wibox.widget.textbox()
-	-- $1 is the volume level of channel
-	-- $2 is the mute state of the channel
-	-- "Master" is my channel, to find out your ALSA channel,
-	-- enter "alsamixer" in your terminal
-	vicious.register(volume, vicious.widgets.volume,
-	'<span color="white" >VOL: <span  color="steelblue">$1 </span></span>', 0.3, "Master")
-	-- Initializes volumeicon as an image icon
-	volumeicon = wibox.widget.imagebox()
-	-- This function is responsible for making the volume icon
-	-- corespond to the channel volume level
-	vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
-		-- volume.lua will return:
-		-- args[1] as volume level as a string
-		-- args[2] as boolean, but in our case we use a special
-		-- unicode music character to denote that it is mute
-		local paraone = tonumber(args[1])
-		if args[2] == "♩" or paraone == 0 then
-			--  this is the mute state
-			volumeicon:set_image(beautiful.widget_volmute)
-		elseif paraone >= 67 and paraone <= 100 then
-			-- volume is high
-			volumeicon:set_image(beautiful.widget_volhi)
-		elseif paraone >= 33 and paraone <= 66 then
-			-- volume is medium
-			volumeicon:set_image(beautiful.widget_volmed)
-		else
-			-- volume is low
-			volumeicon:set_image(beautiful.widget_vollow)
-		end
-	end, 0.3, "Master")
+-- 声音
+volume = wibox.widget.textbox()
+-- $1 is the volume level of channel
+-- $2 is the mute state of the channel
+-- "Master" is my channel, to find out your ALSA channel,
+-- enter "alsamixer" in your terminal
+vicious.register(volume, vicious.widgets.volume,
+'<span color="white" >VOL: <span  color="orange">$1 </span></span>', 0.3, "Master")
+-- Initializes volumeicon as an image icon
+volumeicon = wibox.widget.imagebox()
+-- This function is responsible for making the volume icon
+-- corespond to the channel volume level
+vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
+	-- volume.lua will return:
+	-- args[1] as volume level as a string
+	-- args[2] as boolean, but in our case we use a special
+	-- unicode music character to denote that it is mute
+	local paraone = tonumber(args[1])
+	if args[2] == "♩" or paraone == 0 then
+		--  this is the mute state
+		volumeicon:set_image(beautiful.widget_volmute)
+	elseif paraone >= 67 and paraone <= 100 then
+		-- volume is high
+		volumeicon:set_image(beautiful.widget_volhi)
+	elseif paraone >= 33 and paraone <= 66 then
+		-- volume is medium
+		volumeicon:set_image(beautiful.widget_volmed)
+	else
+		-- volume is low
+		volumeicon:set_image(beautiful.widget_vollow)
+	end
+end, 0.3, "Master")
+
+-- mpd
+-- mpdwidget = wibox.widget.textbox()
+-- vicious.register(mpdwidget, vicious.widgets.mpd,
+-- function (mpdwidget, args)
+-- 	if args["{state}"] == "Stop" then 
+-- 		return " - "
+-- 	else 
+-- 		return args["{Artist}"]..' - '.. args["{Title}"]
+-- 	end
+-- end, 10)
+
 
 -- }}}
 	
@@ -273,7 +283,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "19"})
+    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "20"})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -283,15 +293,18 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+	-- right_layout:add(mpdwidget)
+	-- 	right_layout:add(separator)
 	right_layout:add(netwidget)
 		right_layout:add(separator)
 	right_layout:add(cpuwidget)
 	right_layout:add(thermalwidget)
 		right_layout:add(separator)
 	right_layout:add(volume)
+		right_layout:add(separator)
+    right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
     right_layout:add(mytaglist[s])
-    right_layout:add(mytextclock)
 
 
     -- Now bring it all together (with the tasklist in the middle)
