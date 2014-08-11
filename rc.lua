@@ -56,6 +56,7 @@ run_once("xflux -l 32.054829 -g 118.795193")
 -- }}}
 
 -- {{{ Variable definitions
+os.setlocale(os.getenv("LANG"))
 
 -- Themes define colours, icons, font and wallpapers.
 local themedir= "sunjack"
@@ -162,7 +163,7 @@ vicious.register(netwidget, vicious.widgets.net, function(widget, args)
 	else
 		return ""
 	end
-	return '<span color="white" >TRAFFIC: <span color="cyan">'..args["{"..interface.." down_kb}"]..'kbps/'..args["{"..interface.." up_kb}"].."kbps "..'</span></span>' end, 11)
+	return '<span color="white" >Traffic: <span color="cyan">'..args["{"..interface.." down_kb}"]..'kbps/'..args["{"..interface.." up_kb}"].."kbps "..'</span></span>' end, 11)
 
 -- 声音
 volume = wibox.widget.textbox()
@@ -171,7 +172,7 @@ volume = wibox.widget.textbox()
 -- "Master" is my channel, to find out your ALSA channel,
 -- enter "alsamixer" in your terminal
 vicious.register(volume, vicious.widgets.volume,
-'<span color="white" >VOL: <span  color="orange">$1 </span></span>', 0.3, "Master")
+'<span color="white" >Volume: <span  color="orange">$1 </span></span>', 0.3, "Master")
 -- Initializes volumeicon as an image icon
 volumeicon = wibox.widget.imagebox()
 -- This function is responsible for making the volume icon
@@ -198,22 +199,23 @@ vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
 end, 0.3, "Master")
 
 -- mpd
--- mpdwidget = wibox.widget.textbox()
--- vicious.register(mpdwidget, vicious.widgets.mpd,
--- function (mpdwidget, args)
--- 	if args["{state}"] == "Stop" then 
--- 		return " - "
--- 	else 
--- 		return args["{Artist}"]..' - '.. args["{Title}"]
--- 	end
--- end, 10)
+mpdwidget = wibox.widget.textbox()
+vicious.register(mpdwidget, vicious.widgets.mpd,
+function (mpdwidget, args)
+	if args["{state}"] == "Stop" then 
+		return " - "
+	else 
+		-- return args["{Artist}"]..'-'.. args["{Title}"]..":"..args["{state}"]
+		return '<span color="white" >'..args["{Artist}"]..':<span  color="pink">'..args["{Title}"]..'<span color="red">>'..args["{state}"]..'</span></span></span>'
+	end
+end, 10)
 
 
 -- }}}
 	
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock()
+mytextclock = awful.widget.textclock("%b%d日周%a %H:%M")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -293,8 +295,8 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-	-- right_layout:add(mpdwidget)
-	-- 	right_layout:add(separator)
+	right_layout:add(mpdwidget)
+		right_layout:add(separator)
 	right_layout:add(netwidget)
 		right_layout:add(separator)
 	right_layout:add(cpuwidget)
@@ -303,8 +305,9 @@ for s = 1, screen.count() do
 	right_layout:add(volume)
 		right_layout:add(separator)
     right_layout:add(mytextclock)
-    right_layout:add(mylayoutbox[s])
+		right_layout:add(separator)
     right_layout:add(mytaglist[s])
+    right_layout:add(mylayoutbox[s])
 
 
     -- Now bring it all together (with the tasklist in the middle)

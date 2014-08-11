@@ -51,8 +51,8 @@ theme.font      = "serif 9"
 theme.fg_normal = "#bbbbbb"
 theme.fg_focus  = "#ff2c4b"
 theme.fg_urgent = "#000000"
-theme.bg_normal = "#202020ee"
-theme.bg_focus  = "#0f0f0f66"
+theme.bg_normal = "#00000099"
+theme.bg_focus  = "#0f0f0f77"
 theme.bg_urgent = "#ffc0c0"
 --//
 
