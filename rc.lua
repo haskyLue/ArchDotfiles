@@ -40,19 +40,19 @@ end
 -- }}}
 
 -- {{{ Autostart applications
-function run_once(cmd)
-	findme = cmd
-	firstspace = cmd:find(" ")
-	if firstspace then
-		findme = cmd:sub(0, firstspace-1)
-	end
-	awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
-end
-
+-- function run_once(cmd)
+-- 	findme = cmd
+-- 	firstspace = cmd:find(" ")
+-- 	if firstspace then
+-- 		findme = cmd:sub(0, firstspace-1)
+-- 	end
+-- 	awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+-- end
+--
 -- run_once("unclutter")
 -- run_once("checkgmail -numbers -private -no_cookies")
-run_once("stardict -h")
-run_once("xflux -l 32.054829 -g 118.795193")
+-- run_once("stardict -h")
+-- run_once("xflux -l 32.054829 -g 118.795193")
 -- }}}
 
 -- {{{ Variable definitions
@@ -106,7 +106,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"①","②","③","④","⑤"},  
+	names = {"①","②","③","④","⑤"},
 	layout = { layouts[2],layouts[4], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
@@ -143,17 +143,19 @@ separator:set_markup('<span color="grey" > :: </span>')
 
 -- cpu 占用
 cpuwidget = wibox.widget.textbox()
--- cpu.lua widet can return: 
+vicious.cache(vicious.widgets.cpu)
 -- $1 usage of all CPU/CORES -- $2 first CPU core -- $3 second CPU core -- $4 third CPU core -- $5 fourth CPU core
 vicious.register(cpuwidget, vicious.widgets.cpu,
 '<span color="white" >CPU: <span color="red">$2%/<span color="#888888">·</span>$3% </span></span>', 3)
 -- cpu 温度
 local thermalwidget = wibox.widget.textbox()
-vicious.register(thermalwidget, vicious.widgets.thermal, '<span color="yellow" >-$1C</span>', 20, {"thermal_zone0", "sys"})
+vicious.cache(vicious.widgets.thermal)
+vicious.register(thermalwidget, vicious.widgets.thermal, '<span color="yellow" >$1°C</span>', 20, {"thermal_zone0", "sys"})
 
 
 -- 网络流量
 netwidget = wibox.widget.textbox()
+vicious.cache(vicious.widgets.net)
 vicious.register(netwidget, vicious.widgets.net, function(widget, args)
 	local interface = ""
 	if args["{wlp3s0 carrier}"] == 1 then
@@ -163,53 +165,32 @@ vicious.register(netwidget, vicious.widgets.net, function(widget, args)
 	else
 		return ""
 	end
-	return '<span color="white" >Traffic: <span color="cyan">'..args["{"..interface.." down_kb}"]..'kbps/'..args["{"..interface.." up_kb}"].."kbps "..'</span></span>' end, 11)
+	return '<span color="white" >Traffic: <span color="cyan">'..args["{"..interface.." down_kb}"]..'kbps/'..args["{"..interface.." up_kb}"].."kbps "..'</span></span>' end )
 
 -- 声音
 volume = wibox.widget.textbox()
--- $1 is the volume level of channel
--- $2 is the mute state of the channel
--- "Master" is my channel, to find out your ALSA channel,
--- enter "alsamixer" in your terminal
+-- $1 is the volume level of channel; $2 is the mute state of the channel ;"Master" is my channel, to find out your ALSA channel
+vicious.cache(vicious.widgets.volume)
 vicious.register(volume, vicious.widgets.volume,
-'<span color="white" >Volume: <span  color="orange">$1 </span></span>', 0.3, "Master")
--- Initializes volumeicon as an image icon
-volumeicon = wibox.widget.imagebox()
--- This function is responsible for making the volume icon
--- corespond to the channel volume level
-vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
-	-- volume.lua will return:
-	-- args[1] as volume level as a string
-	-- args[2] as boolean, but in our case we use a special
-	-- unicode music character to denote that it is mute
-	local paraone = tonumber(args[1])
-	if args[2] == "♩" or paraone == 0 then
-		--  this is the mute state
-		volumeicon:set_image(beautiful.widget_volmute)
-	elseif paraone >= 67 and paraone <= 100 then
-		-- volume is high
-		volumeicon:set_image(beautiful.widget_volhi)
-	elseif paraone >= 33 and paraone <= 66 then
-		-- volume is medium
-		volumeicon:set_image(beautiful.widget_volmed)
-	else
-		-- volume is low
-		volumeicon:set_image(beautiful.widget_vollow)
-	end
-end, 0.3, "Master")
+'<span color="white" >Volume: <span  color="orange">$2/$1%</span></span>', 0.2, "Master")
 
 -- mpd
 mpdwidget = wibox.widget.textbox()
+vicious.cache(vicious.widgets.mpd)
 vicious.register(mpdwidget, vicious.widgets.mpd,
 function (mpdwidget, args)
 	if args["{state}"] == "Stop" then 
 		return " - "
 	else 
 		-- return args["{Artist}"]..'-'.. args["{Title}"]..":"..args["{state}"]
-		return '<span color="white" >'..args["{Artist}"]..':<span  color="pink">'..args["{Title}"]..'<span color="red">>'..args["{state}"]..'</span></span></span>'
+		return '<span color="white" >'..args["{Artist}"]..' - <span  color="pink">'..args["{Title}"]..'<span color="red"> [['..args["{state}"]..']]</span></span></span>'
 	end
-end, 10)
+end)
 
+
+-- os info.
+local osinfo = wibox.widget.textbox()
+vicious.register(osinfo, vicious.widgets.os, '<span color="steelblue" font="URW Palladio L italic bold">$1 $2</span>')
 
 -- }}}
 	
@@ -285,16 +266,17 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "20",border_width="0"})
+    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "18",border_width=0})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
-    if s == 1 then left_layout:add(wibox.widget.systray()) end
+    left_layout:add(osinfo)
     left_layout:add(mypromptbox[s])
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+		right_layout:add(separator)
 	right_layout:add(mpdwidget)
 		right_layout:add(separator)
 	right_layout:add(netwidget)
@@ -319,11 +301,13 @@ for s = 1, screen.count() do
 
 	-- Create the bottom wibox
 	mybottomwibox={}
-    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 17 })
+    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 20})
     bottom_left_layout = wibox.layout.fixed.horizontal()
+    if s == 1 then bottom_left_layout:add(wibox.widget.systray()) end
     bottom_right_layout = wibox.layout.fixed.horizontal()
     -- Now bring it all together (with the tasklist in the middle)
     bottom_layout = wibox.layout.align.horizontal()
+    bottom_layout:set_left(bottom_left_layout)
     bottom_layout:set_middle(mytasklist[s])
     mybottomwibox[s]:set_widget(bottom_layout)
 end
@@ -410,7 +394,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioNext", function () awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")  end),	
 	-- 切换触控板
     awful.key({}, "XF86ScreenSaver", function () awful.util.spawn_with_shell("sh /home/hasky/Documents/dotfiles/script/toggle_psmouse.sh") end),
-    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vboxmanage startvm xp") end),
+    -- awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vboxmanage startvm xp") end),
+    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware  -X '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx'") end),
     -- }}}
 
     -- 用户程序{{{
@@ -527,6 +512,7 @@ awful.rules.rules = {
 								 
     { rule = { class = "URxvt" }, properties = { opacity = 0.8 } },
 	{ rule = { class = "VirtualBox" }, properties = { tag = tags[1][5]}},
+	{ rule = { instance = "vmware" }, properties = { tag = tags[1][5]}},
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
 
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },

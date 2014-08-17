@@ -1,3 +1,5 @@
+! X11 colors pieced together by Dmitry Medvinsky.
+! Based on Vim colorscheme "badwolf" pieced together by Steve Losh.
 ! vim: fdm=marker
 
 ! Colors definition {{{
@@ -18,7 +20,7 @@
 #define   dalespale        #fade3e
 #define   dirtyblonde      #f4cf86
 #define   taffy            #ff2c4b
-#define   saltwatertaffy   #00CCCC
+#define   saltwatertaffy   #8cffba
 #define   tardis           #0a9dff
 #define   orange           #ffa724
 #define   lime             #aeee00
@@ -30,34 +32,29 @@
 
 
 ! Resourses {{{
-*background:  snow
-*foreground:  coal
-*cursorColor: red
-*fadeColor:   blackestgravel 
-*fading:      30
 
-!!        black
+!        black
 *color0:      blackestgravel
 *color8:      coal
-!!        red
+!        red
 *color1:      taffy
 *color9:      taffy
-!!        green
-!*color2:      lime
-!*color10:     lime
-!!        yellow
-*color3:      orange
+!        green
+*color2:      lime
+*color10:     lime
+!        yellow
+*color3:      dalespale
 *color11:     orange
-!!        blue
-!*color4:      tardis
-!*color12:     tardis
-!!        magenta
+!        blue
+*color4:      tardis
+*color12:     tardis
+!        magenta
 *color5:      dress
 *color13:     dress
-!!        cyan
+!        cyan
 *color6:      saltwatertaffy
 *color14:     saltwatertaffy
-!!        white
+!        white
 *color7:      brightgravel
 *color15:     snow
- }}}
+! }}}

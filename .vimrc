@@ -43,6 +43,7 @@ filetype plugin on
 set encoding=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set fileencodings=utf8,cp936,gb18030,big5
+set termencoding=utf8
 
 "语言设置
 set langmenu=zh_CN.UTF-8
@@ -55,7 +56,8 @@ endif
 "设置语法高亮
 syntax enable
 set background=light
-colorscheme github
+" colorscheme 256-jungle
+colorscheme google
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key

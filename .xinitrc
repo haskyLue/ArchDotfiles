@@ -25,21 +25,19 @@ export QT_IM_MODULE="fcitx"
 export BROWSER="chromium"
 export EDITOR="vim"
 
-# 启动应用程序(部分已写入rc.lua) system tray icon
-# autocutsel -fork &
-# autocutsel -selection PRIMARY -fork &
-(sleep 10 && mpd &)
-(sleep 10 && mpdscribble &)
-(sleep 10 && fcitx &)
-(sleep 10 && shutter --min_at_startup &) 
-(sleep 5 && wicd-gtk -t &) 
-(sleep 5 && libreoffice --quickstart &) 
-(sleep 5 && xfce4-power-manager &) 
+# 启动应用程序
+(if ! pgrep mpd >>/dev/null ;then mpd ; fi)&
+(if ! pgrep mpdscribble >>/dev/null ;then  mpdscribble ; fi)&
+(if ! pgrep fcitx >>/dev/null ;then  fcitx ; fi)&
+(if ! pgrep compton >>/dev/null ;then compton -bC; fi) &
+(if ! pgrep urxvtd >>/dev/null ;then  urxvtd -qfo; fi) &
+(sleep 5; if ! pgrep xfce4-power-manager >>/dev/null ;then  xfce4-power-manager ; fi) &
+(sleep 5; if ! pgrep wicd-gtk >>/dev/null ;then  wicd-gtk -t ; fi) &
+(sleep 5; if ! pgrep libreoffice >>/dev/null ;then  libreoffice --quickstart ; fi) &
+(sleep 5; if ! pgrep shutter >>/dev/null ;then  shutter --min_at_startup ; fi)&
+(sleep 5; if ! pgrep xflux >>/dev/null ;then xflux -l 32.054829 -g 118.795193 ; fi) &
+(sleep 5; if ! pgrep stardict>>/dev/null ;then stardict -h ; fi) &
 
-# (stardict -h &)
-# (xflux -l 32.054829 -g 118.795193 &)
-(compton -bC &)
-(urxvtd -q -f -o  &) 
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
 
 # 启动WM/DE 
