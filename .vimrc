@@ -55,9 +55,8 @@ endif
 
 "设置语法高亮
 syntax enable
-set background=light
-" colorscheme 256-jungle
-colorscheme google
+set background=dark
+colorscheme 256-jungle
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key
@@ -145,7 +144,7 @@ set number
 
 " 高亮当前行
 set cursorline 
-hi CursorLine cterm=NONE ctermbg=yellow ctermfg=black guibg=NONE guifg=NONE
+" hi CursorLine cterm=NONE ctermbg=yellow ctermfg=black guibg=NONE guifg=NONE
 
 "modify
 set modifiable

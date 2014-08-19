@@ -38,7 +38,7 @@ URxvt.letterSpace : -2
 *cursorColor: tardis
 *scrollColor: deepgravel
 *fadeColor:   brightgravel
-*fading:      20
+*fading:      10
 *colorBD: grey
 *colorUL: green
 *colorIT: #bbbbbb
@@ -72,7 +72,7 @@ xterm*cjkWidth:false
 ! Extentions {{{
 ! Ctrl+Insert can be used to copy and Shift+Insert to paste.
 
-URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
+URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard,font-size
 ! URxvt.tabbed.tabbar-fg: 0
 ! URxvt.tabbed.tabbar-bg: 0
 ! URxvt.tabbed.tab-fg: 3
@@ -85,7 +85,7 @@ URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard
 ! o Open selected URL in browser without quitting selection mode
 ! Esc Cancel URL selection mode
 URxvt.keysym.M-u			: perl:url-select:select_next
-URxvt.url-select.launcher	: chromium -new-tab
+URxvt.url-select.launcher	: xdg-open
 URxvt.url-select.underline	: true
 URxvt.url-select.autocopy	: true
 
@@ -108,4 +108,12 @@ URxvt.keysym.Control-Left:      \033[1;5D
 URxvt.keysym.Control-Right:     \033[1;5C
 URxvt.keysym.Control-Page_Up:   \033[5;5~
 URxvt.keysym.Control-Page_Down: \033[6;5~
+URxvt.keysym.C-Tab:         command:\033[?47t
+
+! Font sizes
+URxvt.keysym.C-Up:     perl:font-size:increase
+URxvt.keysym.C-Down:   perl:font-size:decrease
+URxvt.keysym.C-equal: perl:font-size:reset
+URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+URxvt.keysym.C-S-Down: perl:font-size:decglobal
 ! }}}

@@ -29,8 +29,18 @@ function proxyoff(){
  	echo -e "\nProxy environment variable removed."
 }
 function cwall(){
-	cp -fv $1 /home/hasky/Downloads/Image/background.jpg
-	echo '<mod4+ctrl+r>重启awesome!'
+	/usr/bin/cp -f $1 /home/hasky/Downloads/Image/background.jpg
+	echo "awesome.restart()"|awesome-client 2>> /dev/null
+}
+function tawsome(){
+	local RCPWD="/home/hasky/Documents/dotfiles"
+	local CUR_RC="/home/hasky/.config/awesome/rc.lua"
+	if file $CUR_RC | grep -o light >> /dev/null;then
+		ln -sf $RCPWD/rc.lua $CUR_RC
+	else 
+		ln -sf $RCPWD/rc.light.lua $CUR_RC
+	fi
+	echo "awesome.restart()"|awesome-client 2>>/dev/null
 }
 # function Xflux(){
 # 	if ps -e | grep xflux ;then

@@ -26,17 +26,18 @@ export BROWSER="chromium"
 export EDITOR="vim"
 
 # 启动应用程序
+(if ! pgrep compton >>/dev/null ;then compton ; fi)&
+(if ! pgrep urxvtd >>/dev/null ;then  urxvtd -q -f -o ; fi)&
 (if ! pgrep mpd >>/dev/null ;then mpd ; fi)&
 (if ! pgrep mpdscribble >>/dev/null ;then  mpdscribble ; fi)&
-(if ! pgrep fcitx >>/dev/null ;then  fcitx ; fi)&
-(if ! pgrep compton >>/dev/null ;then compton -bC; fi) &
-(if ! pgrep urxvtd >>/dev/null ;then  urxvtd -qfo; fi) &
-(sleep 5; if ! pgrep xfce4-power-manager >>/dev/null ;then  xfce4-power-manager ; fi) &
-(sleep 5; if ! pgrep wicd-gtk >>/dev/null ;then  wicd-gtk -t ; fi) &
-(sleep 5; if ! pgrep libreoffice >>/dev/null ;then  libreoffice --quickstart ; fi) &
-(sleep 5; if ! pgrep shutter >>/dev/null ;then  shutter --min_at_startup ; fi)&
-(sleep 5; if ! pgrep xflux >>/dev/null ;then xflux -l 32.054829 -g 118.795193 ; fi) &
-(sleep 5; if ! pgrep stardict>>/dev/null ;then stardict -h ; fi) &
+(if ! pgrep fcitx >>/dev/null ;then fcitx ; fi)&
+
+(if ! pgrep xfce4-power-manager >>/dev/null ;then  xfce4-power-manager ; fi)&
+(if ! pgrep wicd-gtk >>/dev/null ;then  wicd-gtk -t ; fi)&
+(if ! pgrep libreoffice >>/dev/null ;then  libreoffice --quickstart ; fi)&
+(if ! pgrep shutter >>/dev/null ;then  shutter --min_at_startup ; fi)&
+(if ! pgrep xflux >>/dev/null ;then xflux -l 32.054829 -g 118.795193 ; fi)&
+(if ! pgrep stardict>>/dev/null ;then stardict -h ; fi)&
 
 (xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
 
