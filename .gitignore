@@ -1,2 +1,3 @@
 *.swp
-.newsbeuter/cache.db*
+.newsbeuter/cache*
+.newsbeuter/history*
