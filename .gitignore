@@ -28,4 +28,4 @@
  
 *.swp
 *.db
-*history*
+**/history*
