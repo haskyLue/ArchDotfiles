@@ -26,6 +26,5 @@
 *.sql
 *.sqlite
  
-*.swp
 *.db
 **/history*
