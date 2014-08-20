@@ -143,7 +143,7 @@ set nowb
 set number
 
 " 高亮当前行
-set cursorline 
+" set cursorline 
 " hi CursorLine cterm=NONE ctermbg=yellow ctermfg=black guibg=NONE guifg=NONE
 
 "modify

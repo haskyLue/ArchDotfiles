@@ -210,17 +210,17 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "20",border_width=0})
+    mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "20",border_width=0})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
     left_layout:add(mypromptbox[s])
 		left_layout:add(separator)
-    if s == 1 then left_layout:add(wibox.widget.systray()) end
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
 		right_layout:add(separator)
     right_layout:add(mytextclock)
 		right_layout:add(separator)
