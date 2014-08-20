@@ -89,7 +89,7 @@ alias iftop="sudo iftop -PnB"
 alias pon="sudo pon" 
 alias poff="sudo poff -a"
 alias tshark="sudo tshark"
-alias winfo="watch -td --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
+alias winfo="watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 
 # enter directory & edit
