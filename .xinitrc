@@ -26,20 +26,19 @@ export BROWSER="chromium"
 export EDITOR="vim"
 
 # 启动应用程序
-(if ! pgrep compton >>/dev/null ;then compton ; fi)&
-(if ! pgrep urxvtd >>/dev/null ;then  urxvtd -q -f -o ; fi)&
-(if ! pgrep mpd >>/dev/null ;then mpd ; fi)&
-(if ! pgrep mpdscribble >>/dev/null ;then  mpdscribble ; fi)&
-(if ! pgrep fcitx >>/dev/null ;then fcitx ; fi)&
+compton&
+urxvtd -q -f -o&
+mpd&
+mpdscribble&
+fcitx&
+xfce4-power-manager&
+wicd-gtk -t&
+libreoffice --quickstart&
+shutter --min_at_startup&
+xflux -l 32.054829 -g 118.795193&
+stardict -h&
 
-(if ! pgrep xfce4-power-manager >>/dev/null ;then  xfce4-power-manager ; fi)&
-(if ! pgrep wicd-gtk >>/dev/null ;then  wicd-gtk -t ; fi)&
-(if ! pgrep libreoffice >>/dev/null ;then  libreoffice --quickstart ; fi)&
-(if ! pgrep shutter >>/dev/null ;then  shutter --min_at_startup ; fi)&
-(if ! pgrep xflux >>/dev/null ;then xflux -l 32.054829 -g 118.795193 ; fi)&
-(if ! pgrep stardict>>/dev/null ;then stardict -h ; fi)&
-
-(xmodmap ~/.Xmodmap &) && (xrdb -merge .Xdefaults &)
+(xmodmap ~/.Xmodmap ) && (xrdb -merge .Xdefaults )
 
 # 启动WM/DE 
 # echo "" > ~/.cache/awesome/stderr > ~/.cache/awesome/stdout; exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr

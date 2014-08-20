@@ -107,7 +107,7 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
 	names = {"①","②","③","④","⑤"},
-	layout = { layouts[2],layouts[4], layouts[1], layouts[1], layouts[1] }
+	layout = { layouts[2],layouts[7], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -217,7 +217,6 @@ for s = 1, screen.count() do
     left_layout:add(mylauncher)
 		left_layout:add(separator)
     if s == 1 then left_layout:add(wibox.widget.systray()) end
-		left_layout:add(separator)
     left_layout:add(mypromptbox[s])
 
     -- Widgets that are aligned to the right
