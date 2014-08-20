@@ -26,5 +26,5 @@
 *.sql
 *.sqlite
  
-*.db
+*cache
 **/history*
