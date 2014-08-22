@@ -25,6 +25,9 @@ export QT_IM_MODULE="fcitx"
 export BROWSER="chromium"
 export EDITOR="vim"
 
+
+export vblank_mode=0
+
 # 启动应用程序
 compton&
 urxvtd -q -f -o&

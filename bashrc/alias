@@ -11,6 +11,7 @@ alias ping='ping -c 5'
 alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
+alias top='sudo atop'
 
 # privileged access
 if [ $UID -ne 0 ]; then
@@ -38,7 +39,7 @@ alias lt='ll -rt'                   # sort by date
 # safety features
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='rm -I'                    # 'rm -i' prompts for every file
+alias rm='rm -I --preserve-root'                    # 'rm -i' prompts for every file
 alias ln='ln -i'
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
@@ -89,7 +90,7 @@ alias iftop="sudo iftop -PnB"
 alias pon="sudo pon" 
 alias poff="sudo poff -a"
 alias tshark="sudo tshark"
-alias winfo="watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
+alias winfo="echo ldb | sudo -S watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 
 # enter directory & edit

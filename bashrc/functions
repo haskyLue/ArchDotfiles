@@ -43,22 +43,14 @@ function tawsome(){
 	echo "awesome.restart()"|awesome-client 2>>/dev/null
 }
 
-# function Uhosts(){
-# 	local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AAC-n6LmtWbdlKQRbdEa0QUoa/imouto.host.7z"
-# 	cd /tmp/
-# 	curl $HOSTS_URL -o hosts.7z
-# 	7z e hosts.7z 
-# }
-# function update(){
-# 	if [ $UID -eq 0 ]; then
-# 		echo "Update packages..."
-# 		sudo yaourt -Syua 
-# 		# echo "Update hosts..."
-# 		# Uhosts
-# 	else
-# 		echo "root 先~~"
-# 	fi
-# }
+function Uhosts(){
+	local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AAC-n6LmtWbdlKQRbdEa0QUoa/imouto.host.7z?dl=1"
+	echo "downloading hosts package"
+	curl -#L -o /tmp/hosts.7z $HOSTS_URL
+	7z e -y /tmp/hosts.7z -o/tmp/
+	echo "finishing..."
+	sudo cp -fv /tmp/imouto.host.txt /etc/hosts
+}
 
 function reload_ath9k(){
 	sudo modprobe -rv ath9k

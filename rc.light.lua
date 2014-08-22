@@ -56,7 +56,7 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-os.setlocale(os.getenv("LANG"))
+-- os.setlocale(os.getenv("LANG"))
 
 -- Themes define colours, icons, font and wallpapers.
 local themedir= "sunjack"
@@ -137,10 +137,18 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 	
 -- {{{ Wibox
-local separator = wibox.widget.textbox()
-separator:set_markup('<span color="grey" > :: </span>')
+--
+-- separator
+separator = wibox.widget.textbox()
+separator:set_markup('<span color="grey" > .. </span>')
+--uname widgetstart
+uname=wibox.widget.textbox()
+showName=awful.util.pread("uname -sr")
+-- uname:set_font("serif 8")
+uname:set_markup('<span color="red" font="monofur bold italic 9"> '..showName..' </span>')
+
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("%b%d日周%a %H:%M")
+mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -215,17 +223,18 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
-    left_layout:add(mypromptbox[s])
+    left_layout:add(uname)
 		left_layout:add(separator)
+    left_layout:add(mypromptbox[s])
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(mylayoutbox[s])
+    right_layout:add(mytaglist[s])
 		right_layout:add(separator)
     right_layout:add(mytextclock)
 		right_layout:add(separator)
-    right_layout:add(mytaglist[s])
-    right_layout:add(mylayoutbox[s])
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -303,7 +312,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
     awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle                ),
-    awful.key({ modkey,           }, "o",     awful.client.movetoscreen                   ),
     awful.key({ modkey, "Control" }, "n",	  awful.client.restore					      ),
 	-- }}}
 
@@ -435,7 +443,6 @@ awful.rules.rules = {
 					 size_hints_honor = false } },--这个diao东西貌似是消除窗口全屏留下的空隙
 								 
     { rule = { class = "URxvt" }, properties = { opacity = 0.8 } },
-	{ rule = { class = "VirtualBox" }, properties = { tag = tags[1][5]}},
 	{ rule = { instance = "vmware" }, properties = { tag = tags[1][5]}},
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
 

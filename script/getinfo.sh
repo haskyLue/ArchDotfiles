@@ -11,16 +11,18 @@ magenta='\E[35;47m'
 cyan='\E[36;47m'
 white='\E[37;47m'
 
-systeminfo=$(uname -r)
 cputemp=$(sensors -A | awk '/Core/ {print $1$2,$3}' | paste -sd "\t")
-hddtemp=$(sudo hddtemp /dev/sda /dev/sdb|paste -sd "\t")
+hddtemp=$(sudo hddtemp /dev/sda /dev/sdb|awk '{$3="-"; print $0}'|paste -sd "\t")
 mpdinfo=$(mpc status |head -n2|xargs -L2 echo)
-ninterface=$(wicd-cli -yd|head -n2|paste -sd '\t')
-volume=$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
-uptime=$(uptime)
+wifi=$(wicd-cli -yd|head -n2|paste -sd '\t')
+netinterface=$(route -v | awk '/default/ {print $8}')
+volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
+uptime=$( uptime | cut -d\  -f6-)
+
+# function {{{
 function update_weather(){
 	echo "更新天气中..."
-	curl -s http://flash.weather.com.cn/wmaps/xml/nanjing.xml  | awk -F \" '/浦口/ {print "浦口天气："$18,"温度:"$20"~"$22,$24"摄氏度","风向风速:"$26,$30}' > /tmp/weather
+	curl -s http://flash.weather.com.cn/wmaps/xml/nanjing.xml  | awk -F \" '/浦口/ {print "浦口天气："$18,"温度:"$20"~"$22"°C",$24"°C","风向风速:"$26,$30}' > /tmp/weather
 	echo $(date +%s)>/tmp/weather_flag
 }
 function get_weather(){
@@ -41,39 +43,45 @@ function get_weather(){
 		rm -f /tmp/weather_flag #删除flag文件便于下次执行重新更新
 	fi #显示文件内容
 }
+function netspeed(){
+	if [ $netinterface ]
+	then
+		rx_old=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
+		tx_old=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
+		sleep 1
+		rx_now=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
+		tx_now=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
+		let rx_rate="($rx_now - $rx_old) /1/1024"
+		let tx_rate="($tx_now - $tx_old) /1/1024"
+		echo "网速：$netinterface - down.${rx_rate}K/up.${tx_rate}K\e[0m"
+	else
+		echo "网速：未知接口!"
+	fi
+}
 function kaoyan(){ 
 	local target_time=1420331400 #2015,1,4
 	local now_time=$(date +%s)
 	let spare_time="($target_time-$now_time)/3600/24"
-	echo $red"距离考研还有$spare_time天\e[0m"
+	echo "距离考研还有$spare_time天"
 }
+# function end }}}
 
-# main content
+# main content {{{
 figlet -c About PC
 echo
 echo -e '*  '$magenta"$(get_weather)\e[0m"
 echo '*  '
-echo -e '*  '$red"发行版：$systeminfo\e[0m"
-echo '*  '
-echo -e '*  '$cyan"Uptime：$uptime\e[0m"
-echo -e '*  '$green"cpu温度：$cputemp\e[0m"
+echo -e '*  '$cyan"UPTIME：$uptime\e[0m"
+echo -e '*  '$green"CPU温度：$cputemp\e[0m"
 echo -e '*  '$yellow"硬盘温度：$hddtemp\e[0m"
 echo '*  '
-echo -e '*  '$blue"音乐播放器：$mpdinfo\e[0m"
+echo -e '*  '$blue"MPD：$mpdinfo\e[0m"
 echo -e '*  '$white"音量：$volume\e[0m"
 echo '*  '
-
-rx_old=$(cat /sys/class/net/wlp3s0/statistics/rx_bytes)
-tx_old=$(cat /sys/class/net/wlp3s0/statistics/tx_bytes)
-sleep 1
-rx_now=$(cat /sys/class/net/wlp3s0/statistics/rx_bytes)
-tx_now=$(cat /sys/class/net/wlp3s0/statistics/tx_bytes)
-let rx_rate="($rx_now - $rx_old) /1/1024"
-let tx_rate="($tx_now - $tx_old) /1/1024"
-
-echo -e '*  '$cyan"网速：${rx_rate}K/${tx_rate}K\e[0m"
-echo -e '*  '$magenta"wifi：$ninterface\e[0m"
+echo -e '*  '$magenta"wifi：$wifi\e[0m"
+echo -e '*  '$cyan"$(netspeed)\e[0m"
+# main end }}}
 
 
 echo -e "\t\t\t\t\t\t\t\t\t-----------------"
-echo -e "\t\t\t\t\t\t\t\t\t$(kaoyan)"
+echo -e $red"\t\t\t\t\t\t\t\t\t$(kaoyan)\e[0m"

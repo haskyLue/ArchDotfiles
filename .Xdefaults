@@ -1,37 +1,41 @@
-!大小
-URxvt.geometry		: 100x40
 ! 启动快了
-URxvt*preeditType	: Root 
+URxvt.preeditType	: Root 
 URxvt.saveLines		: 12000
 URxvt.loginShell	: true
 
-! apperance {{{
+! 外观 {{{
+! misc
+URxvt.geometry		: 100x40
 URxvt.termName    : rxvt-256color
-URxvt.iconFile    : /usr/share/icons/gnome/32x32/apps/xfce-terminal.png
+URxvt.iconFile    : /usr/share/icons/Numix-Circle/48x48/apps/Terminal.svg
 URxvt.iso14755	  : false
 URxvt.iso14755_52: false 
 URxvt.scrollBar   : false
 URxvt.scrollstyle: plain
 URxvt.transparent: false
 URxvt.shading: 20
+URxvt.internalBorder: 0
+URxvt.externalBorder: 0
+URxvt.scrollTtyOutput:   false
+URxvt.scrollWithBuffer:  true
+URxvt.scrollTtyKeypress: true
 URxvt.cursorBlink: true
-urxvt.borderless:  true 
  
 !XFT font
 Xft.dpi: 96
 Xft.autohint  : 0
 Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintmslight
+Xft.hintstyle : hintfull
 Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
-URxvt.font:xft:monospace:size=9:style=Medium:antialias=true,\
+URxvt.font:xft:Source Code Pro:size=9:style=Medium:antialias=true,\
 	 xft:  LiHei Pro:size=10:style=Regular
-URxvt.boldfont:xft:monospace:size=9:style=Bold:antialias=true,\
+URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,\
 	 xft:  LiHei Pro:size=10:style=Bold
 URxvt.letterSpace : -2
 
-!Colorscheme
+! 色彩主题
 #include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"
 *background:  blackgravel
 *foreground:  plain
@@ -47,20 +51,19 @@ URxvt.letterSpace : -2
 ! }}}
 
 ! xterm {{{
-xterm.termName: xterm-256color
-xterm.geometry: 80x36
+xterm*termName: xterm-256color
+xterm*geometry: 80x36
 xterm*scrollBar: false
 xterm*rightScrollBar: true
 xterm*loginshell: true
-xterm*cursorBlink: true
 xterm*background:  black
 xterm*foreground:  gray
-xterm.borderLess: true
-xterm.cursorBlink: true
+xterm*borderLess: true
+xterm*cursorBlink: true
 xterm*eightBitInput: false
 xterm*altSendsEscape: true
 xterm*locale: true
-xterm.utf8:     true
+xterm*utf8:     true
 xterm*utf8Title: true
 xterm*fontMenu*fontdefault*Label: Default
 xterm*faceName: Source Code Pro:antialias=True:pixelsize=12
@@ -69,7 +72,7 @@ xterm*xftAntialias: true
 xterm*cjkWidth:false       
 ! }}}
 
-! Extentions {{{
+! 扩展 {{{
 ! Ctrl+Insert can be used to copy and Shift+Insert to paste.
 
 URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard,font-size
@@ -90,6 +93,8 @@ URxvt.url-select.underline	: true
 URxvt.url-select.autocopy	: true
 
 ! copy paste
+URxvt.clipboard.copycmd:  xsel --input  --clipboard
+URxvt.clipboard.pastecmd: xsel --output --clipboard
 URxvt.keysym.Control-Shift-C: perl:clipboard:copy
 URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 
