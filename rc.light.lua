@@ -145,7 +145,7 @@ separator:set_markup('<span color="grey" > .. </span>')
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -sr")
 -- uname:set_font("serif 8")
-uname:set_markup('<span color="red" font="monofur bold italic 9"> '..showName..' </span>')
+uname:set_markup('<span color="red" font="Nimbus Mono L bold 9"> '..showName..'</span>')
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
@@ -338,6 +338,47 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,			  }, "w",	   function () awful.util.spawn("xfce4-appfinder") end),
 	--}}}
 
+	-- {{{ sdcv/stardict
+	awful.key({ modkey }, "d", function ()
+		local f = io.popen("xsel -o")
+		local new_word = f:read("*a")
+		f:close()
+
+		if frame ~= nil then
+			naughty.destroy(frame)
+			frame = nil
+			if old_word == new_word then
+				return
+			end
+		end
+		old_word = new_word
+
+		local fc = ""
+		local f  = io.popen("sdcv -n --utf8-output -u '21世纪英汉汉英双向词典' "..new_word)
+		for line in f:lines() do
+			fc = fc .. line .. '\n'
+		end
+		f:close()
+		frame = naughty.notify({ font = "sans 10", fg= "#ffffff", bg= "#000000bb",text = fc, timeout = 15 })
+	end),
+	awful.key({ modkey, "Shift" }, "d", function ()
+		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)
+			naughty.destroy(frame)
+			if cin_word == "" then
+				return
+			end
+
+			local fc = ""
+			local f  = io.popen("sdcv -n --utf8-output -u '21世纪英汉汉英双向词典' "..cin_word)
+			for line in f:lines() do
+				fc = fc .. line .. '\n'
+			end
+			f:close()
+			frame = naughty.notify({ font = "sans 10", fg= "#ffffff", bg= "#000000bb",text = fc, timeout = 15 })
+		end, nil, awful.util.getdir("cache").."/dict")
+	end),
+	-- }}}
+
     -- 拷贝剪贴板
     awful.key({ modkey,			  }, "c",	   function () os.execute("xsel -p -o | xsel -i -b") end),
 	
@@ -442,7 +483,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
 					 size_hints_honor = false } },--这个diao东西貌似是消除窗口全屏留下的空隙
 								 
-    { rule = { class = "URxvt" }, properties = { opacity = 0.8 } },
+    { rule = { class = "URxvt" }, properties = { opacity = 0.9 } },
 	{ rule = { instance = "vmware" }, properties = { tag = tags[1][5]}},
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
 

@@ -25,28 +25,26 @@ URxvt.cursorBlink: true
 Xft.dpi: 96
 Xft.autohint  : 0
 Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintfull
+Xft.hintstyle : hintmedium
 Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
 URxvt.font:xft:Source Code Pro:size=9:style=Medium:antialias=true,\
 	 xft:  LiHei Pro:size=10:style=Regular
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Bold:antialias=true,\
+URxvt.boldfont:xft:Source Code Pro:size=9:style=Semibold:antialias=true,\
 	 xft:  LiHei Pro:size=10:style=Bold
+URxvt.italicfont:xft:Source Code Pro:size=9:style=Italic:antialias=true,\
+	 xft:  LiHei Pro:size=10:style=Italic
 URxvt.letterSpace : -2
 
 ! 色彩主题
-#include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"
-*background:  blackgravel
-*foreground:  plain
-*cursorColor: tardis
-*scrollColor: deepgravel
+! base color
+#include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors.bak"
 *fadeColor:   brightgravel
 *fading:      10
-*colorBD: grey
-*colorUL: green
-*colorIT: #bbbbbb
 *dpth: 32
+
+#include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"
 
 ! }}}
 
