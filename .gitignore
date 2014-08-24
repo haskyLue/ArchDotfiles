@@ -26,6 +26,7 @@
 *.sql
 *.sqlite
  
+*.swp
 *cache*
 *history*
 *.bak
