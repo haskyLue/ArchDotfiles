@@ -352,12 +352,12 @@ globalkeys = awful.util.table.join(
 		old_word = new_word
 
 		local fc = ""
-		local f  = io.popen("sdcv -n --utf8-output -u '21世纪英汉汉英双向词典' "..new_word)
+		local f  = io.popen("sdcv -n --utf8-output -u '朗道英汉字典5.0' "..new_word)
 		for line in f:lines() do
 			fc = fc .. line .. '\n'
 		end
 		f:close()
-		frame = naughty.notify({ font = "sans-serif 10", fg= "#ffffff", bg= "#000000bb",text = fc, border_width= 0,timeout = 15 })
+		frame = naughty.notify({ font = "Source Code Pro 9", fg= "#ffcb00", bg= "#333333ee",text = fc, border_width= 0,timeout = 15 })
 	end),
 	awful.key({ modkey, "Shift" }, "d", function ()
 		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)
