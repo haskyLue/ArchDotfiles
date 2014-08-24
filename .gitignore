@@ -29,7 +29,6 @@
 *.swp
 *cache*
 *history*
-*.bak
 *log*
 *pid
 *journal
