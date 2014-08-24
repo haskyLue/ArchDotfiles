@@ -3,13 +3,10 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
--- Widget and layout library
+
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- local vicious = require("vicious")
 local drop = require("drop")
--- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
 
@@ -59,9 +56,9 @@ end
 -- os.setlocale(os.getenv("LANG"))
 
 -- Themes define colours, icons, font and wallpapers.
-local themedir= "sunjack"
-beautiful.init("/home/hasky/.config/awesome/themes/" .. themedir .. "/theme.lua")
-awful.util.spawn_with_shell("ln -sf /home/hasky/.config/awesome/themes/" .. themedir .. "/theme.lua " .. "/home/hasky/.config/awesome/theme.lua") 
+-- local themedir = awful.util.getdir("config")
+-- beautiful.init( themedir .. "/themes/theme.lua")
+beautiful.init( "/home/hasky/.config/awesome/themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -140,12 +137,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 --
 -- separator
 separator = wibox.widget.textbox()
-separator:set_markup('<span color="grey" > .. </span>')
+separator:set_markup('<span color="#ffcb00" > ## </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -sr")
 -- uname:set_font("serif 8")
-uname:set_markup('<span color="red" font="Nimbus Mono L bold 9"> '..showName..'</span>')
+uname:set_markup('<span color="#FF0000" font="Daffadowndilly NF italic 11"> '..showName..'</span>')
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
@@ -218,7 +215,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "20",border_width=0})
+    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "20",border_width=0})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -229,6 +226,7 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+		right_layout:add(separator)
     right_layout:add(mylayoutbox[s])
     right_layout:add(mytaglist[s])
 		right_layout:add(separator)
@@ -359,7 +357,7 @@ globalkeys = awful.util.table.join(
 			fc = fc .. line .. '\n'
 		end
 		f:close()
-		frame = naughty.notify({ font = "sans 10", fg= "#ffffff", bg= "#000000bb",text = fc, timeout = 15 })
+		frame = naughty.notify({ font = "sans-serif 10", fg= "#ffffff", bg= "#000000bb",text = fc, border_width= 0,timeout = 15 })
 	end),
 	awful.key({ modkey, "Shift" }, "d", function ()
 		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)
@@ -483,7 +481,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
 					 size_hints_honor = false } },--这个diao东西貌似是消除窗口全屏留下的空隙
 								 
-    { rule = { class = "URxvt" }, properties = { opacity = 0.9 } },
+    { rule = { class = "URxvt" }, properties = { opacity = 0.8 } },
 	{ rule = { instance = "vmware" }, properties = { tag = tags[1][5]}},
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
 
@@ -563,6 +561,6 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+-- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}

@@ -27,6 +27,8 @@
 *.sqlite
  
 *cache*
+*history*
+*.bak
 *log*
-**/history*
-.urxvt/xdefaults.colors
+*pid
+*journal

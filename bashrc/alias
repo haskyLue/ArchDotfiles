@@ -12,7 +12,6 @@ alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 alias top='sudo atop 3'
-alias curl='curl -I'
 
 # privileged access
 if [ $UID -ne 0 ]; then
