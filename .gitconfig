@@ -1,0 +1,16 @@
+[user]
+	name = hasky
+	email = ludebing@gmail.com
+[http]
+	; proxy = http://127.0.0.1:8087
+[https]
+	; proxy = https://127.0.0.1:8087
+	; sslCAinfo = /usr/share/goagent/local/CA.crt
+[color]
+	ui = true
+[push]
+	default = simple
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
