@@ -103,7 +103,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"①","②","③","④","⑤"},
+	names = {"terminal","terminal","browsers","editor","vmware"},
 	layout = { layouts[2],layouts[7], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
@@ -137,12 +137,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 --
 -- separator
 separator = wibox.widget.textbox()
-separator:set_markup('<span color="#ffcb00" > ## </span>')
+separator:set_markup('<span color="cyan" > ## </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -sr")
 -- uname:set_font("serif 8")
-uname:set_markup('<span color="#FF0000" font="Daffadowndilly NF italic 11"> '..showName..'</span>')
+uname:set_markup('<span color="red" font="Odalisque NF bold"> '..showName..'</span>')
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
@@ -226,7 +226,6 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-		right_layout:add(separator)
     right_layout:add(mylayoutbox[s])
     right_layout:add(mytaglist[s])
 		right_layout:add(separator)
@@ -329,7 +328,7 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- 用户程序{{{
-    awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
+    awful.key({ modkey,	          }, "z",      function () drop(terminal,"bottom") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
     awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
@@ -357,7 +356,7 @@ globalkeys = awful.util.table.join(
 			fc = fc .. line .. '\n'
 		end
 		f:close()
-		frame = naughty.notify({ font = "Source Code Pro 9", fg= "#ffcb00", bg= "#333333ee",text = fc, border_width= 0,timeout = 15 })
+		frame = naughty.notify({ font = "Source Code Pro 9", fg= "#222222", bg= "#ebebebaa",text = fc, border_width= 0,timeout = 15 })
 	end),
 	awful.key({ modkey, "Shift" }, "d", function ()
 		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)
@@ -481,7 +480,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
 					 size_hints_honor = false } },--这个diao东西貌似是消除窗口全屏留下的空隙
 								 
-    { rule = { class = "URxvt" }, properties = { opacity = 0.8 } },
+    { rule = { class = "URxvt" }, properties = { opacity = 0.9 } },
 	{ rule = { instance = "vmware" }, properties = { tag = tags[1][5]}},
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
 
@@ -515,7 +514,7 @@ client.connect_signal("manage", function (c, startup)
         end
     end
 
-    local titlebars_enabled = false
+    local titlebars_enabled = true
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(

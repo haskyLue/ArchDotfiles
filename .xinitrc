@@ -1,4 +1,4 @@
-#!/bin/sh
+!/bin/sh
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
     [ -x "$f" ] && . "$f"
@@ -26,7 +26,7 @@ export BROWSER="chromium"
 export EDITOR="vim"
 
 
-export vblank_mode=0
+# export vblank_mode=0
 
 # 启动应用程序
 compton&

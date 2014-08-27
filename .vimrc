@@ -8,6 +8,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'ervandew/supertab'
+Plugin 'Townk/vim-autoclose'
 Plugin 'vim-scripts/JavaScript-syntax.git'
 Plugin 'vim-scripts/surround.vim'
 Plugin 'vim-scripts/tComment'
@@ -56,7 +58,7 @@ endif
 "设置语法高亮
 syntax enable
 set background=dark
-colorscheme Tomorrow-Night-Bright
+colorscheme wombat256mod
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key

@@ -50,6 +50,7 @@ function Uhosts(){
 	7z e -y /tmp/hosts.7z -o/tmp/
 	echo "finishing..."
 	sudo cp -fv /tmp/imouto.host.txt /etc/hosts
+	head -n2 /etc/hosts | tail -n1
 }
 
 function reload_ath9k(){

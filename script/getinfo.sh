@@ -79,7 +79,7 @@ echo -e '*  '$blue"MPD：$mpdinfo\e[0m"
 echo -e '*  '$white"音量：$volume\e[0m"
 echo '*  '
 echo -e '*  '$magenta"wifi：$wifi\e[0m"
-echo -e '*  '$cyan"$(netspeed)\e[0m"
+# echo -e '*  '$cyan"$(netspeed)\e[0m"
 # main end }}}
 
 

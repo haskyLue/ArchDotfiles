@@ -40,12 +40,11 @@ URxvt.letterSpace : -2
 ! 色彩主题
 ! base color
 #include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors.bak"
-*fadeColor:   white
-*fading:      5
+! *fadeColor:   white
+! *fading:      5
 *dpth: 32
 
 #include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"
-URxvt.background: #141413
 
 ! }}}
 

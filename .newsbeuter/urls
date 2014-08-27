@@ -16,6 +16,8 @@ http://news.163.com/special/00011K6L/rss_newsspecial.xml
 # google news
 https://news.google.com/news?cf=all&ned=cn&hl=zh-CN&topic=t&output=rss
 https://news.google.com/news?cf=all&ned=us&hl=en&topic=tc&output=rss
+# linux china
+http://linux.cn/rss.xml
 # zhihu
 http://www.zhihu.com/rss
 # 果壳网
