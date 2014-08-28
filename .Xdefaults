@@ -14,7 +14,7 @@ URxvt.scrollBar   : false
 URxvt.scrollstyle: plain
 URxvt.transparent: false
 URxvt.shading: 20
-URxvt.internalBorder: 0
+URxvt.internalBorder: 5
 URxvt.externalBorder: 0
 URxvt.scrollTtyOutput:   false
 URxvt.scrollWithBuffer:  true

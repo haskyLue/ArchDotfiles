@@ -96,6 +96,7 @@ local layouts =
 if beautiful.wallpaper then
     for s = 1, screen.count() do
         gears.wallpaper.centered(beautiful.wallpaper, s)
+        -- gears.wallpaper.maximized(beautiful.wallpaper, s)
     end
 end
 -- }}}
@@ -137,12 +138,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 --
 -- separator
 separator = wibox.widget.textbox()
-separator:set_markup('<span color="cyan" > ## </span>')
+separator:set_markup('<span color="grey" > ## </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -sr")
 -- uname:set_font("serif 8")
-uname:set_markup('<span color="red" font="Odalisque NF bold"> '..showName..'</span>')
+uname:set_markup('<span color="red" font="Odalisque NF bold 8"> '..showName..'</span>')
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
@@ -356,7 +357,7 @@ globalkeys = awful.util.table.join(
 			fc = fc .. line .. '\n'
 		end
 		f:close()
-		frame = naughty.notify({ font = "Source Code Pro 9", fg= "#222222", bg= "#ebebebaa",text = fc, border_width= 0,timeout = 15 })
+		frame = naughty.notify({ font = "Lucida G 9", fg= "#222222", bg= "#ebebebaa",text = fc, border_width= 1,timeout = 15 })
 	end),
 	awful.key({ modkey, "Shift" }, "d", function ()
 		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)
@@ -514,7 +515,7 @@ client.connect_signal("manage", function (c, startup)
         end
     end
 
-    local titlebars_enabled = true
+    local titlebars_enabled = false
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
@@ -560,6 +561,6 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
--- client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
--- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}

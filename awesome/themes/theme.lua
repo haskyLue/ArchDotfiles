@@ -19,28 +19,26 @@ theme.font          = "monospace 9"
 -- theme.font          = "Droid Sans Mono 8"
 
 --// Colors
-theme.fg_normal     = "#ebebeb"
-theme.fg_focus      = "#333333"
+theme.fg_normal     = "#cccccc"
+theme.fg_focus      = "#0a9dff"
 theme.fg_urgent     = "#ffcb00"
 
-theme.bg_normal     = "#22222266"
-theme.bg_focus      = "#d9d9d9bb"
+theme.bg_normal     = "#333333cc"
+theme.bg_focus      = "#444444cc"
 theme.bg_urgent     = "#b80000"
 theme.bg_systray    = theme.bg_normal
 
 --// Borders
--- theme.border_width  = "0"
--- theme.border_normal = "#000000"
--- theme.border_focus = "#333333"
--- theme.border_focus  = "#0a9dff"
--- theme.border_marked = "#000000"
+theme.border_width  = "1"
+theme.border_normal = "#333333"
+theme.border_focus  = "#000000"
+theme.border_marked = theme.fg_urgent
 
 --// Titlebars
 theme.titlebar_fg_normal  = "#808080"
 theme.titlebar_fg_focus   = "#ff1717"
 theme.titlebar_bg_normal  = "#363636"
 theme.titlebar_bg_focus   = "#000000"
--- theme.titlebar_font       = "monospace"
 
 -- // taglist
 theme.taglist_bg_focus = theme.bg_focus
@@ -48,7 +46,7 @@ theme.taglist_fg_focus = theme.fg_focus
 
 --// Menu
 theme.menu_bg_normal = "#000000"
-theme.menu_bg_focus  = "#ffffff88"
+theme.menu_bg_focus  = "#ffffff"
 theme.menu_fg_normal = theme.fg_normal
 theme.menu_fg_focus  = theme.fg_focus
 theme.menu_border_width = "0"

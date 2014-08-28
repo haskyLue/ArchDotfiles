@@ -90,6 +90,7 @@ alias pon="sudo pon"
 alias poff="sudo poff -a"
 alias tshark="sudo tshark"
 alias winfo="echo ldb | sudo -S watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
+alias bilibili="cd /home/hasky/Workspace/git/biligrab-danmaku2ass/;cat cookie |xargs -I {} ./bilidan.py --d2aflags 'text_opacity=0.8,font_face=Lucida Grande' --hd -c {}"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 
 # enter directory & edit

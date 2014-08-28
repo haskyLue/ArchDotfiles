@@ -34,7 +34,7 @@ urxvtd -q -f -o&
 mpd&
 mpdscribble&
 fcitx&
-xfce4-power-manager&
+# xfce4-power-manager&
 wicd-gtk -t&
 libreoffice --quickstart&
 shutter --min_at_startup&
