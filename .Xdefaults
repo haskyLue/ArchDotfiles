@@ -20,6 +20,7 @@ URxvt.scrollTtyOutput:   false
 URxvt.scrollWithBuffer:  true
 URxvt.scrollTtyKeypress: true
 URxvt.cursorBlink: true
+URxvt.mouseWheelScrollPage: true
  
 !XFT font
 Xft.dpi: 96
