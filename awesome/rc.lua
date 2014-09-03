@@ -104,7 +104,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"terminal","terminal","browsers","editor","vmware"},
+	names = {"urxvt","urxvt","web","editor","vm"},
 	layout = { layouts[2],layouts[7], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
@@ -138,12 +138,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 --
 -- separator
 separator = wibox.widget.textbox()
-separator:set_markup('<span color="grey" > ## </span>')
+separator:set_markup('<span color="grey" > .. </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -sr")
 -- uname:set_font("serif 8")
-uname:set_markup('<span color="red" font="Odalisque NF bold 8"> '..showName..'</span>')
+uname:set_markup('<span color="red" font="serif bold italic"> '..showName..'</span>')
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
@@ -325,7 +325,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioNext", function () awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")  end),	
 	-- 切换触控板
     awful.key({}, "XF86ScreenSaver", function () awful.util.spawn_with_shell("sh /home/hasky/Documents/dotfiles/script/toggle_psmouse.sh") end),
-    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx' -X") end),
+    -- awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx' -X") end),
+    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("virtualbox --fullscreen --no-debug --startvm xp") end),
     -- }}}
 
     -- 用户程序{{{
@@ -333,7 +334,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
     awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
-    awful.key({ modkey,			  }, "w",	   function () awful.util.spawn("xfce4-appfinder") end),
 	--}}}
 
 	-- {{{ sdcv/stardict
@@ -384,6 +384,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,			  }, "r",	   function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey,			  }, "p",	   function() menubar.show() end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
+    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit)
 )
 
@@ -482,13 +483,13 @@ awful.rules.rules = {
 					 size_hints_honor = false } },--这个diao东西貌似是消除窗口全屏留下的空隙
 								 
     { rule = { class = "URxvt" }, properties = { opacity = 0.9 } },
-	{ rule = { instance = "vmware" }, properties = { tag = tags[1][5]}},
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
 
+	{ rule_any = { class = {"VirtualBox"},instance = {"vmware","vmplayer"}}, properties = { tag = tags[1][5]}},
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },
 	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader"} }, properties = { tag = tags[1][4], switchtotag = true} },
 
-	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"mupdf"} }, properties = { floating = true } }
+	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"mupdf"} }, properties = { floating = true } , callback = awful.placement.centered }
 }
 -- }}}
 

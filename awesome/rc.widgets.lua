@@ -403,7 +403,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
     awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
-    awful.key({ modkey,			  }, "w",	   function () awful.util.spawn("xfce4-appfinder") end),
 	--}}}
 
     -- 拷贝剪贴板

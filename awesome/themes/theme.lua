@@ -13,7 +13,7 @@ layouts	      = themedir .. "/layouts/"
 theme                          = {}
 theme.wallpaper                = "/home/hasky/Downloads/Image/background.jpg"
 theme.tasklist_plain_task_name = true -- 终于找到你了,去掉tasklist name前的符号
-theme.tasklist_disable_icon = true
+theme.tasklist_disable_icon = false
 
 theme.font          = "monospace 9"
 -- theme.font          = "Droid Sans Mono 8"
@@ -23,8 +23,8 @@ theme.fg_normal     = "#cccccc"
 theme.fg_focus      = "#0a9dff"
 theme.fg_urgent     = "#ffcb00"
 
-theme.bg_normal     = "#333333cc"
-theme.bg_focus      = "#444444cc"
+theme.bg_normal     = "#000000cc"
+theme.bg_focus      = "#333333dd"
 theme.bg_urgent     = "#b80000"
 theme.bg_systray    = theme.bg_normal
 
@@ -60,8 +60,8 @@ theme.taglist_squares_unsel = themedir .. "/taglist/squarez.png"
 theme.taglist_squares_resize = "false"
 
 --// Misc
-theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon-l.png"
---theme.menu_submenu_icon      = sharedthemes .. "/default/submenu.png"
+theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon.png"
+-- theme.menu_submenu_icon      = sharedthemes .. "/default/submenu.png"
 theme.tasklist_floating_icon = sharedthemes .. "/default/tasklist/floatingw.png"
 
 --// Layout

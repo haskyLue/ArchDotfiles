@@ -58,7 +58,7 @@ endif
 "设置语法高亮
 syntax enable
 set background=dark
-colorscheme wombat256mod
+colorscheme Tomorrow-Night-Eighties
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key

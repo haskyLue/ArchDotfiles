@@ -34,16 +34,15 @@ urxvtd -q -f -o&
 mpd&
 mpdscribble&
 fcitx&
-# xfce4-power-manager&
 wicd-gtk -t&
 libreoffice --quickstart&
 shutter --min_at_startup&
 xflux -l 32.054829 -g 118.795193&
 stardict -h&
+pcmanfm -d&
 
 (xmodmap ~/.Xmodmap ) && (xrdb -merge .Xdefaults )
 
 # 启动WM/DE 
 # echo "" > ~/.cache/awesome/stderr > ~/.cache/awesome/stdout; exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
-# exec startxfce4 
 exec /usr/bin/awesome 

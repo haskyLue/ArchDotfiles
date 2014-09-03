@@ -1,4 +1,4 @@
-source "/home/hasky/Documents/dotfiles/bashrc/color"
+source "/home/hasky/Documents/dotfiles/bashrc/color.sh"
 
 #	default  {{{
 [ -z "$PS1" ] && return
@@ -9,6 +9,7 @@ force_color_prompt=yes
 shopt -s histappend # append to the history file, don't overwrite it
 shopt -s checkwinsize # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s extglob
+shopt -s autocd
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)" # make less more friendly for non-text input files, see lesspipe(1)
 if [[ $UID -ne 0 ]]
 then
@@ -29,11 +30,11 @@ export EDITOR="vim"
 # export vblank_mode=0
 # }}}
 
-source "/home/hasky/Documents/dotfiles/bashrc/alias"
-source "/home/hasky/Documents/dotfiles/bashrc/functions"
+source "/home/hasky/Documents/dotfiles/bashrc/alias.sh"
+source "/home/hasky/Documents/dotfiles/bashrc/functions.sh"
 
 clear
-# archey3 -c blue
-fortune -a | fmt -w 80 -s | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
+archey3 -c blue
+# fortune -a | fmt -w 80 -s | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
 kaoyan
 if ! pgrep "xinit" -u $UID >> /dev/null ; then [ $UID -gt 0 ] && startx; fi

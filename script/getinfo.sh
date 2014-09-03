@@ -1,6 +1,7 @@
 #! /bin/bash 
 # create by ldb
 
+secret="/home/hasky/Workspace/secret"
 # color define
 black='\E[30;47m'
 red='\E[31;47m'
@@ -12,12 +13,12 @@ cyan='\E[36;47m'
 white='\E[37;47m'
 
 cputemp=$(sensors -A | awk '/Core/ {print $1$2,$3}' | paste -sd "\t")
-hddtemp=$(sudo hddtemp /dev/sda /dev/sdb|awk '{$3="-"; print $0}'|paste -sd "\t")
-mpdinfo=$(mpc status |head -n2|xargs -L2 echo)
+hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $0}'| paste -sd "\t")
+mpdinfo=$(mpc status |head -n2|sed 'N;s/\n/ /')
 wifi=$(wicd-cli -yd|head -n2|paste -sd '\t')
 netinterface=$(route -v | awk '/default/ {print $8}')
 volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
-uptime=$( uptime | cut -d\  -f6-)
+# uptime=$( uptime | cut -d\  -f6-)
 
 # function {{{
 function update_weather(){
@@ -71,7 +72,7 @@ figlet -c About PC
 echo
 echo -e '*  '$magenta"$(get_weather)\e[0m"
 echo '*  '
-echo -e '*  '$cyan"UPTIME：$uptime\e[0m"
+# echo -e '*  '$cyan"UPTIME：$uptime\e[0m"
 echo -e '*  '$green"CPU温度：$cputemp\e[0m"
 echo -e '*  '$yellow"硬盘温度：$hddtemp\e[0m"
 echo '*  '
@@ -79,7 +80,7 @@ echo -e '*  '$blue"MPD：$mpdinfo\e[0m"
 echo -e '*  '$white"音量：$volume\e[0m"
 echo '*  '
 echo -e '*  '$magenta"wifi：$wifi\e[0m"
-# echo -e '*  '$cyan"$(netspeed)\e[0m"
+echo -e '*  '$cyan"$(netspeed)\e[0m"
 # main end }}}
 
 

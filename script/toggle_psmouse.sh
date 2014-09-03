@@ -1,9 +1,9 @@
 #! /bin/bash
+secret="/home/hasky/Workspace/secret"
 
-PASSWD="ldb"
 if [ -n "$(lsmod | grep psmouse)" ] ; then
-	echo $PASSWD | sudo -S modprobe -r psmouse 
+	sudo -S modprobe -r psmouse < $secret
 else
-	echo $PASSWD | sudo -S modprobe psmouse 
+	sudo -S modprobe psmouse < $secret
 fi
 

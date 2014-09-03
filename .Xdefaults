@@ -26,15 +26,15 @@ URxvt.mouseWheelScrollPage: true
 Xft.dpi: 96
 Xft.autohint  : 0
 Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintmedium
+Xft.hintstyle : hintslight
 Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
-URxvt.font:xft:Source Code Pro:size=9:style=Medium:antialias=true,\
+URxvt.font:xft:Liberation Mono:size=9:style=Medium:antialias=true,\
 	 xft:  LiHei Pro:size=10:style=Regular
-URxvt.boldfont:xft:Source Code Pro:size=9:style=Semibold:antialias=true,\
+URxvt.boldfont:xft:Liberation Mono:size=9:style=Semibold:antialias=true,\
 	 xft:  LiHei Pro:size=10:style=Bold
-URxvt.italicfont:xft:Source Code Pro:size=9:style=Italic:antialias=true,\
+URxvt.italicfont:xft:Liberation Mono:size=9:style=Italic:antialias=true,\
 	 xft:  LiHei Pro:size=10:style=Italic
 URxvt.letterSpace : -2
 
@@ -65,8 +65,8 @@ xterm*locale: true
 xterm*utf8:     true
 xterm*utf8Title: true
 xterm*fontMenu*fontdefault*Label: Default
-xterm*faceName: Source Code Pro:antialias=True:pixelsize=12
-xterm*faceNameDoublesize:WenQuanYi Micro Hei Mono:pixelsize=12:antialias=True
+xterm*faceName: Liberation Mono:antialias=True:pixelsize=12
+xterm*faceNameDoublesize:sans:pixelsize=12:antialias=True
 xterm*xftAntialias: true
 xterm*cjkWidth:false       
 ! }}}
@@ -98,10 +98,10 @@ URxvt.keysym.Control-Shift-C: perl:clipboard:copy
 URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 
 ! move key
-URxvt.keysym.Shift-Up:          \033[1;2A
-URxvt.keysym.Shift-Down:        \033[1;2B
-URxvt.keysym.Shift-Right:       \033[1;2C
-URxvt.keysym.Shift-Left:        \033[1;2D
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+! URxvt.keysym.Shift-Right:       \033[1;2C
+! URxvt.keysym.Shift-Left:        \033[1;2D
 URxvt.keysym.Control-b:         \002
 URxvt.keysym.Control-c:         \003
 URxvt.keysym.Control-r:         \022
