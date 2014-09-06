@@ -95,8 +95,8 @@ local layouts =
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.centered(beautiful.wallpaper, s)
-        -- gears.wallpaper.maximized(beautiful.wallpaper, s)
+        -- gears.wallpaper.centered(beautiful.wallpaper, s)
+        gears.wallpaper.maximized(beautiful.wallpaper, s)
     end
 end
 -- }}}
@@ -104,8 +104,8 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"urxvt","urxvt","web","editor","vm"},
-	layout = { layouts[2],layouts[7], layouts[1], layouts[1], layouts[1] }
+	names = {"Tmux","Terminal","Web","Editor","Vbox/VMware"},
+	layout = { layouts[2],layouts[3], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -138,15 +138,15 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 --
 -- separator
 separator = wibox.widget.textbox()
-separator:set_markup('<span color="grey" > .. </span>')
+separator:set_markup('<span color="#d84432" >  </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
-showName=awful.util.pread("uname -sr")
+showName=awful.util.pread("uname -r")
 -- uname:set_font("serif 8")
-uname:set_markup('<span color="red" font="serif bold italic"> '..showName..'</span>')
+uname:set_markup('<span color="red" font="Anonymous Pro for Powerline bold"> '..showName..'</span>')
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
+-- mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -216,7 +216,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "20",border_width=0})
+    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "21",border_width=0})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -230,8 +230,8 @@ for s = 1, screen.count() do
     right_layout:add(mylayoutbox[s])
     right_layout:add(mytaglist[s])
 		right_layout:add(separator)
-    right_layout:add(mytextclock)
-		right_layout:add(separator)
+    -- right_layout:add(mytextclock)
+		-- right_layout:add(separator)
     if s == 1 then right_layout:add(wibox.widget.systray()) end
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -330,10 +330,9 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- 用户程序{{{
-    awful.key({ modkey,	          }, "z",      function () drop(terminal,"bottom") end),
+    awful.key({ modkey,	          }, "z",      function () drop("urxvt","bottom") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
-    awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
 	--}}}
 
 	-- {{{ sdcv/stardict
@@ -357,7 +356,7 @@ globalkeys = awful.util.table.join(
 			fc = fc .. line .. '\n'
 		end
 		f:close()
-		frame = naughty.notify({ font = "Lucida G 9", fg= "#222222", bg= "#ebebebaa",text = fc, border_width= 1,timeout = 15 })
+		frame = naughty.notify({ font = "monospace 9", fg= "#222222", bg= "#ebebebaa",text = fc, border_width= 1,timeout = 15 })
 	end),
 	awful.key({ modkey, "Shift" }, "d", function ()
 		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)
@@ -384,7 +383,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,			  }, "r",	   function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey,			  }, "p",	   function() menubar.show() end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit)
 )
 
@@ -489,7 +487,7 @@ awful.rules.rules = {
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },
 	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader"} }, properties = { tag = tags[1][4], switchtotag = true} },
 
-	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"mupdf"} }, properties = { floating = true } , callback = awful.placement.centered }
+	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"mupdf","xfce4-terminal"} }, properties = { floating = true } , callback = awful.placement.centered }
 }
 -- }}}
 

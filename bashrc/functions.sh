@@ -126,9 +126,5 @@ peacefun()
 	COMPREPLY=( $( pacman -Sl | cut -d " " -f 2 | grep ^$cur 2> /dev/null ) )
 	return 0
 }
-complete -F peacefun $filenames pi
-complete -F peacefun $filenames i
-complete -F peacefun $filenames s
-complete -F peacefun $filenames p
-complete -F peacefun $filenames r
+[[ $SHELL = "/usr/bin/bash" ]] && ( complete -F peacefun $filenames pi; complete -F peacefun $filenames i; complete -F peacefun $filenames s; complete -F peacefun $filenames p; complete -F peacefun $filenames r; )
 # }}}

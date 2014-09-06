@@ -1,13 +1,12 @@
-! 启动快了
+! MISC
 URxvt.preeditType	: Root 
 URxvt.saveLines		: 12000
-URxvt.loginShell	: true
+URxvt.print-pipe: "cat > /dev/null"
 
-! 外观 {{{
-! misc
+! apperance {{{
 URxvt.geometry		: 100x40
 URxvt.termName    : rxvt-256color
-URxvt.iconFile    : /usr/share/icons/Numix-Circle/48x48/apps/Terminal.svg
+URxvt.iconFile    : /usr/share/icons/Circle-Flat/apps/scalable/xfce-terminal.svg
 URxvt.iso14755	  : false
 URxvt.iso14755_52: false 
 URxvt.scrollBar   : false
@@ -26,19 +25,21 @@ URxvt.mouseWheelScrollPage: true
 Xft.dpi: 96
 Xft.autohint  : 0
 Xft.lcdfilter : lcddefault
-Xft.hintstyle : hintslight
+Xft.hintstyle : hintfull
 Xft.hinting   : true
 Xft.antialias : true
 Xft.rgba      : rgb
-URxvt.font:xft:Liberation Mono:size=9:style=Medium:antialias=true,\
-	 xft:  LiHei Pro:size=10:style=Regular
-URxvt.boldfont:xft:Liberation Mono:size=9:style=Semibold:antialias=true,\
-	 xft:  LiHei Pro:size=10:style=Bold
-URxvt.italicfont:xft:Liberation Mono:size=9:style=Italic:antialias=true,\
-	 xft:  LiHei Pro:size=10:style=Italic
-URxvt.letterSpace : -2
+URxvt.font:\
+			xft:monospace:size=9:Regular,\
+			xft:LiHei Pro:size=10:style=Regular,\
+			xft:WenQuanYi Bitmap Song
+URxvt.boldfont:\
+			xft:monospace:size=9:Bold,\
+			xft:LiHei Pro:size=10:style=Bold,\
+			xft:WenQuanYi Bitmap Song
+! URxvt.letterSpace : 2
 
-! 色彩主题
+! colorscheme
 ! base color
 #include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors.bak"
 ! *fadeColor:   white
@@ -54,7 +55,7 @@ xterm*termName: xterm-256color
 xterm*geometry: 80x36
 xterm*scrollBar: false
 xterm*rightScrollBar: true
-xterm*loginshell: true
+xterm*loginshell: flase
 xterm*background:  black
 xterm*foreground:  gray
 xterm*borderLess: true
@@ -65,14 +66,17 @@ xterm*locale: true
 xterm*utf8:     true
 xterm*utf8Title: true
 xterm*fontMenu*fontdefault*Label: Default
-xterm*faceName: Liberation Mono:antialias=True:pixelsize=12
+xterm*faceName: Meslo LG M for Powerline:antialias=True:pixelsize=11
 xterm*faceNameDoublesize:sans:pixelsize=12:antialias=True
 xterm*xftAntialias: true
 xterm*cjkWidth:false       
 ! }}}
 
 ! 扩展 {{{
-! Ctrl+Insert can be used to copy and Shift+Insert to paste.
+/* 
+ * Ctrl+Insert to copy 
+ * Shift+Insert to paste.
+ */
 
 URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard,font-size
 ! URxvt.tabbed.tabbar-fg: 0
@@ -80,28 +84,33 @@ URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard,font-size
 ! URxvt.tabbed.tab-fg: 3
 ! URxvt.tabbed.tab-bg: 0
 
-! Alt+u Enter selection mode. The last URL on your screen will be selected. 
-! k Select next upward URL
-! j Select next downward URL
-! Return Open selected URL in browser and quit selection mode
-! o Open selected URL in browser without quitting selection mode
-! Esc Cancel URL selection mode
+/* 
+ * Alt+u Enter selection mode. The last URL on your screen will be selected. 
+ * k Select next upward URL
+ * j Select next downward URL
+ * Return Open selected URL in browser and quit selection mode
+ * o Open selected URL in browser without quitting selection mode
+ * Esc Cancel URL selection mode
+ */
 URxvt.keysym.M-u			: perl:url-select:select_next
+URxvt.underlineURLs:  True
+URxvt.matcher.button: 1 
 URxvt.url-select.launcher	: xdg-open
 URxvt.url-select.underline	: true
 URxvt.url-select.autocopy	: true
+URxvt.matcher.button: 1
 
-! copy paste
+! copy paste: alt
+URxvt.keysym.M-Escape:perl:keyboard-select:activate
+URxvt.keysym.M-c:     perl:clipboard:copy
+URxvt.keysym.M-v:     perl:clipboard:paste
+URxvt.keysym.M-C-v:   perl:clipboard:paste_escaped
 URxvt.clipboard.copycmd:  xsel --input  --clipboard
 URxvt.clipboard.pastecmd: xsel --output --clipboard
-URxvt.keysym.Control-Shift-C: perl:clipboard:copy
-URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 
 ! move key
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
-! URxvt.keysym.Shift-Right:       \033[1;2C
-! URxvt.keysym.Shift-Left:        \033[1;2D
 URxvt.keysym.Control-b:         \002
 URxvt.keysym.Control-c:         \003
 URxvt.keysym.Control-r:         \022

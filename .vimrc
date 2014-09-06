@@ -20,6 +20,8 @@ Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/vimcdoc'
 Plugin 'vim-scripts/OmniCppComplete'
 Plugin 'vim-scripts/Javascript-OmniCompletion-with-YUI-and-j'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'bling/vim-airline'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -58,7 +60,7 @@ endif
 "设置语法高亮
 syntax enable
 set background=dark
-colorscheme Tomorrow-Night-Eighties
+colorscheme Tomorrow-Night
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key
@@ -146,10 +148,17 @@ set number
 
 " 高亮当前行
 set cursorline 
-" hi CursorLine cterm=NONE ctermbg=yellow ctermfg=black guibg=NONE guifg=NONE
+" hi CursorLine cterm=NONE ctermbg=cyan ctermfg=black guibg=NONE guifg=NONE
 
 "modify
 set modifiable
 
 "代码折叠
 set foldmethod=marker
+
+"关闭提示
+set noshowmode
+
+set laststatus=2   " Always show the statusline
+let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1

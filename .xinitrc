@@ -45,4 +45,4 @@ pcmanfm -d&
 
 # 启动WM/DE 
 # echo "" > ~/.cache/awesome/stderr > ~/.cache/awesome/stdout; exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
-exec /usr/bin/awesome 
+exec awesome 
