@@ -29,9 +29,6 @@ Plugin 'bling/vim-airline'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-filetype plugin on
-"
 " Brief help
 " :PluginList          - list configured plugins
 " :PluginInstall(!)    - install (update) plugins
@@ -41,7 +38,9 @@ filetype plugin on
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 """""""""""""""""""""""""""""Vundle_above""""""""""""""""""""""""""""""""""" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 
 "设置编码
 set encoding=utf-8
@@ -109,7 +108,7 @@ if exists("tags")
 endif
 
 "设置默认shell
-set shell=bash
+set shell=zsh
 
 "设置VIM记录的历史数
 set history=400
@@ -147,7 +146,7 @@ set nowb
 set number
 
 " 高亮当前行
-set cursorline 
+" set cursorline 
 " hi CursorLine cterm=NONE ctermbg=cyan ctermfg=black guibg=NONE guifg=NONE
 
 "modify
@@ -156,9 +155,10 @@ set modifiable
 "代码折叠
 set foldmethod=marker
 
-"关闭提示
+"powerline
 set noshowmode
-
 set laststatus=2   " Always show the statusline
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
+
+au BufNewFile,BufRead *.md set filetype=markdown

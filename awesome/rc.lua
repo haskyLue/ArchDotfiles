@@ -104,7 +104,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"Tmux","Terminal","Web","Editor","Vbox/VMware"},
+	names = {"1-Tmux","2-Terminal","3-WWW","4-Editor","5-VM"},
 	layout = { layouts[2],layouts[3], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
@@ -138,12 +138,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 --
 -- separator
 separator = wibox.widget.textbox()
-separator:set_markup('<span color="#d84432" >  </span>')
+separator:set_markup('<span color="grey" >  ››  </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -r")
 -- uname:set_font("serif 8")
-uname:set_markup('<span color="red" font="Anonymous Pro for Powerline bold"> '..showName..'</span>')
+uname:set_markup('<span color="red" font=""> '..showName..'</span>')
 
 -- Create a textclock widget
 -- mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
@@ -216,7 +216,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "21",border_width=0})
+	mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "18",border_width=1})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -224,15 +224,16 @@ for s = 1, screen.count() do
     left_layout:add(uname)
 		left_layout:add(separator)
     left_layout:add(mypromptbox[s])
+    if s == 1 then left_layout:add(wibox.widget.systray()) end
+		left_layout:add(separator)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    right_layout:add(mylayoutbox[s])
-    right_layout:add(mytaglist[s])
 		right_layout:add(separator)
+    right_layout:add(mytaglist[s])
+    right_layout:add(mylayoutbox[s])
     -- right_layout:add(mytextclock)
 		-- right_layout:add(separator)
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -333,6 +334,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,	          }, "z",      function () drop("urxvt","bottom") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
+    awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
 	--}}}
 
 	-- {{{ sdcv/stardict
@@ -485,7 +487,7 @@ awful.rules.rules = {
 
 	{ rule_any = { class = {"VirtualBox"},instance = {"vmware","vmplayer"}}, properties = { tag = tags[1][5]}},
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },
-	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader"} }, properties = { tag = tags[1][4], switchtotag = true} },
+	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader","Evince"} }, properties = { tag = tags[1][4], switchtotag = true} },
 
 	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"mupdf","xfce4-terminal"} }, properties = { floating = true } , callback = awful.placement.centered }
 }

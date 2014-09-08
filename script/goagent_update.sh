@@ -25,8 +25,8 @@ function goagent_update(){
 	local goagent="/home/hasky/Workspace/git/goagent"
 	cd $goagent
 
-	sudo -S git reset --hard < $secret
-	sudo -S git pull -f origin 3.0 < $secret
+	# sudo -S git reset --hard < $secret
+	sudo -S git pull origin 3.0 < $secret
 	sudo git checkout < $secret
 	sed  -in 's/self\.log.*INFO.*$/pass/g' ./local/proxy.py #关闭info输出
 

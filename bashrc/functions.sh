@@ -68,6 +68,17 @@ kaoyan(){
 	let spare_time="($target_time-$now_time)/3600/24"
 	echo -e "\e[5m距离考研还有$spare_time天\e[0m"
 }
+Ugitdir(){
+	local DIR="/home/hasky/Workspace/git"
+	for dir in $DIR/*
+	do
+		if [ -d $dir ]; then
+			echo "\e[34m UPDATING \e[0m $dir..."
+			cd $dir
+			git pull -v origin
+		fi
+	done
+}
 
 extract() {
     local c e i
@@ -102,18 +113,6 @@ extract() {
         ((e = e || $?))
     done
     return "$e"
-}
-cl() {
-    dir=$1
-    if [[ -z "$dir" ]]; then
-        dir=$HOME
-    fi
-    if [[ -d "$dir" ]]; then
-        cd "$dir"
-        ls
-    else
-        echo "bash: cl: '$dir': Directory not found"
-    fi
 }
 calc() {
     echo "scale=3;$@" | bc -l

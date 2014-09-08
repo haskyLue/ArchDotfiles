@@ -60,8 +60,10 @@ alias update="figlet -c Package Update && yaourt -Syyua "
 alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
 
 # somemore
-alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null; wicd-cli -xy"
-alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0;curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null; fi"
+# alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null; wicd-cli -xy"
+alias offwifi="wicd-cli -xy"
+# alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0;curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null; fi"
+alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0"
 alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
 alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
@@ -101,6 +103,8 @@ alias Cn="cd /home/hasky/Documents/note&&ll"
 alias Ca="cd /home/hasky/.config/awesome/&&ll"
 alias Cz="cd /home/hasky/.oh-my-zsh"
 alias Vgo="vim /home/hasky/Workspace/git/goagent/local/proxy.user.ini"
+alias Vtpl="vim /home/hasky/Workspace/git/tmux-powerline/themes/default.sh"
+alias Vt="vim /home/hasky/.tmux.conf"
 alias Vtask="vim /home/hasky/Documents/task.md"
 alias Vrss="vim /home/hasky/.newsbeuter/urls"
 alias Valias="vim /run/media/storage/Documents/dotfiles/bashrc/alias.sh"

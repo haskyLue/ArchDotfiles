@@ -15,16 +15,16 @@ theme.wallpaper                = "/home/hasky/Downloads/Image/background.jpg"
 theme.tasklist_plain_task_name = true -- 终于找到你了,去掉tasklist name前的符号
 theme.tasklist_disable_icon = false
 
-theme.font          = "WenQuanYi Bitmap Song 9"
--- theme.font          = "Droid Sans Mono 8"
+theme.font          = "WenQuanYi Bitmap Song 8"
 
 --// Colors
 theme.fg_normal     = "#ffffff"
-theme.fg_focus      = "#66d9ef"
+theme.fg_focus      = "#ff7e00"
 theme.fg_urgent     = "#ffcb00"
 
-theme.bg_normal     = "#333333"
-theme.bg_focus      = "#404040" 
+theme.bg_normal     = "#000000"
+-- theme.bg_focus      = "#404040" 
+theme.bg_focus      = "#000000" 
 theme.bg_urgent     = "#b80000"
 theme.bg_systray    = theme.bg_normal
 
@@ -60,7 +60,7 @@ theme.taglist_squares_unsel = themedir .. "/taglist/squarez.png"
 theme.taglist_squares_resize = "false"
 
 --// Misc
-theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon-l.png"
+theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon.png"
 -- theme.menu_submenu_icon      = sharedthemes .. "/default/submenu.png"
 theme.tasklist_floating_icon = sharedthemes .. "/default/tasklist/floatingw.png"
 
