@@ -41,9 +41,7 @@ URxvt.letterSpace : 1
 
 ! colorscheme
 ! base color
-#include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors.bak"
-! *fadeColor:   white
-! *fading:      5
+#include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors.base"
 *dpth: 32
 
 #include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"

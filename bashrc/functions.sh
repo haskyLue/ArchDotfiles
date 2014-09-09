@@ -57,17 +57,6 @@ Uhosts(){
 	sudo cp -fv /tmp/imouto.host.txt /etc/hosts
 	head -n2 /etc/hosts | tail -n1
 }
-reload_ath9k(){
-	sudo modprobe -rv ath9k
-	sleep 5
-	sudo modprobe -fv ath9k
-}
-kaoyan(){
-	local target_time=1420331400 #2015,1,4
-	local now_time=$(date +%s)
-	let spare_time="($target_time-$now_time)/3600/24"
-	echo -e "\e[5m距离考研还有$spare_time天\e[0m"
-}
 Ugitdir(){
 	local DIR="/home/hasky/Workspace/git"
 	for dir in $DIR/*
@@ -78,6 +67,17 @@ Ugitdir(){
 			git pull -v origin
 		fi
 	done
+}
+reload_ath9k(){
+	sudo modprobe -rv ath9k
+	sleep 5
+	sudo modprobe -fv ath9k
+}
+kaoyan(){
+	local target_time=1420331400 #2015,1,4
+	local now_time=$(date +%s)
+	let spare_time="($target_time-$now_time)/3600/24"
+	echo -e "\e[5m距离考研还有$spare_time天\e[0m"
 }
 
 extract() {
@@ -116,6 +116,14 @@ extract() {
 }
 calc() {
     echo "scale=3;$@" | bc -l
+}
+
+listAllCommands()
+{
+    COMMANDS=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
+        -executable -type f -printf '%P\n' 2>/dev/null`
+    ALIASES=`alias | cut -d '=' -f 1`
+    echo "$COMMANDS"$'\n'"$ALIASES" | sort -u
 }
 
 # pacman autocomplete {{{

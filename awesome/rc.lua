@@ -95,8 +95,8 @@ local layouts =
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        -- gears.wallpaper.centered(beautiful.wallpaper, s)
-        gears.wallpaper.maximized(beautiful.wallpaper, s)
+        gears.wallpaper.centered(beautiful.wallpaper, s)
+        -- gears.wallpaper.maximized(beautiful.wallpaper, s)
     end
 end
 -- }}}
@@ -138,7 +138,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 --
 -- separator
 separator = wibox.widget.textbox()
-separator:set_markup('<span color="grey" >  ››  </span>')
+separator:set_markup('<span color="grey" > ›› </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -r")
@@ -216,7 +216,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-	mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "18",border_width=1})
+	mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "18",border_width=2,border_color="#000000"})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -382,6 +382,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,			  }, "c",	   function () os.execute("xsel -p -o | xsel -i -b") end),
 	
     -- awesome
+	awful.key({ modkey			  }, "b",	   function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),
     awful.key({ modkey,			  }, "r",	   function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey,			  }, "p",	   function() menubar.show() end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),

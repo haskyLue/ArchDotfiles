@@ -15,7 +15,8 @@ theme.wallpaper                = "/home/hasky/Downloads/Image/background.jpg"
 theme.tasklist_plain_task_name = true -- 终于找到你了,去掉tasklist name前的符号
 theme.tasklist_disable_icon = false
 
-theme.font          = "WenQuanYi Bitmap Song 8"
+-- theme.font          = "WenQuanYi Bitmap Song 8"
+theme.font          = "monospace 8"
 
 --// Colors
 theme.fg_normal     = "#ffffff"
@@ -29,7 +30,7 @@ theme.bg_urgent     = "#b80000"
 theme.bg_systray    = theme.bg_normal
 
 --// Borders
-theme.border_width  = "1"
+theme.border_width  = "0"
 theme.border_normal = "#333333"
 theme.border_focus  = theme.bg_focus
 theme.border_marked = theme.fg_urgent

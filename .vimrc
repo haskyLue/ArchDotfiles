@@ -155,6 +155,9 @@ set modifiable
 "代码折叠
 set foldmethod=marker
 
+"高亮搜索
+set hlsearch
+
 "powerline
 set noshowmode
 set laststatus=2   " Always show the statusline
