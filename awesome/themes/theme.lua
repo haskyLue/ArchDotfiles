@@ -16,7 +16,7 @@ theme.tasklist_plain_task_name = true -- 终于找到你了,去掉tasklist name�
 theme.tasklist_disable_icon = false
 
 -- theme.font          = "WenQuanYi Bitmap Song 8"
-theme.font          = "monospace 8"
+theme.font          = "Monaco for Powerline 8"
 
 --// Colors
 theme.fg_normal     = "#ffffff"
