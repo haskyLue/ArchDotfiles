@@ -316,18 +316,18 @@ globalkeys = awful.util.table.join(
 
     -- 多媒体按键绑定 {{{
     -- ALSA volume control
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -q set Master 1%+") end),
-    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -q set Master 1%-") end),
-    awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -q set Master playback toggle") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vup") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vdown") end),
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vdown") end),
     -- MPD control
-    awful.key({}, "XF86AudioStop", function () awful.util.spawn_with_shell("mpc toggle || ncmpcpp toggle || ncmpc toggle || pms toggle") end),
-    awful.key({}, "XF86AudioPlay", function () awful.util.spawn_with_shell("mpc stop || ncmpcpp stop || ncmpc stop || pms stop")  end),
-    awful.key({}, "XF86AudioPrev", function () awful.util.spawn_with_shell("mpc prev || ncmpcpp prev || ncmpc prev || pms prev")  end),
-    awful.key({}, "XF86AudioNext", function () awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")  end),	
+    awful.key({}, "XF86AudioStop", function () awful.util.spawn_with_shell("mpc toggle | xargs -I  {} -0 notify-send {}") end),
+    awful.key({}, "XF86AudioPlay", function () awful.util.spawn_with_shell("mpc stop | xargs -I  {} -0 notify-send {}")  end),
+    awful.key({}, "XF86AudioPrev", function () awful.util.spawn_with_shell("mpc prev | xargs -I  {} -0 notify-send {}")  end),
+    awful.key({}, "XF86AudioNext", function () awful.util.spawn_with_shell("mpc next | xargs -I  {} -0 notify-send {}")  end),	
 	-- 切换触控板
     awful.key({}, "XF86ScreenSaver", function () awful.util.spawn_with_shell("sh /home/hasky/Documents/dotfiles/script/toggle_psmouse.sh") end),
     -- awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx' -X") end),
-    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("virtualbox --fullscreen --no-debug --startvm xp") end),
+    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("notify-send 'Vbox 加载中...' ; virtualbox --fullscreen --no-debug --startvm xp") end),
     -- }}}
 
     -- 用户程序{{{
@@ -335,8 +335,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
     awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
-	--}}}
-
+    awful.key({ modkey,			  }, "v",	   function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/bilibili.sh") end),
 	-- {{{ sdcv/stardict
 	awful.key({ modkey }, "d", function ()
 		local f = io.popen("xsel -o")
@@ -377,6 +376,8 @@ globalkeys = awful.util.table.join(
 		end, nil, awful.util.getdir("cache").."/dict")
 	end),
 	-- }}}
+	
+	--}}}
 
     -- 拷贝剪贴板
     awful.key({ modkey,			  }, "c",	   function () os.execute("xsel -p -o | xsel -i -b") end),
@@ -490,7 +491,7 @@ awful.rules.rules = {
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },
 	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader","Evince"} }, properties = { tag = tags[1][4], switchtotag = true} },
 
-	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"mupdf","xfce4-terminal"} }, properties = { floating = true } , callback = awful.placement.centered }
+	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"xfce4-terminal"} }, properties = { floating = true } , callback = awful.placement.centered }
 }
 -- }}}
 

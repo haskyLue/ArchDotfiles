@@ -25,6 +25,8 @@ export QT_IM_MODULE="fcitx"
 export BROWSER="chromium"
 export EDITOR="vim"
 
+# export GDK_BACKEND=wayland
+
 
 # export vblank_mode=0
 

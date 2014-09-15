@@ -63,7 +63,7 @@ alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD fil
 # alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null; wicd-cli -xy"
 alias offwifi="wicd-cli -xy"
 # alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0;curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null; fi"
-alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0; fi"
+alias onwifi="wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY_C1D49C/ {print $1}'`"
 alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
 alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
@@ -78,6 +78,7 @@ alias Sunmute="amixer set Master unmute"
 
 # start app 
 alias goagent="figlet -c goagent && sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
+# alias goagent="figlet -c goagent && sudo /usr/share/goagent/local/goagent"
 alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 alias trash="sudo gvfs-trash"
 alias youdao="ydcv -f"
@@ -92,7 +93,7 @@ alias pon="sudo pon"
 alias poff="sudo poff -a"
 alias tshark="sudo tshark"
 alias winfo="echo ldb | sudo -S watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
-alias bilibili="cd /home/hasky/Workspace/git/biligrab-danmaku2ass/;cat cookie |xargs -I {} ./bilidan.py --d2aflags 'text_opacity=0.8,font_face=Lucida Grande' --hd -c {}"
+alias bilibili="/home/hasky/Documents/dotfiles/script/bilibili.sh"
 alias tm="tmux"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 

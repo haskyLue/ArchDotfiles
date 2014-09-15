@@ -30,7 +30,7 @@ theme.bg_urgent     = "#b80000"
 theme.bg_systray    = theme.bg_normal
 
 --// Borders
-theme.border_width  = "0"
+theme.border_width  = "1"
 theme.border_normal = "#333333"
 theme.border_focus  = theme.bg_focus
 theme.border_marked = theme.fg_urgent

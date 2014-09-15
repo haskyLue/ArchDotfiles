@@ -74,10 +74,10 @@ reload_ath9k(){
 	sudo modprobe -fv ath9k
 }
 kaoyan(){
-	local target_time=1420331400 #2015,1,4
+	local target_time=1419609600
 	local now_time=$(date +%s)
 	let spare_time="($target_time-$now_time)/3600/24"
-	echo -e "\e[5m距离考研还有$spare_time天\e[0m"
+	echo -e "\e[5m距离考研还有 $spare_time (12.27)天\e[0m"
 }
 
 extract() {

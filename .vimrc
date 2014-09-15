@@ -156,7 +156,7 @@ set modifiable
 set foldmethod=marker
 
 "高亮搜索
-set hlsearch
+" set hlsearch
 
 "powerline
 set noshowmode
