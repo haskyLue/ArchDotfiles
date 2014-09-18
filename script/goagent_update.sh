@@ -27,8 +27,8 @@ function goagent_update(){
 
 	# git rm -r --cached .< $secret
 	sudo -S git reset --hard < $secret
-	sudo -S git clean -f <$secret
-	sudo -S git pull origin 3.0 < $secret
+	# git clean -f <$secret
+	sudo -S git pull -f origin 3.0 < $secret
 	sed  -in 's/self\.log.*INFO.*$/pass/g' ./local/proxy.py #关闭info输出
 
 	sudo -S rm -f ./local/CA.crt < $secret # 重新生成证书

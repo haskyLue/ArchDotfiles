@@ -32,7 +32,7 @@ export EDITOR="vim"
 
 # 启动应用程序
 compton&
-urxvtd -q -f -o&
+# urxvtd -q -f -o&
 mpd&
 mpdscribble&
 fcitx&

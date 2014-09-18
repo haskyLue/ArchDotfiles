@@ -58,8 +58,10 @@
 *color15:     snow
 ! }}}
 
-*background:  blackgravel
-*foreground:  plain
+! *background:  blackgravel
+! *foreground:  plain
+*background:  snow
+*foreground:  blackestgravel
 *cursorColor: tardis
 *scrollColor: deepgravel
 *colorBD: grey

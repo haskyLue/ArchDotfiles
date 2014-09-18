@@ -61,7 +61,7 @@ end
 beautiful.init( "/home/hasky/.config/awesome/themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "xfce4-terminal"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 browser    = os.getenv("BROWSER") 
@@ -104,7 +104,7 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"1-Tmux","2-Terminal","3-WWW","4-Editor","5-VM"},
+	names = {"1-Tmux","2-Terminal","3-WWW","4-Editor","5-Vbox"},
 	layout = { layouts[2],layouts[3], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
@@ -146,7 +146,7 @@ showName=awful.util.pread("uname -r")
 uname:set_markup('<span color="red" font=""> '..showName..'</span>')
 
 -- Create a textclock widget
--- mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
+mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -216,7 +216,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-	mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "18",border_width=2,border_color="#000000"})
+	mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "18",border_width=2,border_color="#000000"})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -230,10 +230,10 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
 		right_layout:add(separator)
+    right_layout:add(mytextclock)
+		right_layout:add(separator)
     right_layout:add(mytaglist[s])
     right_layout:add(mylayoutbox[s])
-    -- right_layout:add(mytextclock)
-		-- right_layout:add(separator)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -331,7 +331,7 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- 用户程序{{{
-    awful.key({ modkey,	          }, "z",      function () drop("urxvt","bottom") end),
+    awful.key({ modkey,	          }, "z",      function () drop(terminal,"bottom") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
     awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
@@ -491,7 +491,7 @@ awful.rules.rules = {
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },
 	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader","Evince"} }, properties = { tag = tags[1][4], switchtotag = true} },
 
-	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"xfce4-terminal"} }, properties = { floating = true } , callback = awful.placement.centered }
+	{ rule = {}, except_any = { class = { "URxvt", "Vim","xfce4-terminal" } ,instance = {"xfce4-terminal"} }, properties = { floating = true } , callback = awful.placement.centered }
 }
 -- }}}
 

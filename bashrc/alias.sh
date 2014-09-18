@@ -63,7 +63,7 @@ alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD fil
 # alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null; wicd-cli -xy"
 alias offwifi="wicd-cli -xy"
 # alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0;curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null; fi"
-alias onwifi="wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY_C1D49C/ {print $1}'`"
+alias onwifi="sudo ip link set wlp3s0 up ; wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY_C1D49C/ {print $1}'`"
 alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
 alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
@@ -89,7 +89,7 @@ alias news="newsbeuter -X;newsbeuter -r  2>> /dev/null"
 alias vmxp="vboxmanage startvm xp "
 alias yt-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0"
 alias iftop="sudo iftop -PnB"
-alias pon="sudo pon" 
+alias pon="sudo ip link set enp7s0f5 up;sudo pon" 
 alias poff="sudo poff -a"
 alias tshark="sudo tshark"
 alias winfo="echo ldb | sudo -S watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
