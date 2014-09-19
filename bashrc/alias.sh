@@ -11,7 +11,6 @@ alias ping='ping -c 5'
 alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
-alias top='sudo atop 3'
 
 # privileged access
 if [ $UID -ne 0 ]; then
@@ -24,6 +23,7 @@ if [ $UID -ne 0 ]; then
 	alias poweroff='sudo systemctl poweroff'
 	alias netcfg='sudo netcfg2'
 	alias htop='sudo htop'
+	alias atop='sudo atop 3'
 fi
 
 # ls
@@ -63,7 +63,7 @@ alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD fil
 # alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null; wicd-cli -xy"
 alias offwifi="wicd-cli -xy"
 # alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0;curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null; fi"
-alias onwifi="sudo ip link set wlp3s0 up ; wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY_C1D49C/ {print $1}'`"
+alias onwifi="sudo ip link set wlp3s0 up ; wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY/ {print $1}'`"
 alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
 alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #

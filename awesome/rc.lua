@@ -316,16 +316,16 @@ globalkeys = awful.util.table.join(
 
     -- 多媒体按键绑定 {{{
     -- ALSA volume control
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vup") end),
-    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vdown") end),
-    awful.key({}, "XF86AudioMute", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vdown") end),
-    -- MPD control
-    awful.key({}, "XF86AudioStop", function () awful.util.spawn_with_shell("mpc toggle | xargs -I  {} -0 notify-send {}") end),
-    awful.key({}, "XF86AudioPlay", function () awful.util.spawn_with_shell("mpc stop | xargs -I  {} -0 notify-send {}")  end),
-    awful.key({}, "XF86AudioPrev", function () awful.util.spawn_with_shell("mpc prev | xargs -I  {} -0 notify-send {}")  end),
-    awful.key({}, "XF86AudioNext", function () awful.util.spawn_with_shell("mpc next | xargs -I  {} -0 notify-send {}")  end),	
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vol up") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vol down") end),
+    awful.key({}, "XF86AudioMute",		  function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh vol off") end),
 	-- 切换触控板
-    awful.key({}, "XF86ScreenSaver", function () awful.util.spawn_with_shell("sh /home/hasky/Documents/dotfiles/script/toggle_psmouse.sh") end),
+    awful.key({}, "XF86ScreenSaver",      function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh psmouse") end),
+    -- MPD control
+    awful.key({}, "XF86AudioStop",	      function () awful.util.spawn_with_shell("mpc toggle | xargs -I  {} -0 notify-send {}") end),
+    awful.key({}, "XF86AudioPlay",	      function () awful.util.spawn_with_shell("mpc stop | xargs -I  {} -0 notify-send {}")  end),
+    awful.key({}, "XF86AudioPrev",	      function () awful.util.spawn_with_shell("mpc prev | xargs -I  {} -0 notify-send {}")  end),
+    awful.key({}, "XF86AudioNext",	      function () awful.util.spawn_with_shell("mpc next | xargs -I  {} -0 notify-send {}")  end),	
     -- awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx' -X") end),
     awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("notify-send 'Vbox 加载中...' ; virtualbox --fullscreen --no-debug --startvm xp") end),
     -- }}}

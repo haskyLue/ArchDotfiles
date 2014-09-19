@@ -445,14 +445,20 @@ input {
 
 user				"hasky"
 bind_to_address		"127.0.0.1"
-audio_output {
-       type		"alsa"
-       name		"Local Music Player Daemon"
-       server		"127.0.0.1"
-}
 music_directory    "/home/hasky/Music"         
 playlist_directory "/home/hasky/.mpd/playlists"
 db_file            "/home/hasky/.mpd/database"
 log_file           "/home/hasky/.mpd/log"
 pid_file           "/home/hasky/.mpd/pid"
 state_file         "/home/hasky/.mpd/mpdstate"
+audio_output {
+    type                    "fifo"
+    name                    "my_fifo"
+    path                    "/tmp/mpd.fifo"
+    format                  "44100:16:2"
+}
+audio_output {
+	type		"alsa"
+	name		"My ALSA Device"
+	server		"127.0.0.1"
+}
