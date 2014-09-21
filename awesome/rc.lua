@@ -139,10 +139,10 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- separator
 separator = wibox.widget.textbox()
 separator:set_markup('<span color="grey" > ›› </span>')
+
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -r")
--- uname:set_font("serif 8")
 uname:set_markup('<span color="red" font=""> '..showName..'</span>')
 
 -- Create a textclock widget

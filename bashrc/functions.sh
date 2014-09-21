@@ -49,13 +49,16 @@ tawsome(){
 # }}}
 
 Uhosts(){
+	local secret="/home/hasky/Workspace/secret"
 	# local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AAC-n6LmtWbdlKQRbdEa0QUoa/imouto.host.7z?dl=1"
 	local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AADvmg0wxOXHAtLQ9WhPlvAva/imouto.host.txt?dl=1"
-	echo "downloading hosts package"
-	curl -#L -o /tmp/hosts.7z $HOSTS_URL
+
+	echo "Downloading hosts package"
+	curl -#L -o /tmp/imouto.host.txt  $HOSTS_URL
 	# 7z e -y /tmp/hosts.7z -o/tmp/
-	echo "finishing..."
-	sudo cp -fv /tmp/imouto.host.txt /etc/hosts
+
+	echo "Finishing..."
+	sudo -S cp -fv /tmp/imouto.host.txt /etc/hosts < $secret
 	head -n2 /etc/hosts | tail -n1
 }
 Ugitdir(){
