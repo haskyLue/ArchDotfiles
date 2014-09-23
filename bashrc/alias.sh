@@ -94,7 +94,8 @@ alias poff="sudo poff -a"
 alias tshark="sudo tshark"
 alias winfo="echo ldb | sudo -S watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
 alias bilibili="/home/hasky/Documents/dotfiles/script/bilibili.sh"
-alias tm="tmux"
+# tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
+alias tm="TERM=xterm-256color tmux -2"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 
 # enter directory & edit

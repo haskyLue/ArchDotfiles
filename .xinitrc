@@ -26,8 +26,6 @@ export BROWSER="chromium"
 export EDITOR="vim"
 
 # export GDK_BACKEND=wayland
-
-
 # export vblank_mode=0
 
 # 启动应用程序

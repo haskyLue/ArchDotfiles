@@ -68,19 +68,17 @@ function kaoyan(){
 # function end }}}
 
 # main content {{{
-figlet -c About PC
+# figlet -c About PC
 echo
-echo -e '	>>  '$magenta"$(get_weather)\e[0m"
-echo '	>>  '
-# echo -e '>>  '$cyan"UPTIME：$uptime\e[0m"
-echo -e '	>>  '$green"CPU温度：$cputemp\e[0m"
-echo -e '	>>  '$yellow"硬盘温度：$hddtemp\e[0m"
-echo '	>>  '
-# echo -e '>>  '$blue"MPD：$mpdinfo\e[0m"
-echo -e '	>>  '$white"音量：$volume\e[0m"
-echo '	>>  '
-echo -e '	>>  '$magenta"wifi：$wifi\e[0m"
-echo -e '	>>  '$cyan"$(netspeed)\e[0m"
+echo -e $magenta" $(get_weather)\e[0m"
+echo 
+# echo -e $cyan" UPTIME：$uptime\e[0m"
+echo -e $green" CPU温度：$cputemp\e[0m"
+echo -e $yellow" 硬盘温度：$hddtemp\e[0m"
+echo
+# echo -e $blue"MPD：$mpdinfo\e[0m"
+echo -e $white" 音量：$volume\e[0m"
+echo
+echo -e $magenta" wifi：$wifi\e[0m"
+echo -e $cyan" $(netspeed)\e[0m"
 # main end }}}
-
-

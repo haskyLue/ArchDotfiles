@@ -59,7 +59,7 @@ endif
 "设置语法高亮
 syntax enable
 set background=dark
-colorscheme colorful
+colorscheme jellybeans
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key
@@ -76,11 +76,10 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 set cindent
-if &term=="xterm"
-	set t_Co=8
-	set t_Sb=^[[4%dm
-	set t_Sf=^[[3%dm
-endif
+" if $TERM == "xterm-256color"
+	set t_Co=256
+  " set t_ut=
+" endif
 
 "打开文件类型自动检测功能
 filetype on
@@ -146,8 +145,8 @@ set nowb
 set number
 
 " 高亮当前行
-" set cursorline 
-" hi CursorLine cterm=NONE ctermbg=cyan ctermfg=black guibg=NONE guifg=NONE
+set cursorline 
+" hi CursorLine cterm=NONE ctermbg=blue ctermfg=white guibg=NONE guifg=NONE
 
 "modify
 set modifiable
