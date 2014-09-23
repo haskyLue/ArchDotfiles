@@ -70,7 +70,7 @@ function netspeed(){
 # figlet -c About PC
 # echo -e $blue" 时间：$date\e[0m"
 # echo -e $magenta" 发行版：$uname\e[0m"
-echo -e $magenta"$free\e[0m"
+echo -e $white"$free\e[0m"
 echo 
 echo -e $red"$iostat\e[0m"
 echo 
