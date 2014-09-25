@@ -54,7 +54,8 @@ Uhosts(){
 	local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AADvmg0wxOXHAtLQ9WhPlvAva/imouto.host.txt?dl=1"
 
 	echo "Downloading hosts package"
-	curl -#L -o /tmp/imouto.host.txt  $HOSTS_URL
+	# curl -#L -o /tmp/imouto.host.txt  $HOSTS_URL
+	wget -vc -O /tmp/imouto.host.txt  $HOSTS_URL
 	# 7z e -y /tmp/hosts.7z -o/tmp/
 
 	echo "Finishing..."
@@ -65,7 +66,7 @@ Ugitdir(){
 	local DIR="/home/hasky/Workspace/git"
 	for dir in $DIR/*
 	do
-		if [ -d $dir ]; then
+		if [ -d $dir || -L $dir ]; then
 			echo "\e[34m UPDATING \e[0m $dir..."
 			cd $dir
 			git pull -v origin
