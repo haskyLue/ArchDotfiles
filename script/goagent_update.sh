@@ -7,9 +7,9 @@ function goagent_ca_update(){
 
 	# root
 	echo -e "\n----------root ca updating ..."
-	sudo -S mkdir -p /usr/share/ca-certificates/goagent < $secret
+	sudo -S mkdir -p /usr/local/share/ca-certificates/goagent < $secret
 	sudo -S cp -fv $CAfile /usr/local/share/ca-certificates/goagent/GoAgent.crt < $secret
-	sudo -S update-ca-certificates -f >/dev/null < $secret
+	sudo -S update-ca-certificates -f < $secret
 
 	# chromium
 	echo -e "\n----------chromium ca updating ..."

@@ -56,8 +56,9 @@ alias paclo="pacman -Qdt"      # list orphaned package
 alias paco="sudo pacman -Qo"    # '[o]wner'          - determine which package owns a given file
 alias pacf="sudo pacman -Ql"    # '[f]iles'          - list all files installed by a given package
 alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently installed package files
-alias update="figlet -c Package Update && yaourt -Syyua "
+alias update="figlet -c Package Update && yaourt --insecure -Syyua "
 alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
+alias yt="yaourt --insecure"
 
 # somemore
 # alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null; wicd-cli -xy"
