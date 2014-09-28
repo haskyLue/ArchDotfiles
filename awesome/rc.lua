@@ -143,7 +143,7 @@ separator:set_markup('<span color="grey" > ›› </span>')
 --uname widgetstart
 uname=wibox.widget.textbox()
 showName=awful.util.pread("uname -r")
-uname:set_markup('<span color="red" font=""> '..showName..'</span>')
+uname:set_markup('<span color="cyan" font="Slackey 9"> '..showName..'</span>')
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock("%b-%d %a %H:%M")
@@ -216,24 +216,24 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-	mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "18",border_width=2,border_color="#000000"})
+	mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "19",border_width=0,border_color="#000000"})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
     left_layout:add(uname)
-		left_layout:add(separator)
     left_layout:add(mypromptbox[s])
-    if s == 1 then left_layout:add(wibox.widget.systray()) end
+		left_layout:add(separator)
+    left_layout:add(mytextclock)
 		left_layout:add(separator)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
 	-- 	right_layout:add(separator)
-    -- right_layout:add(mytextclock)
-		right_layout:add(separator)
-    right_layout:add(mytaglist[s])
     right_layout:add(mylayoutbox[s])
+    right_layout:add(mytaglist[s])
+		right_layout:add(separator)
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()

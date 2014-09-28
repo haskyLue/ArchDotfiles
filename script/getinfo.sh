@@ -17,7 +17,6 @@ hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $0}'
 iostat=$(iostat | tail -n4 | head -n6)
 # mpdinfo=$(mpc status |head -n2|sed 'N;s/\n/ /')
 # wifi=$(wicd-cli -yd|head -n2|paste -sd '\t')
-# netinterface=$(route -v | awk '/default/ {print $8}')
 # volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
 # date=$(date)
 # uptime=$( uptime | cut -d\  -f6-)
@@ -50,16 +49,20 @@ function get_weather(){
 	fi #显示文件内容
 }
 function netspeed(){
+	local netinterface=$(route -v | awk '/default/ {print $8}')
+	local watchinteval=1
 	if [ $netinterface ]
 	then
-		rx_old=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
-		tx_old=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
-		sleep 1
-		rx_now=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
-		tx_now=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
-		let rx_rate="($rx_now - $rx_old) /1/1024"
-		let tx_rate="($tx_now - $tx_old) /1/1024"
-		echo "网速：$netinterface _ DOWN-${rx_rate}K:UP-${tx_rate}K\e[0m"
+		rx_old=$( [[ -e /tmp/rx_bytes  ]] && cat /tmp/rx_bytes || echo 0 )
+		tx_old=$( [[ -e /tmp/tx_bytes  ]] && cat /tmp/tx_bytes || echo 0 )
+
+		rx_new=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
+		tx_new=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
+		echo $rx_new > /tmp/rx_bytes && echo $tx_new > /tmp/tx_bytes
+
+		rx_rate=$(expr \( $rx_new \- $rx_old \) / 1024 / $watchinteval )
+		tx_rate=$(expr \( $tx_new \- $tx_old \) / 1024 / $watchinteval )
+		echo "Net：		$netinterface   |   rx_rate- ${rx_rate}.0 KByte   |   tx_rate- ${tx_rate}.0 KByte\e[0m"
 	else
 		echo "网速：未知接口!"
 	fi
@@ -70,9 +73,10 @@ function netspeed(){
 # figlet -c About PC
 # echo -e $blue" 时间：$date\e[0m"
 # echo -e $magenta" 发行版：$uname\e[0m"
-echo -e $white"$free\e[0m"
+echo -e $blue"$free\e[0m"
 echo 
 echo -e $red"$iostat\e[0m"
+echo -e $magenta"$(netspeed)\e[0m"
 echo 
 # echo -e $cyan" UPTIME：$uptime\e[0m"
 echo -e $green"CPU_TEMP：$cputemp\e[0m"
@@ -84,5 +88,4 @@ echo -e $yellow"HDD_TEMP：$hddtemp\e[0m"
 echo
 echo -e $cyan"$(get_weather)\e[0m"
 # echo -e $magenta" wifi：$wifi\e[0m"
-# echo -e $cyan" $(netspeed)\e[0m"
 # main end }}}

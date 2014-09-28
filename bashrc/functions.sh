@@ -66,7 +66,7 @@ Ugitdir(){
 	local DIR="/home/hasky/Workspace/git"
 	for dir in $DIR/*
 	do
-		if [ -d $dir || -L $dir ]; then
+		if [ -d $dir ] || [ -L $dir ]; then
 			echo "\e[34m UPDATING \e[0m $dir..."
 			cd $dir
 			git pull -v origin

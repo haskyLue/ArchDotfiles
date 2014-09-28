@@ -45,7 +45,7 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 
 # pacman aliases
-alias pac="sudo pacman -S"      # default action     - install one or more packages
+alias pac="sudo powerpill -S"      # default action     - install one or more packages
 alias pacs="sudo pacman -Ss"    # '[s]earch'         - search for a package using one or more keywords
 alias paci="sudo pacman -Si"    # '[i]nfo'           - show information about a package
 alias pacr="sudo pacman -Rns"     # '[r]emove'         - uninstall one or more packages

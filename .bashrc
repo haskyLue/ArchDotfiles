@@ -30,6 +30,7 @@ export EDITOR="vim"
 
 source "/home/hasky/Documents/dotfiles/bashrc/alias.sh"
 source "/home/hasky/Documents/dotfiles/bashrc/functions.sh"
+source "/usr/share/bash-completion/bash_completion"
 # [[ "$COLORTERM" == "gnome-terminal" ||  "$COLORTERM" == "xfce4-terminal" ]] &&  export TERM=xterm-256color
 
 clear

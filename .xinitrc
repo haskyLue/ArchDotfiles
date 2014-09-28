@@ -23,6 +23,7 @@ export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 
 export BROWSER="chromium"
+# export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp --disk-cache-size=50000000"
 export EDITOR="vim"
 
 # export GDK_BACKEND=wayland
@@ -40,7 +41,8 @@ shutter --min_at_startup&
 xflux -l 32.054829 -g 118.795193&
 stardict -h&
 pcmanfm -d&
-volti&
+profile-sync-daemon&
+# volti&
 
 (xmodmap ~/.Xmodmap ) && (xrdb -merge .Xdefaults )
 
