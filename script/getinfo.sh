@@ -53,34 +53,35 @@ function netspeed(){
 	local watchinteval=1
 	if [ $netinterface ]
 	then
-		rx_old=$( [[ -e /tmp/rx_bytes  ]] && cat /tmp/rx_bytes || echo 0 )
+		rx_old=$( [[ -e /tmp/rx_bytes  ]] && cat /tmp/rx_bytes || echo 0 ) # 读取上一个时间戳的流量
 		tx_old=$( [[ -e /tmp/tx_bytes  ]] && cat /tmp/tx_bytes || echo 0 )
 
 		rx_new=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
 		tx_new=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
-		echo $rx_new > /tmp/rx_bytes && echo $tx_new > /tmp/tx_bytes
+		echo $rx_new > /tmp/rx_bytes && echo $tx_new > /tmp/tx_bytes # 写入缓存供下一个时间使用
 
 		rx_rate=$(expr \( $rx_new \- $rx_old \) / 1024 / $watchinteval )
 		tx_rate=$(expr \( $tx_new \- $tx_old \) / 1024 / $watchinteval )
-		echo "Net：		$netinterface   |   rx_rate- ${rx_rate}.0 KByte   |   tx_rate- ${tx_rate}.0 KByte\e[0m"
+		echo "Net：		$netinterface   |   rx_rate - ${rx_rate}.0 KByte  |  tx_rate - ${tx_rate}.0 KByte\e[0m"
 	else
-		echo "网速：未知接口!"
+		echo "Net：		Invalid Interface!"
 	fi
 }
 # function end }}}
 
 # main content {{{
+
 # figlet -c About PC
 # echo -e $blue" 时间：$date\e[0m"
 # echo -e $magenta" 发行版：$uname\e[0m"
-echo -e $blue"$free\e[0m"
+echo -e $magenta"$free\e[0m"
 echo 
-echo -e $red"$iostat\e[0m"
-echo -e $magenta"$(netspeed)\e[0m"
+echo -e $white"$iostat\e[0m"
+echo -e $red"$(netspeed)\e[0m"
 echo 
 # echo -e $cyan" UPTIME：$uptime\e[0m"
-echo -e $green"CPU_TEMP：$cputemp\e[0m"
-echo -e $yellow"HDD_TEMP：$hddtemp\e[0m"
+echo -e $green"CPU：		$cputemp\e[0m"
+echo -e $yellow"HDD：		$hddtemp\e[0m"
 # echo
 # echo -e $blue"MPD：$mpdinfo\e[0m"
 # echo -e $cyan"VOLUME：$volume\e[0m"
@@ -88,4 +89,5 @@ echo -e $yellow"HDD_TEMP：$hddtemp\e[0m"
 echo
 echo -e $cyan"$(get_weather)\e[0m"
 # echo -e $magenta" wifi：$wifi\e[0m"
+
 # main end }}}
