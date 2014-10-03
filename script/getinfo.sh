@@ -14,7 +14,7 @@ white='\E[37;47m'
 
 cputemp=$(sensors -A | awk '/Core/ {print $2,$3}' | paste -sd ",")
 # hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $1,$4}'| paste -sd ",")
-iostat=$(iostat -md | tail -n4)
+iostat=$(iostat -md)
 # mpdinfo=$(mpc -f '%artist% - %title% - %time%' | head -n1)
 volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
 # date=$(date)
@@ -47,26 +47,26 @@ function get_weather(){
 		rm -f /tmp/weather_flag #删除flag文件便于下次执行重新更新
 	fi #显示文件内容
 }
-function netspeed(){
-	local netinterface=$(route -v | awk '/default/ {print $8}')
-	local wifi=$(wicd-cli -yd | awk '/Essid/ {print $2}')
-	local watchinteval=1
-	if [ $netinterface ]
-	then
-		rx_old=$( [[ -e /tmp/rx_bytes  ]] && cat /tmp/rx_bytes || echo 0 ) # 读取上一个时间戳的流量
-		tx_old=$( [[ -e /tmp/tx_bytes  ]] && cat /tmp/tx_bytes || echo 0 )
-
-		rx_new=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
-		tx_new=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
-		echo $rx_new > /tmp/rx_bytes && echo $tx_new > /tmp/tx_bytes # 写入缓存供下一个时间使用
-
-		rx_rate=$(expr \( $rx_new \- $rx_old \) / 1000 / $watchinteval )
-		tx_rate=$(expr \( $tx_new \- $tx_old \) / 1000 / $watchinteval )
-		echo "Net    ：$netinterface - $wifi   |   rx_rate - ${rx_rate}.0 KByte  |  tx_rate - ${tx_rate}.0 KByte\e[0m"
-	else
-		echo "Net    ：Invalid Interface!"
-	fi
-}
+# function netspeed(){
+# 	local netinterface=$(route -v | awk '/default/ {print $8}')
+# 	local wifi=$(wicd-cli -yd | awk '/Essid/ {print $2}')
+# 	local watchinteval=1
+# 	if [ $netinterface ]
+# 	then
+# 		rx_old=$( [[ -e /tmp/rx_bytes  ]] && cat /tmp/rx_bytes || echo 0 ) # 读取上一个时间戳的流量
+# 		tx_old=$( [[ -e /tmp/tx_bytes  ]] && cat /tmp/tx_bytes || echo 0 )
+#
+# 		rx_new=$(cat /sys/class/net/$netinterface/statistics/rx_bytes)
+# 		tx_new=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
+# 		echo $rx_new > /tmp/rx_bytes && echo $tx_new > /tmp/tx_bytes # 写入缓存供下一个时间使用
+#
+# 		rx_rate=$(expr \( $rx_new \- $rx_old \) / 1000 / $watchinteval )
+# 		tx_rate=$(expr \( $tx_new \- $tx_old \) / 1000 / $watchinteval )
+# 		echo "Net    ：$netinterface - $wifi   |   rx_rate - ${rx_rate}.0 KByte  |  tx_rate - ${tx_rate}.0 KByte\e[0m"
+# 	else
+# 		echo "Net    ：Invalid Interface!"
+# 	fi
+# }
 # function end }}}
 
 # main content {{{
@@ -79,13 +79,13 @@ function netspeed(){
 # echo -e $blue"MPD：$mpdinfo\e[0m"
 # echo -e $white"BATTERY：$battery\e[0m"
 # echo -e $magenta" wifi：$wifi\e[0m"
-echo -e $magenta"$vmstat\e[0m"
 echo -e $cyan"$iostat\e[0m"
+echo -e $red"$vmstat\e[0m"
 echo 
 # echo -e $red"$(netspeed)\e[0m"
 echo -e $green"CPU    ：$cputemp\e[0m" 
 echo -e $cyan"Vol    ：$volume\e[0m" 
 # echo -e $green"CPU    ：$cputemp\e[0m" "|" $yellow" HDD：$hddtemp\e[0m"
-echo -e $blue"$(get_weather)\e[0m"
+echo -e $yellow"$(get_weather)\e[0m"
 
 # main end }}}
