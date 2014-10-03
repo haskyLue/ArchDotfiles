@@ -222,8 +222,8 @@ for s = 1, screen.count() do
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
     left_layout:add(uname)
-    left_layout:add(mypromptbox[s])
 		left_layout:add(separator)
+    left_layout:add(mypromptbox[s])
     left_layout:add(mytextclock)
 		left_layout:add(separator)
 
@@ -322,8 +322,8 @@ globalkeys = awful.util.table.join(
 	-- 切换触控板
     awful.key({}, "XF86ScreenSaver",      function () awful.util.spawn("/home/hasky/Documents/dotfiles/script/system_notify.sh psmouse") end),
     -- MPD control
-    awful.key({}, "XF86AudioStop",	      function () awful.util.spawn_with_shell("mpc toggle | xargs -I  {} -0 notify-send {}") end),
-    awful.key({}, "XF86AudioPlay",	      function () awful.util.spawn_with_shell("mpc stop | xargs -I  {} -0 notify-send {}")  end),
+    awful.key({}, "XF86AudioPlay",	      function () awful.util.spawn_with_shell("mpc toggle | xargs -I  {} -0 notify-send {}") end),
+    -- awful.key({}, "XF86AudioStop",	      function () awful.util.spawn_with_shell("mpc stop | xargs -I  {} -0 notify-send {}")  end),
     awful.key({}, "XF86AudioPrev",	      function () awful.util.spawn_with_shell("mpc prev | xargs -I  {} -0 notify-send {}")  end),
     awful.key({}, "XF86AudioNext",	      function () awful.util.spawn_with_shell("mpc next | xargs -I  {} -0 notify-send {}")  end),	
     -- awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx' -X") end),

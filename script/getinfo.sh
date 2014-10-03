@@ -12,27 +12,26 @@ magenta='\E[35;47m'
 cyan='\E[36;47m'
 white='\E[37;47m'
 
-cputemp=$(sensors -A | awk '/Core/ {print $1$2,$3}' | paste -sd "\t")
-hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $0}'| paste -sd "\t")
-iostat=$(iostat | tail -n4 | head -n6)
-# mpdinfo=$(mpc status |head -n2|sed 'N;s/\n/ /')
-# wifi=$(wicd-cli -yd|head -n2|paste -sd '\t')
-# volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
+cputemp=$(sensors -A | awk '/Core/ {print $2,$3}' | paste -sd ",")
+# hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $1,$4}'| paste -sd ",")
+iostat=$(iostat -md | tail -n4)
+# mpdinfo=$(mpc -f '%artist% - %title% - %time%' | head -n1)
+volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
 # date=$(date)
 # uptime=$( uptime | cut -d\  -f6-)
 # uname=$(uname -rv)
-free=$(free -m | head -n2 )
+vmstat=$(vmstat -wS m)
 # battery=$(acpi -b)
 
 # function {{{
 function update_weather(){
 	echo "更新天气中..."
-	curl -s http://flash.weather.com.cn/wmaps/xml/nanjing.xml  | awk -F \" '/浦口/ {print "WEATHER："$18,"温度:"$20"~"$22"°C",$24"°C","风向风速:"$26,$30}' > /tmp/weather
+	curl -s http://flash.weather.com.cn/wmaps/xml/nanjing.xml  | awk -F \" '/浦口/ {print "Weather："$18,"温度:"$20"~"$22"°C",$24"°C","风向风速:"$26,$30}' > /tmp/weather
 	echo $(date +%s)>/tmp/weather_flag
 }
 function get_weather(){
 	local howlong=3600 # 1hours更新一次
-	! [ -f /tmp/weather_flag ] && update_weather #检测flag文件
+	! [ -f /tmp/weather_flag ] && update_weather #检测flag文件,不存在则更新
 
 	local last_update=$(cat /tmp/weather_flag)
 	local now_date=$(date +%s)
@@ -50,6 +49,7 @@ function get_weather(){
 }
 function netspeed(){
 	local netinterface=$(route -v | awk '/default/ {print $8}')
+	local wifi=$(wicd-cli -yd | awk '/Essid/ {print $2}')
 	local watchinteval=1
 	if [ $netinterface ]
 	then
@@ -60,11 +60,11 @@ function netspeed(){
 		tx_new=$(cat /sys/class/net/$netinterface/statistics/tx_bytes)
 		echo $rx_new > /tmp/rx_bytes && echo $tx_new > /tmp/tx_bytes # 写入缓存供下一个时间使用
 
-		rx_rate=$(expr \( $rx_new \- $rx_old \) / 1024 / $watchinteval )
-		tx_rate=$(expr \( $tx_new \- $tx_old \) / 1024 / $watchinteval )
-		echo "Net：		$netinterface   |   rx_rate - ${rx_rate}.0 KByte  |  tx_rate - ${tx_rate}.0 KByte\e[0m"
+		rx_rate=$(expr \( $rx_new \- $rx_old \) / 1000 / $watchinteval )
+		tx_rate=$(expr \( $tx_new \- $tx_old \) / 1000 / $watchinteval )
+		echo "Net    ：$netinterface - $wifi   |   rx_rate - ${rx_rate}.0 KByte  |  tx_rate - ${tx_rate}.0 KByte\e[0m"
 	else
-		echo "Net：		Invalid Interface!"
+		echo "Net    ：Invalid Interface!"
 	fi
 }
 # function end }}}
@@ -74,20 +74,18 @@ function netspeed(){
 # figlet -c About PC
 # echo -e $blue" 时间：$date\e[0m"
 # echo -e $magenta" 发行版：$uname\e[0m"
-echo -e $magenta"$free\e[0m"
-echo 
-echo -e $white"$iostat\e[0m"
-echo -e $red"$(netspeed)\e[0m"
-echo 
 # echo -e $cyan" UPTIME：$uptime\e[0m"
-echo -e $green"CPU：		$cputemp\e[0m"
-echo -e $yellow"HDD：		$hddtemp\e[0m"
 # echo
 # echo -e $blue"MPD：$mpdinfo\e[0m"
-# echo -e $cyan"VOLUME：$volume\e[0m"
 # echo -e $white"BATTERY：$battery\e[0m"
-echo
-echo -e $cyan"$(get_weather)\e[0m"
 # echo -e $magenta" wifi：$wifi\e[0m"
+echo -e $magenta"$vmstat\e[0m"
+echo -e $cyan"$iostat\e[0m"
+echo 
+# echo -e $red"$(netspeed)\e[0m"
+echo -e $green"CPU    ：$cputemp\e[0m" 
+echo -e $cyan"Vol    ：$volume\e[0m" 
+# echo -e $green"CPU    ：$cputemp\e[0m" "|" $yellow" HDD：$hddtemp\e[0m"
+echo -e $blue"$(get_weather)\e[0m"
 
 # main end }}}

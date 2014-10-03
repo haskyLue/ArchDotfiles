@@ -22,8 +22,6 @@ if [ $UID -ne 0 ]; then
 	alias reboot='sudo systemctl reboot'
 	alias poweroff='sudo systemctl poweroff'
 	alias netcfg='sudo netcfg2'
-	alias htop='sudo htop'
-	alias atop='sudo atop 3'
 fi
 
 # ls
@@ -78,7 +76,7 @@ alias Smute="amixer set Master mute"
 alias Sunmute="amixer set Master unmute"
 
 # start app 
-alias goagent="figlet -c goagent && sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
+alias goagent="figlet -c goagent && sudo /usr/share/goagent/local/goagent"
 # alias goagent="figlet -c goagent && sudo /usr/share/goagent/local/goagent"
 alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 alias trash="sudo gvfs-trash"
@@ -93,7 +91,7 @@ alias iftop="sudo iftop -PnB"
 alias pon="sudo ip link set enp7s0f5 up;sudo pon" 
 alias poff="sudo poff -a"
 alias tshark="sudo tshark"
-alias winfo="echo ldb | sudo -S watch --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
+alias winfo="watch  -n 1 --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
 alias bilibili="/home/hasky/Documents/dotfiles/script/bilibili.sh"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
 alias tm="TERM=xterm-256color tmux -2"
@@ -106,7 +104,7 @@ alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
 alias Cn="cd /home/hasky/Documents/note&&ll"
 alias Ca="cd /home/hasky/.config/awesome/&&ll"
 alias Cz="cd /home/hasky/.oh-my-zsh"
-alias Vgo="vim /home/hasky/Workspace/git/goagent/local/proxy.user.ini"
+alias Vgo="vim /home/hasky/.proxy.user.ini"
 alias Vtpl="vim /home/hasky/Workspace/git/tmux-powerline/themes/default.sh"
 alias Vt="vim /home/hasky/.tmux.conf"
 alias Vtask="vim /home/hasky/Documents/task.md"
