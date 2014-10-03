@@ -491,7 +491,7 @@ awful.rules.rules = {
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },
 	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader","Evince"} }, properties = { tag = tags[1][4], switchtotag = true} },
 
-	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"xfce4-terminal"} }, properties = { floating = true } , callback = awful.placement.centered }
+	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"xfce4-terminal"} }, properties = { floating = true } , callback = function (c) awful.placement.centered(c,nil) end }
 }
 -- }}}
 

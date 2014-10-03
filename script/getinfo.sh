@@ -12,6 +12,7 @@ magenta='\E[35;47m'
 cyan='\E[36;47m'
 white='\E[37;47m'
 
+who=$(who -q | xargs )
 cputemp=$(sensors -A | awk '/Core/ {print $2,$3}' | paste -sd ",")
 # hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $1,$4}'| paste -sd ",")
 iostat=$(iostat -md)
@@ -20,8 +21,10 @@ volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
 # date=$(date)
 # uptime=$( uptime | cut -d\  -f6-)
 # uname=$(uname -rv)
-vmstat=$(vmstat -wS m)
+# vmstat=$(vmstat -wS m)
 # battery=$(acpi -b)
+wifi=$(wicd-cli -yd | awk '/Essid/ {print $2}')
+externalip=$( [[ -s /tmp/externalip ]] && cat /tmp/externalip || curl -s -o /tmp/externalip http://myexternalip.com/raw )
 
 # function {{{
 function update_weather(){
@@ -75,17 +78,19 @@ function get_weather(){
 # echo -e $blue" 时间：$date\e[0m"
 # echo -e $magenta" 发行版：$uname\e[0m"
 # echo -e $cyan" UPTIME：$uptime\e[0m"
+# echo -e $red"Battery：$battery\e[0m"
 # echo
 # echo -e $blue"MPD：$mpdinfo\e[0m"
-# echo -e $white"BATTERY：$battery\e[0m"
 # echo -e $magenta" wifi：$wifi\e[0m"
-echo -e $cyan"$iostat\e[0m"
-echo -e $red"$vmstat\e[0m"
+echo -e $white"$iostat\e[0m"
+# echo -e $red"$vmstat\e[0m"
 echo 
 # echo -e $red"$(netspeed)\e[0m"
+echo -e $magenta"User   ：$who\e[0m" 
 echo -e $green"CPU    ：$cputemp\e[0m" 
 echo -e $cyan"Vol    ：$volume\e[0m" 
 # echo -e $green"CPU    ：$cputemp\e[0m" "|" $yellow" HDD：$hddtemp\e[0m"
 echo -e $yellow"$(get_weather)\e[0m"
+echo -e $red"ifinfo : $wifi / $externalip\e[0m"
 
 # main end }}}

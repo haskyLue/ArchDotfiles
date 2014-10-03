@@ -37,4 +37,4 @@ clear
 archey3 -c blue
 # fortune -a | fmt -w 80 -s | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
 kaoyan
-if ! pgrep "xinit" -u $UID >> /dev/null ; then [ $UID -gt 0 ] && startx; fi
+# if ! pgrep "xinit" -u $UID >> /dev/null ; then [ $UID -gt 0 ] && startx; fi

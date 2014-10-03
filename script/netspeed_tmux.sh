@@ -12,7 +12,7 @@ then
 
 	rx_rate=$(expr \( $rx_new \- $rx_old \) / 1000 / $watchinteval )
 	tx_rate=$(expr \( $tx_new \- $tx_old \) / 1000 / $watchinteval )
-	echo "#[bg=default]#[fg=white] #[fg=blue]↑↓#[fg=white]$netinterface#[fg=blue]↘${rx_rate}.0#[fg=white]KB/s#[fg=blue]↗${tx_rate}.0#[fg=white]KB/s"
+	echo "#[bg=default]#[fg=white] #[fg=blue]↑↓#[fg=white]$netinterface#[fg=blue] ↘${rx_rate}.0#[fg=white]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=white]KB/s"
 else
 	echo "#[bg=default]#[fg=default] Invalid Interface!"
 fi
