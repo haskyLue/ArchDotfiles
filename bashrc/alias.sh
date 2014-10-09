@@ -11,7 +11,8 @@ alias ping='ping -c 5'
 alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
-alias top="top -icd 1"
+alias top="top -id 2"
+alias aria2c="aria2c -x 5 -s 10 -c"
 
 # privileged access
 if [ $UID -ne 0 ]; then
@@ -61,9 +62,11 @@ alias yt="yaourt --insecure"
 
 # somemore
 # alias offwifi="curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Disconnect=%B6%CF%20%CF%DF&wan=1' >> /dev/null; wicd-cli -xy"
-alias offwifi="wicd-cli -xy;rm -f /tmp/externalip"
+# alias offwifi="wicd-cli -xy;rm -f /tmp/externalip"
 # alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0;curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null; fi"
-alias onwifi="sudo ip link set wlp3s0 up ; wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY/ {print $1}'`"
+# alias onwifi="sudo ip link set wlp3s0 up ; wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY/ {print $1}'`"
+alias offwifi="sudo netctl stop-all ; rm -f /tmp/externalip"
+alias onwifi="sudo netctl start wlp3s0-MERCURY_C1D49C ; curl -s 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' > /dev/null"
 alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
 alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
@@ -89,11 +92,13 @@ alias news="newsbeuter -X;newsbeuter -r  2>> /dev/null"
 alias vmxp="vboxmanage startvm xp "
 alias yt-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0"
 alias iftop="sudo iftop -PnB"
-alias pon="sudo ip link set enp7s0f5 up;sudo pon" 
+# alias pon="sudo ip link set enp7s0f5 up;sudo pon" 
+alias pon="sudo pon;sudo route del default && sudo  route add default ppp0" 
 alias poff="sudo poff -a"
 alias tshark="sudo tshark"
-alias winfo="watch  -n 1 --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
+alias winfo="watch  -n 2 --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
 alias bilibili="/home/hasky/Documents/dotfiles/script/bilibili.sh"
+alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
 alias tm="TERM=xterm-256color tmux -2"
 alias tmas="TERM=xterm-256color tmux -2 attach-session"

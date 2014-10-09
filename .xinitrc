@@ -31,17 +31,17 @@ export EDITOR="vim"
 
 # 启动应用程序
 compton&
-# urxvtd -q -f -o&
 mpd&
 mpdscribble&
 fcitx&
-wicd-gtk -t&
 libreoffice --quickstart&
-shutter --min_at_startup&
+# shutter --min_at_startup&
 xflux -l 32.054829 -g 118.795193&
 stardict -h&
 pcmanfm -d&
-profile-sync-daemon&
+# profile-sync-daemon&
+# urxvtd -q -f -o&
+# wicd-gtk -t&
 # volti&
 
 (xmodmap ~/.Xmodmap ) && (xrdb -merge .Xdefaults )

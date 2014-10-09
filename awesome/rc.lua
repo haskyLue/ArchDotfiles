@@ -53,7 +53,7 @@ end
 -- }}}
 
 -- {{{ Variable definitions
--- os.setlocale(os.getenv("LANG"))
+os.setlocale(os.getenv("LANG"))
 
 -- Themes define colours, icons, font and wallpapers.
 -- local themedir = awful.util.getdir("config")
@@ -132,6 +132,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+menubar.cache_entries = true
+menubar.show_categories = false  
+menubar.app_folders= { "/usr/share/applications/", "/usr/local/share/applications", "~/.local/share/applications" }
 -- }}}
 	
 -- {{{ Wibox
@@ -216,7 +219,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-	mywibox[s] = awful.wibox({ position = "top", screen = s ,height = "19",border_width=0,border_color="#000000"})
+	mywibox[s] = awful.wibox({ position = "bottom", screen = s ,height = "19",border_width=0,border_color="#000000"})
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -256,6 +259,7 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+
     -- 浏览 {{{
 	awful.key({ modkey,           }, "Left",   awful.tag.viewprev		),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext		),
@@ -327,11 +331,11 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioPrev",	      function () awful.util.spawn_with_shell("mpc prev | xargs -I  {} -0 notify-send {}")  end),
     awful.key({}, "XF86AudioNext",	      function () awful.util.spawn_with_shell("mpc next | xargs -I  {} -0 notify-send {}")  end),	
     -- awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx' -X") end),
-    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("notify-send 'Vbox 加载中...' ; virtualbox --fullscreen --no-debug --startvm xp") end),
+    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("notify-send 'Vbox xp 启动...' ; virtualbox --fullscreen --no-debug --startvm xp") end),
     -- }}}
 
     -- 用户程序{{{
-    awful.key({ modkey,	          }, "z",      function () drop(terminal,"bottom") end),
+    awful.key({ modkey,	          }, "z",      function () drop("terminator","bottom") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,			  }, "q",	   function () awful.util.spawn(browser) end),
     awful.key({ modkey,			  }, "e",	   function () awful.util.spawn(gui_editor) end),
@@ -386,6 +390,13 @@ globalkeys = awful.util.table.join(
 	awful.key({ modkey			  }, "b",	   function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),
     awful.key({ modkey,			  }, "r",	   function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey,			  }, "p",	   function() menubar.show() end),
+    awful.key({ modkey }, "x",
+              function ()
+                  awful.prompt.run({ prompt = "Run Lua code: " },
+                  mypromptbox[mouse.screen].widget,
+                  awful.util.eval, nil,
+                  awful.util.getdir("cache") .. "/history_eval")
+              end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit)
 )
@@ -486,6 +497,7 @@ awful.rules.rules = {
 								 
     { rule = { class = "URxvt" }, properties = { opacity = 0.9 } },
     { rule = { class = "Gimp", role = "gimp-image-window" }, properties = { maximized_horizontal = true, maximized_vertical = true } },
+	{ rule = { instance = "exe" }, properties = { floating = true } },
 
 	{ rule_any = { class = {"VirtualBox"},instance = {"vmware","vmplayer"}}, properties = { tag = tags[1][5]}},
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },

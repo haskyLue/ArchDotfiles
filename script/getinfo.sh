@@ -2,7 +2,6 @@
 # create by ldb
 
 secret="/home/hasky/Workspace/secret"
-# color define
 black='\E[30;47m'
 red='\E[31;47m'
 green='\E[32;47m'
@@ -12,47 +11,35 @@ magenta='\E[35;47m'
 cyan='\E[36;47m'
 white='\E[37;47m'
 
-who=$(who -q | xargs )
-cputemp=$(sensors -A | awk '/Core/ {print $2,$3}' | paste -sd ",")
-# hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $1,$4}'| paste -sd ",")
-iostat=$(iostat -md)
-# mpdinfo=$(mpc -f '%artist% - %title% - %time%' | head -n1)
-volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
-# date=$(date)
-# uptime=$( uptime | cut -d\  -f6-)
-# uname=$(uname -rv)
-# vmstat=$(vmstat -wS m)
-# battery=$(acpi -b)
-wifi=$(wicd-cli -yd | awk '/Essid/ {print $2}')
-externalip=$( [[ -s /tmp/externalip ]] && cat /tmp/externalip || curl -s -o /tmp/externalip http://myexternalip.com/raw )
+declare who cpu iostat charge wifi externalip weather
 
-# function {{{
-function update_weather(){
-	echo "更新天气中..."
-	curl -s http://flash.weather.com.cn/wmaps/xml/nanjing.xml  | awk -F \" '/浦口/ {print "Weather："$18,"温度:"$20"~"$22"°C",$24"°C","风向风速:"$26,$30}' > /tmp/weather
-	echo $(date +%s)>/tmp/weather_flag
+
+# {{{ weather
+function weather.pull(){
+	curl -so /tmp/weather.raw \
+		"http://flash.weather.com.cn/wmaps/xml/nanjing.xml" && cat /tmp/weather.raw \
+		| awk -F \" '/浦口/ {print $18,$20"~"$22"°C",$24"°C",$26,$30}' > /tmp/weath
+	date +%s > /tmp/weather.flag
 }
-function get_weather(){
-	local howlong=3600 # 1hours更新一次
-	! [ -f /tmp/weather_flag ] && update_weather #检测flag文件,不存在则更新
-
-	local last_update=$(cat /tmp/weather_flag)
+function weather.cal(){
+	local howlong=3600 
+	local last_update=$( [[ -f /tmp/weather.flag ]] && cat /tmp/weather.flag || echo 0 ) # flag文件不存在作0处理
 	local now_date=$(date +%s)
-	let duration="$now_date-$last_update"
-	if [[ $duration -gt $howlong ]];then
-		update_weather
-	fi #检测flag文件，过期则更新
-
-	if [[ -s /tmp/weather ]]; then
-		cat /tmp/weather
-	else 
-		echo "网络连接失败"
-		rm -f /tmp/weather_flag #删除flag文件便于下次执行重新更新
-	fi #显示文件内容
+	local duration=$(expr $now_date \- $last_update)
+	[[ $duration -gt $howlong ]] && echo 1 || echo 0
 }
+function weather.show(){
+	local suffix="$green -OK\e[0m"
+	[[ $( route | wc -l ) -le 2 ]] && suffix="$red -Failed\e[0m" #网络接口连接
+	[[ ! -s /tmp/weather || $(weather.cal) -eq 1 ]] && ( weather.pull )&  #数据文件不正常 || 过期
+	local content=$( [[ -s /tmp/weather ]] && ( cat /tmp/weather ) || ( echo 'Data Pulling...' ) )
+	echo -e "$content$suffix"
+}
+# }}}
+
 # function netspeed(){
 # 	local netinterface=$(route -v | awk '/default/ {print $8}')
-# 	local wifi=$(wicd-cli -yd | awk '/Essid/ {print $2}')
+#   local wifi=$(iwgetid | awk '{print $2}')
 # 	local watchinteval=1
 # 	if [ $netinterface ]
 # 	then
@@ -70,27 +57,53 @@ function get_weather(){
 # 		echo "Net    ：Invalid Interface!"
 # 	fi
 # }
-# function end }}}
 
-# main content {{{
+# 初始化
+function main_command()
+{
+	who=$(who -q | xargs )
+	cputemp=$(sensors -A | awk '/Core/ {print $2,$3}' | paste -sd ",")
+	# hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $1,$4}'| paste -sd ",")
+	iostat=$(iostat -kd)
+	# mpdinfo=$(mpc -f '%artist% - %title% - %time%' | head -n1)
+	volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
+	# date=$(date)
+	# uptime=$( uptime | cut -d\  -f6-)
+	# uname=$(uname -rv)
+	# vmstat=$(vmstat -wS m)
+	charge=$(acpi -a | awk '{print $3}')
+	wifi=$(iwgetid | awk '{print $2}')
+	externalip=$( [[ -s /tmp/externalip ]] && ( cat /tmp/externalip ) || ( curl -so /tmp/externalip 'http://myexternalip.com/raw' )& )
+	weather=$(weather.show)
+}
 
-# figlet -c About PC
-# echo -e $blue" 时间：$date\e[0m"
-# echo -e $magenta" 发行版：$uname\e[0m"
-# echo -e $cyan" UPTIME：$uptime\e[0m"
-# echo -e $red"Battery：$battery\e[0m"
-# echo
-# echo -e $blue"MPD：$mpdinfo\e[0m"
-# echo -e $magenta" wifi：$wifi\e[0m"
-echo -e $white"$iostat\e[0m"
-# echo -e $red"$vmstat\e[0m"
-echo 
-# echo -e $red"$(netspeed)\e[0m"
-echo -e $magenta"User   ：$who\e[0m" 
-echo -e $green"CPU    ：$cputemp\e[0m" 
-echo -e $cyan"Vol    ：$volume\e[0m" 
-# echo -e $green"CPU    ：$cputemp\e[0m" "|" $yellow" HDD：$hddtemp\e[0m"
-echo -e $yellow"$(get_weather)\e[0m"
-echo -e $red"ifinfo : $wifi / $externalip\e[0m"
+# 前端显示
+function init()
+{
+	# figlet -c About PC
+	# echo -e $blue" 时间：$date\e[0m"
+	# echo -e $magenta" 发行版：$uname\e[0m"
+	# echo -e $cyan" UPTIME：$uptime\e[0m"
+	# echo
+	# echo -e $blue"MPD：$mpdinfo\e[0m"
+	# echo -e $magenta" wifi：$wifi\e[0m"
+	# echo -e $red"$vmstat\e[0m"
+	# echo -e $red"$(netspeed)\e[0m"
+	# echo -e $green"CPU    ：$cputemp\e[0m" "|" $yellow" HDD：$hddtemp\e[0m"
+	echo -e "$iostat\e[0m"
+	echo 
+	echo -e $magenta"Users  ：$who\e[0m" 
+	echo -e   $green"CPU    ：$cputemp\e[0m" 
+	echo -e    $cyan"Volume ：$volume\e[0m" '\t' $blue"Charge ：$charge\e[0m"
+	echo -e     $red"Iwinfo : $wifi / $externalip\e[0m"
+	echo -e  $yellow"Weather: $weather\e[0m"
+}
+# while true; do
+# 	main_command
+# 	init
+#     sleep 2
+# done
 
-# main end }}}
+# use `watch`
+main_command
+init
