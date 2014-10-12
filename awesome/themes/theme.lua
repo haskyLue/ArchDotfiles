@@ -24,7 +24,7 @@ theme.fg_normal     = "#ffffff"
 theme.fg_focus      = "#ff7e00"
 theme.fg_urgent     = "#ffcb00"
 
-theme.bg_normal     = "#000000bb"
+theme.bg_normal     = "#000000"
 -- theme.bg_focus      = "#404040" 
 theme.bg_focus      = "#000000" 
 theme.bg_urgent     = "#b80000"
@@ -62,7 +62,7 @@ theme.taglist_squares_unsel = themedir .. "/taglist/squarez.png"
 theme.taglist_squares_resize = "false"
 
 --// Misc
-theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon.png"
+theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon-l.png"
 -- theme.menu_submenu_icon      = sharedthemes .. "/default/submenu.png"
 theme.tasklist_floating_icon = sharedthemes .. "/default/tasklist/floatingw.png"
 

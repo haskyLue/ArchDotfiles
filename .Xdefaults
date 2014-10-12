@@ -44,7 +44,7 @@ URxvt.letterSpace : 1
 #include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors.base"
 *dpth: 32
 
-#include "/home/hasky/Documents/dotfiles/.urvxt/xdefaults.colors"
+#include "/home/hasky/Workspace/git/xresources-color-schemes/raven_m9-dark"
 
 ! }}}
 

@@ -2,14 +2,40 @@
 # create by ldb
 
 secret="/home/hasky/Workspace/secret"
-black='\E[30;47m'
-red='\E[31;47m'
-green='\E[32;47m'
-yellow='\E[33;47m'
-blue='\E[34;47m'
-magenta='\E[35;47m'
-cyan='\E[36;47m'
-white='\E[37;47m'
+
+txtblk='\e[0;30m' # Black - Regular
+txtred='\e[0;31m' # Red
+txtgrn='\e[0;32m' # Green
+txtylw='\e[0;33m' # Yellow
+txtblu='\e[0;34m' # Blue
+txtpur='\e[0;35m' # Purple
+txtcyn='\e[0;36m' # Cyan
+txtwht='\e[0;37m' # White
+bldblk='\e[1;30m' # Black - Bold
+bldred='\e[1;31m' # Red
+bldgrn='\e[1;32m' # Green
+bldylw='\e[1;33m' # Yellow
+bldblu='\e[1;34m' # Blue
+bldpur='\e[1;35m' # Purple
+bldcyn='\e[1;36m' # Cyan
+bldwht='\e[1;37m' # White
+unkblk='\e[4;30m' # Black - Underline
+undred='\e[4;31m' # Red
+undgrn='\e[4;32m' # Green
+undylw='\e[4;33m' # Yellow
+undblu='\e[4;34m' # Blue
+undpur='\e[4;35m' # Purple
+undcyn='\e[4;36m' # Cyan
+undwht='\e[4;37m' # White
+bakblk='\e[40m'   # Black - Background
+bakred='\e[41m'   # Red
+bakgrn='\e[42m'   # Green
+bakylw='\e[43m'   # Yellow
+bakblu='\e[44m'   # Blue
+bakpur='\e[45m'   # Purple
+bakcyn='\e[46m'   # Cyan
+bakwht='\e[47m'   # White
+txtrst='\e[0m'    # Text Reset
 
 declare who cpu iostat charge wifi externalip weather
 
@@ -18,7 +44,7 @@ declare who cpu iostat charge wifi externalip weather
 function weather.pull(){
 	curl -so /tmp/weather.raw \
 		"http://flash.weather.com.cn/wmaps/xml/nanjing.xml" && cat /tmp/weather.raw \
-		| awk -F \" '/浦口/ {print $18,$20"~"$22"°C",$24"°C",$26,$30}' > /tmp/weath
+		| awk -F \" '/浦口/ {print $18,$20"~"$22"°C",$24"°C",$26,$30}' > /tmp/weather
 	date +%s > /tmp/weather.flag
 }
 function weather.cal(){
@@ -29,11 +55,13 @@ function weather.cal(){
 	[[ $duration -gt $howlong ]] && echo 1 || echo 0
 }
 function weather.show(){
-	local suffix="$green -OK\e[0m"
-	[[ $( route | wc -l ) -le 2 ]] && suffix="$red -Failed\e[0m" #网络接口连接
-	[[ ! -s /tmp/weather || $(weather.cal) -eq 1 ]] && ( weather.pull )&  #数据文件不正常 || 过期
+	local suffix="$bldgrn -OK $txtrst"
+	[[ $( route | wc -l ) -le 2 ]] && suffix="$bldgrn -Failed $txtrst"  #网络接口连接
+
+	[[ ! -s /tmp/weather || $(weather.cal) -eq 1 ]] && ( weather.pull )  #数据文件不正常 || 过期
 	local content=$( [[ -s /tmp/weather ]] && ( cat /tmp/weather ) || ( echo 'Data Pulling...' ) )
-	echo -e "$content$suffix"
+
+	echo -e "$content$suffix[上次更新/$(date --date=@`cat /tmp/weather.flag` +%T)]"
 }
 # }}}
 
@@ -59,7 +87,7 @@ function weather.show(){
 # }
 
 # 初始化
-function main_command()
+function init()
 {
 	who=$(who -q | xargs )
 	cputemp=$(sensors -A | awk '/Core/ {print $2,$3}' | paste -sd ",")
@@ -72,13 +100,13 @@ function main_command()
 	# uname=$(uname -rv)
 	# vmstat=$(vmstat -wS m)
 	charge=$(acpi -a | awk '{print $3}')
-	wifi=$(iwgetid | awk '{print $2}')
-	externalip=$( [[ -s /tmp/externalip ]] && ( cat /tmp/externalip ) || ( curl -so /tmp/externalip 'http://myexternalip.com/raw' )& )
+	# wifi=$(iwgetid | awk '{print $2}')
+	# externalip=$( [[ -s /tmp/externalip ]] && ( cat /tmp/externalip ) || ( curl -so /tmp/externalip 'http://myexternalip.com/raw' )& )
 	weather=$(weather.show)
 }
 
 # 前端显示
-function init()
+function start()
 {
 	# figlet -c About PC
 	# echo -e $blue" 时间：$date\e[0m"
@@ -90,20 +118,19 @@ function init()
 	# echo -e $red"$vmstat\e[0m"
 	# echo -e $red"$(netspeed)\e[0m"
 	# echo -e $green"CPU    ：$cputemp\e[0m" "|" $yellow" HDD：$hddtemp\e[0m"
-	echo -e "$iostat\e[0m"
-	echo 
-	echo -e $magenta"Users  ：$who\e[0m" 
-	echo -e   $green"CPU    ：$cputemp\e[0m" 
-	echo -e    $cyan"Volume ：$volume\e[0m" '\t' $blue"Charge ：$charge\e[0m"
-	echo -e     $red"Iwinfo : $wifi / $externalip\e[0m"
-	echo -e  $yellow"Weather: $weather\e[0m"
+	echo -e "$bldwht$iostat$txtrst \n"
+	echo -e "$txtred Users   :  $who$txtrst" 
+	echo -e "$txtgrn CPU     :  $cputemp$txtrst" 
+	echo -e "$txtcyn Volume  :  $volume$txtrst" '\t' "$txtblu Charge ：$charge$txtrst"
+	# echo -e "$txtpur IWinfo  :  $wifi / $externalip$txtrst"
+	echo -e "$txtylw Weather :  $weather$txtrst"
 }
 # while true; do
+#	clear
 # 	main_command
 # 	init
 #     sleep 2
 # done
 
 # use `watch`
-main_command
-init
+init && start

@@ -53,21 +53,28 @@ Uhosts(){
 	# local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AAC-n6LmtWbdlKQRbdEa0QUoa/imouto.host.7z?dl=1"
 	local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AADvmg0wxOXHAtLQ9WhPlvAva/imouto.host.txt?dl=1"
 
-	echo "Downloading hosts package"
-	# curl -#L -o /tmp/imouto.host.txt  $HOSTS_URL
-	wget -vc -O /tmp/imouto.host.txt  $HOSTS_URL
+	echo "\e[34m Downloading hosts package\e[0m"
+	rm -f /tmp/imouto.host.txt && aria2c --dir=/tmp --out=imouto.host.txt $HOSTS_URL
 	# 7z e -y /tmp/hosts.7z -o/tmp/
 
-	echo "Finishing..."
+	echo -e "\nFinishing..."
 	sudo -S cp -fv /tmp/imouto.host.txt /etc/hosts < $secret
 	head -n2 /etc/hosts | tail -n1
+}
+Udns()
+{
+	local secret="/home/hasky/Workspace/secret"
+	echo -e "nameserver 223.5.5.5 \nnameserver 223.6.6.6" > /tmp/resolv
+	/bin/cp -fv /etc/dnsmasq-resolv.conf /tmp/
+	sudo -S cp -fv /tmp/resolv /etc/dnsmasq-resolv.conf < $secret
+	cat /etc/dnsmasq-resolv.conf
 }
 Ugitdir(){
 	local DIR="/home/hasky/Workspace/git"
 	for dir in $DIR/*
 	do
 		if [ -d $dir ] || [ -L $dir ]; then
-			echo "\e[34m UPDATING \e[0m $dir..."
+			echo "\e[34m remote pulling \e[0m $dir..."
 			cd $dir
 			git pull -v origin
 		fi
