@@ -16,7 +16,7 @@ then
 	duration=$( expr $time_new \- $time_old )
 	rx_rate=$(expr \( $rx_new \- $rx_old \) / 1000 / $duration )
 	tx_rate=$(expr \( $tx_new \- $tx_old \) / 1000 / $duration )
-	echo "#[bg=default]#[fg=white] #[fg=blue]↑↓#[fg=white]$netinterface#[fg=blue] ↘${rx_rate}.0#[fg=white]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=white]KB/s"
+	echo "#[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$netinterface#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
 else
-	echo "#[bg=default]#[fg=default] Invalid Interface!"
+	echo "#[bg=default]#[fg=magenta] Invalid Interface!"
 fi

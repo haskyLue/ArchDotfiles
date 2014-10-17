@@ -3,8 +3,7 @@
 DIR=/home/hasky/Workspace/git/biligrab-danmaku2ass
 URL=$( xsel -o )
 COOKIE="-c '$( cat $DIR/cookie )'"
-D2AFLAGS="--danmaku2assflags 'font_size=30,comment_duration=7.0'"
-# D2AFLAGS="--danmaku2assflags 'font_size=27'"
+D2AFLAGS="--danmaku2assflags 'font_size=29,comment_duration=6.0,is_reduce_comments=True'"
 
 EXECUTE="python $DIR/bilidan.py --hd $URL $COOKIE $D2AFLAGS"
 notify-send "正在播放 $URL"

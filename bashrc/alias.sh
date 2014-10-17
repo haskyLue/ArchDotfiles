@@ -56,9 +56,9 @@ alias pacll="sudo pacman -Qq"  # '[l]ist [l]ocal'   - list all packages which we
 alias paclo="pacman -Qdt"      # list orphaned package
 alias paco="sudo pacman -Qo"    # '[o]wner'          - determine which package owns a given file
 alias pacf="sudo pacman -Ql"    # '[f]iles'          - list all files installed by a given package
-alias pacc="sudo pacman -Sc"    # '[c]lean cache'    - delete all not currently installed package files
+alias pacc="sudo pacman -Scc"    # '[c]lean cache'    - delete all not currently installed package files
 alias update="figlet -c Package Update && yaourt --insecure -Syyua "
-alias pacm="makepkg -fci"  # '[m]ake'           - make package from PKGBUILD file in current directory
+alias pacm="makepkg -fci --syncdeps --rmdeps"  # '[m]ake'           - make package from PKGBUILD file in current directory
 alias yt="yaourt --insecure"
 
 # somemore
@@ -68,8 +68,8 @@ alias yt="yaourt --insecure"
 # alias onwifi="sudo ip link set wlp3s0 up ; wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY/ {print $1}'`"
 # alias offwifi="sudo netctl stop-all ; rm -f /tmp/externalip"
 # alias onwifi="sudo netctl start wlp3s0-MERCURY_C1D49C ; curl -s 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' > /dev/null"
-# alias pon="sudo ip link set enp7s0f5 up && sudo pon && sudo route del default" 
-alias pon="sudo ip link set enp7s0f5 up && sudo pon" 
+alias pon="sudo route del default && sudo pon"
+# alias pon="sudo ip link set enp7s0f5 up && sudo pon" 
 alias poff="sudo poff -a"
 alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
@@ -94,9 +94,8 @@ alias lampp="figlet -c Lampp Server && sudo /opt/lampp/xampp"
 alias gmail="checkgmail -numbers -private -no_cookies &"
 alias news="newsbeuter -X;newsbeuter -r  2>> /dev/null"
 alias vmxp="vboxmanage startvm xp "
-alias yt-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0"
+alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist --proxy http://127.0.0.1:8087"
 alias iftop="sudo iftop -PnB"
-# alias pon="sudo ip link set enp7s0f5 up;sudo pon" 
 alias tshark="sudo tshark"
 alias winfo="watch  -n 2 --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
 alias bilibili="/home/hasky/Documents/dotfiles/script/bilibili.sh"

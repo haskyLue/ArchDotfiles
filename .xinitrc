@@ -46,6 +46,8 @@ pcmanfm -d&
 
 (xmodmap ~/.Xmodmap ) && (xrdb -merge .Xdefaults )
 
+rm ~/.xsession-errors* && ln -s /dev/null ~/.xsession-errors
+
 # 启动WM/DE 
 # echo "" > ~/.cache/awesome/stderr > ~/.cache/awesome/stdout; exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
-exec awesome 
+# exec awesome 

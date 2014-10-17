@@ -15,13 +15,12 @@ theme.wallpaper                = "/home/hasky/Downloads/Image/background.jpg"
 theme.tasklist_plain_task_name = true -- 终于找到你了,去掉tasklist name前的符号
 theme.tasklist_disable_icon = false
 
--- theme.font          = "WenQuanYi Bitmap Song 8"
-theme.font          = "Share Tech Mono 9"
+theme.font          = "WenQuanYi Bitmap Song 8"
 theme.icon_theme    = Faenza
 
 --// Colors
 theme.fg_normal     = "#ffffff"
-theme.fg_focus      = "#ff7e00"
+theme.fg_focus      = "#3399FF"
 theme.fg_urgent     = "#ffcb00"
 
 theme.bg_normal     = "#000000"
