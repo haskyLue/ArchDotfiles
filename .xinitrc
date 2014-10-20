@@ -30,7 +30,7 @@ export EDITOR="vim"
 # export vblank_mode=0
 
 # 启动应用程序
-# compton&
+compton&
 mpd&
 mpdscribble&
 fcitx&
@@ -43,7 +43,8 @@ pcmanfm -d&
 # urxvtd -q -f -o&
 # wicd-gtk -t&
 
-(xmodmap ~/.Xmodmap ) && (xrdb -merge .Xdefaults )
+xmodmap ~/.Xmodmap 
+# xrdb -merge .Xdefaults
 
 rm ~/.xsession-errors* && ln -s /dev/null ~/.xsession-errors
 

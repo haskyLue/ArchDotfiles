@@ -361,7 +361,7 @@ globalkeys = awful.util.table.join(
 			fc = fc .. line .. '\n'
 		end
 		f:close()
-		frame = naughty.notify({ font = "monospace 9", fg= "#222222", bg= "#ebebeb",text = fc, border_width= 1,timeout = 15 })
+		frame = naughty.notify({ font = "monospace 9", fg= "#222222", bg= "#ebebebcc",text = fc, border_width= 1,timeout = 15 })
 	end),
 	awful.key({ modkey, "Shift" }, "d", function ()
 		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)
@@ -503,7 +503,8 @@ awful.rules.rules = {
 	{ rule_any = { class = {"Firefox","Chromium" }}, properties = { tag = tags[1][3], switchtotag = true} },
 	{ rule_any = { class = {"LibreOffice","Subl3","Gvim","FoxitReader","Evince"} }, properties = { tag = tags[1][4], switchtotag = true} },
 
-	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"xfce4-terminal"} }, properties = { floating = true } , callback = function (c) awful.placement.centered(c,nil) end }
+	{ rule = {}, except_any = { class = { "URxvt", "Vim" } ,instance = {"xfce4-terminal"} }, properties = { floating = true } , callback = function (c) awful.placement.centered(c,nil) end },
+	{ rule = { name = "OSD Lyrics" }, properties = { ontop = true, focus = true }, callback= function( c ) c:geometry( { x = 0, width = 900, y = 500, height = 100 } ) end }
 }
 -- }}}
 
