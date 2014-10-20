@@ -97,7 +97,7 @@ alias vmxp="vboxmanage startvm xp "
 alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist --proxy http://127.0.0.1:8087"
 alias iftop="sudo iftop -PnB"
 alias tshark="sudo tshark"
-alias winfo="watch  -n 2 --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
+alias winfo="watch -n 2 --no-title --color /home/hasky/Documents/dotfiles/script/getinfo.sh"
 alias bilibili="/home/hasky/Documents/dotfiles/script/bilibili.sh"
 alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color

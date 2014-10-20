@@ -89,10 +89,10 @@ function weather.show(){
 # 初始化
 function init()
 {
-	who=$(who -q | xargs )
+	who=$(who -q | tail -n1 )
 	cputemp=$(sensors -A | awk '/Core/ {print $2,$3}' | paste -sd ",")
 	# hddtemp=$(sudo -S hddtemp /dev/sda /dev/sdb < $secret | awk '{$3="-"; print $1,$4}'| paste -sd ",")
-	iostat=$(iostat -kd)
+	iostat=$(iostat -kd )
 	# mpdinfo=$(mpc -f '%artist% - %title% - %time%' | head -n1)
 	volume=$(amixer get Master | tail -n1 | awk '{print $4,$6}')
 	# date=$(date)
@@ -100,8 +100,9 @@ function init()
 	# uname=$(uname -rv)
 	# vmstat=$(vmstat -wS m)
 	charge=$(acpi -a | awk '{print $3}')
-	# wifi=$(iwgetid | awk '{print $2}')
-	# externalip=$( [[ -s /tmp/externalip ]] && ( cat /tmp/externalip ) || ( curl -so /tmp/externalip 'http://myexternalip.com/raw' )& )
+	# free=$(free -mo)
+	wifi=$(iwgetid | awk '{print $2}')
+	externalip=$( [[ -s /tmp/externalip ]] && ( cat /tmp/externalip ) || ( curl -so /tmp/externalip 'http://myexternalip.com/raw' )& )
 	weather=$(weather.show)
 }
 
@@ -114,16 +115,17 @@ function start()
 	# echo -e $cyan" UPTIME：$uptime\e[0m"
 	# echo
 	# echo -e $blue"MPD：$mpdinfo\e[0m"
-	# echo -e $magenta" wifi：$wifi\e[0m"
-	# echo -e $red"$vmstat\e[0m"
 	# echo -e $red"$(netspeed)\e[0m"
 	# echo -e $green"CPU    ：$cputemp\e[0m" "|" $yellow" HDD：$hddtemp\e[0m"
-	echo -e "$bldwht$iostat$txtrst \n"
-	echo -e "$txtred Users   :  $who$txtrst" 
-	echo -e "$txtgrn CPU     :  $cputemp$txtrst" 
-	echo -e "$txtcyn Volume  :  $volume$txtrst" '\t' "$txtblu Charge ：$charge$txtrst"
-	# echo -e "$txtpur IWinfo  :  $wifi / $externalip$txtrst"
-	echo -e "$txtylw Weather :  $weather$txtrst"
+	# echo -e "$bldblu$vmstat$txtrst"
+	echo -e $bldwht"$iostat"$txtrst
+	# echo -e $bldpur"$free"$txtrst 
+	echo 
+	echo -e $txtred"Users   : $who"$txtrst 
+	echo -e $txtgrn"CPU     : $cputemp"$txtrst 
+	echo -e $txtcyn"Volume  : $volume"$txtrst "\t" $txtwht"Charge ："$charge$txtrst
+	echo -e $txtblu"IWinfo  :  $wifi / $externalip"$txtrst
+	echo -e $txtylw"Weather : $weather"$txtrst
 }
 # while true; do
 #	clear

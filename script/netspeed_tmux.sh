@@ -1,4 +1,6 @@
 netinterface=$(route -v | awk 'NR==3 {print $8}')
+MemAvailable=$(expr `cat /proc/meminfo | awk '/MemAvailable/ {print $2}'` / 1024)
+MemTotal=$(expr `cat /proc/meminfo | awk '/MemTotal/ {print $2}'` / 1024)
 if [ $netinterface ]
 then
 	rx_old=$( [[ -e /tmp/rx_bytes  ]] && ( cat /tmp/rx_bytes ) || echo 0 ) # 读取上一个时间戳的流量
@@ -16,7 +18,8 @@ then
 	duration=$( expr $time_new \- $time_old )
 	rx_rate=$(expr \( $rx_new \- $rx_old \) / 1000 / $duration )
 	tx_rate=$(expr \( $tx_new \- $tx_old \) / 1000 / $duration )
-	echo "#[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$netinterface#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
+	echo "#[bg=red] $MemAvailable/$MemTotal MB\
+		 #[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$netinterface#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
 else
 	echo "#[bg=default]#[fg=magenta] Invalid Interface!"
 fi

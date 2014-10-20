@@ -30,7 +30,7 @@ export EDITOR="vim"
 # export vblank_mode=0
 
 # 启动应用程序
-compton&
+# compton&
 mpd&
 mpdscribble&
 fcitx&
@@ -42,7 +42,6 @@ pcmanfm -d&
 # profile-sync-daemon&
 # urxvtd -q -f -o&
 # wicd-gtk -t&
-# volti&
 
 (xmodmap ~/.Xmodmap ) && (xrdb -merge .Xdefaults )
 
