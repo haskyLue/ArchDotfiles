@@ -51,7 +51,7 @@ tawsome(){
 Uhosts(){
 	local secret="/home/hasky/Workspace/secret"
 	# local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AAC-n6LmtWbdlKQRbdEa0QUoa/imouto.host.7z?dl=1"
-	local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AADvmg0wxOXHAtLQ9WhPlvAva/imouto.host.txt?dl=1"
+	local HOSTS_URL="https://raw.githubusercontent.com/zxdrive/imouto.host/master/imouto.host.txt"
 
 	echo "\e[34m Downloading hosts package\e[0m"
 	rm -f /tmp/imouto.host.txt && aria2c --dir=/tmp --out=imouto.host.txt $HOSTS_URL
@@ -80,11 +80,11 @@ Ugitdir(){
 		fi
 	done
 }
-reload_ath9k(){
-	sudo modprobe -rv ath9k
-	sleep 5
-	sudo modprobe -fv ath9k
-}
+# reload_ath9k(){
+# 	sudo modprobe -rv ath9k
+# 	sleep 5
+# 	sudo modprobe -fv ath9k
+# }
 kaoyan(){
 	local target_time=1419609600
 	local now_time=$(date +%s)

@@ -18,7 +18,7 @@ then
 	duration=$( expr $time_new \- $time_old )
 	rx_rate=$(expr \( $rx_new \- $rx_old \) / 1000 / $duration )
 	tx_rate=$(expr \( $tx_new \- $tx_old \) / 1000 / $duration )
-	echo "#[bg=red] $MemAvailable/$MemTotal MB #[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$netinterface#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
+	echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$netinterface#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
 else
-	echo "#[bg=red] $MemAvailable/$MemTotal MB #[bg=default]#[fg=magenta] Invalid Interface!"
+	echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] Invalid Interface!"
 fi

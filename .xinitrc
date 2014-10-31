@@ -31,7 +31,7 @@ export EDITOR="vim"
 
 # 启动应用程序
 compton&
-mpd&
+mpd& 
 mpdscribble&
 fcitx&
 libreoffice --quickstart&
@@ -39,6 +39,7 @@ libreoffice --quickstart&
 xflux -l 32.054829 -g 118.795193&
 stardict -h&
 pcmanfm -d&
+parcellite&
 # profile-sync-daemon&
 # urxvtd -q -f -o&
 # wicd-gtk -t&

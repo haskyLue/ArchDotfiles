@@ -104,8 +104,8 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = {"1-Tmux","2-Terminal","3-WWW","4-Editor","5-Vbox"},
-	layout = { layouts[2],layouts[3], layouts[1], layouts[1], layouts[1] }
+	names = {"1-Tmux","2-Terminal","3-WWW","4-Editor","5-Vbox","6-MISC"},
+	layout = { layouts[2],layouts[3], layouts[1], layouts[1], layouts[1],layouts[1] }
 }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -227,8 +227,6 @@ for s = 1, screen.count() do
     left_layout:add(uname)
 		left_layout:add(separator)
     left_layout:add(mypromptbox[s])
-    left_layout:add(mytextclock)
-		left_layout:add(separator)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
@@ -237,6 +235,9 @@ for s = 1, screen.count() do
     right_layout:add(mytaglist[s])
 		right_layout:add(separator)
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+		right_layout:add(separator)
+    right_layout:add(mytextclock)
+		right_layout:add(separator)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -331,7 +332,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioPrev",	      function () awful.util.spawn_with_shell("mpc prev | xargs -I  {} -0 notify-send {}")  end),
     awful.key({}, "XF86AudioNext",	      function () awful.util.spawn_with_shell("mpc next | xargs -I  {} -0 notify-send {}")  end),	
     -- awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("vmware '/home/hasky/vmware/Windows XP Professional/Windows XP Professional.vmx' -X") end),
-    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("notify-send 'Vbox xp 启动...' ; virtualbox --fullscreen --no-debug --startvm xp") end),
+    awful.key({}, "XF86Launch1", function () awful.util.spawn_with_shell("notify-send 'Vbox xp 启动...' ; virtualbox --no-debug --startvm xp") end),
     -- }}}
 
     -- 用户程序{{{
@@ -531,7 +532,7 @@ client.connect_signal("manage", function (c, startup)
         end
     end
 
-    local titlebars_enabled = false
+    local titlebars_enabled = true
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
