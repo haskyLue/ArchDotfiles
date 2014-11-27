@@ -15,18 +15,18 @@ theme.wallpaper                = "/home/hasky/Downloads/Image/background.jpg"
 theme.tasklist_plain_task_name = true -- 终于找到你了,去掉tasklist name前的符号
 theme.tasklist_disable_icon = false
 
--- theme.font          = "monospace 8"
-theme.font          = "URW Gothic 8"
-theme.icon_theme    = Faenza
+theme.font          = "monospace 8"
+-- theme.font          = "文泉驿微米黑 8"
+theme.icon_theme    = Numix
 
 --// Colors
 theme.fg_normal     = "#ffffff"
-theme.fg_focus      = "#00c0c0"
+theme.fg_focus      = "#01A0E4"
 theme.fg_urgent     = "#ffcb00"
 
-theme.bg_normal     = "#000000"
+theme.bg_normal     = "#000000cc"
 -- theme.bg_focus      = "#404040" 
-theme.bg_focus      = "#000000" 
+theme.bg_focus      = "#000000aa" 
 theme.bg_urgent     = "#b80000"
 theme.bg_systray    = theme.bg_normal
 
@@ -38,12 +38,12 @@ theme.border_marked = theme.fg_urgent
 
 --// Titlebars
 theme.titlebar_fg_normal  = "#808080"
-theme.titlebar_fg_focus   = "#ff1717"
-theme.titlebar_bg_normal  = "#363636"
+theme.titlebar_fg_focus   = "eeeeee"
+theme.titlebar_bg_normal  = "#222222"
 theme.titlebar_bg_focus   = "#000000"
 
 -- // taglist
-theme.taglist_bg_focus = theme.bg_focus
+theme.taglist_bg_focus = theme.titlebar_bg_normal  
 theme.taglist_fg_focus = theme.fg_focus
 
 --// Menu
@@ -62,7 +62,7 @@ theme.taglist_squares_unsel = themedir .. "/taglist/squarez.png"
 theme.taglist_squares_resize = "false"
 
 --// Misc
-theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon-l.png"
+theme.awesome_icon           = "/home/hasky/Downloads/Image/awesome-icon.png"
 -- theme.menu_submenu_icon      = sharedthemes .. "/default/submenu.png"
 theme.tasklist_floating_icon = sharedthemes .. "/default/tasklist/floatingw.png"
 

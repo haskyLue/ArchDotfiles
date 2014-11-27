@@ -3,7 +3,6 @@
 #------------------------
 # modified commands
 alias diff='colordiff'              # requires colordiff package
-alias grep='grep --color=auto'
 alias df='df -h'
 alias du='du -c -h'
 alias mkdir='mkdir -p -v'
@@ -11,9 +10,10 @@ alias ping='ping -c 5'
 alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
-alias top="top -id 2"
+alias top="top -iHd 2"
 alias aria2c="aria2c -x 5 -s 10 -c"
 alias pstree="pstree -ha"
+alias grep="grep --color"
 
 # privileged access
 if [ $UID -ne 0 ]; then
@@ -92,7 +92,7 @@ alias youdao="ydcv -f"
 # alias wifi="wicd-curses"
 alias lampp="figlet -c Lampp Server && sudo /opt/lampp/xampp"
 alias gmail="checkgmail -numbers -private -no_cookies &"
-alias news="newsbeuter -X;newsbeuter -r  2>> /dev/null"
+alias news="newsbeuter -r  2>> /dev/null"
 alias vmxp="vboxmanage startvm xp "
 alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist --proxy http://127.0.0.1:8087"
 alias iftop="sudo iftop -PnB"

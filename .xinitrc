@@ -26,8 +26,13 @@ export BROWSER="chromium"
 # export CHROMIUM_USER_FLAGS="--disk-cache-dir=/tmp --disk-cache-size=50000000"
 export EDITOR="vim"
 
+# for bcloud
+( eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh) && export GPG_AGENT_INFO SSH_AUTH_SOCK )&
+
 # export GDK_BACKEND=wayland
 # export vblank_mode=0
+export GDK_USE_XFT=1
+export QT_XFT=true
 
 # 启动应用程序
 compton&
@@ -37,9 +42,10 @@ fcitx&
 libreoffice --quickstart&
 # shutter --min_at_startup&
 xflux -l 32.054829 -g 118.795193&
-stardict -h&
+# stardict -h&
 pcmanfm -d&
 parcellite&
+xfce4-power-manager&
 # profile-sync-daemon&
 # urxvtd -q -f -o&
 # wicd-gtk -t&
@@ -51,4 +57,5 @@ rm ~/.xsession-errors* && ln -s /dev/null ~/.xsession-errors
 
 # 启动WM/DE 
 # echo "" > ~/.cache/awesome/stderr > ~/.cache/awesome/stdout; exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
-# exec awesome 
+exec awesome 
+# exec unity 

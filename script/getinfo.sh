@@ -124,7 +124,7 @@ function start()
 	echo -e $txtred"Users   : $who"$txtrst 
 	echo -e $txtgrn"CPU     : $cputemp"$txtrst 
 	echo -e $txtcyn"Volume  : $volume"$txtrst "\t" $txtwht"Charge ："$charge$txtrst
-	echo -e $txtblu"IWinfo  :  $wifi / $externalip"$txtrst
+	echo -e $txtblu"IWinfo  : $wifi / $externalip"$txtrst
 	echo -e $txtylw"Weather : $weather"$txtrst
 }
 # while true; do

@@ -51,15 +51,15 @@ tawsome(){
 Uhosts(){
 	local secret="/home/hasky/Workspace/secret"
 	# local HOSTS_URL="https://www.dropbox.com/sh/lw0ljk3sllmimpz/AAC-n6LmtWbdlKQRbdEa0QUoa/imouto.host.7z?dl=1"
-	local HOSTS_URL="https://raw.githubusercontent.com/zxdrive/imouto.host/master/imouto.host.txt"
-
-	echo "\e[34m Downloading hosts package\e[0m"
-	rm -f /tmp/imouto.host.txt && aria2c --dir=/tmp --out=imouto.host.txt $HOSTS_URL
+	# local HOSTS_URL="https://raw.githubusercontent.com/zxdrive/imouto.host/master/imouto.host.txt"
+	local HOSTS_URL="https://raw.githubusercontent.com/sundys/android/master/hosts"
+	echo "\e[34m DOWNLOADING HOSTS\e[0m"
+	rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
 	# 7z e -y /tmp/hosts.7z -o/tmp/
 
-	echo -e "\nFinishing..."
-	sudo -S cp -fv /tmp/imouto.host.txt /etc/hosts < $secret
-	head -n2 /etc/hosts | tail -n1
+	echo -e "\nFINISHING..."
+	sudo -S cp -fv /tmp/hosts.txt /etc/hosts < $secret
+	head -n2 /etc/hosts 
 }
 Udns()
 {
@@ -74,7 +74,7 @@ Ugitdir(){
 	for dir in $DIR/*
 	do
 		if [ -d $dir ] || [ -L $dir ]; then
-			echo "\e[34m remote pulling \e[0m $dir..."
+			echo "\e[34m remote pulling $dir...\e[0m "
 			cd $dir
 			git pull -v origin
 		fi
