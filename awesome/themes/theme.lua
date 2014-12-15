@@ -21,7 +21,7 @@ theme.icon_theme    = Numix
 
 --// Colors
 theme.fg_normal     = "#ffffff"
-theme.fg_focus      = "#bfefff"
+theme.fg_focus      = "#00eeee"
 theme.fg_urgent     = "#ffcb00"
 
 theme.bg_normal     = "#000000cc"

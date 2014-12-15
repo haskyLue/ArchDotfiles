@@ -10,7 +10,7 @@ alias ping='ping -c 5'
 alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
-alias top="top -iHd 2"
+alias top="top -id 2"
 alias aria2c="aria2c -x 5 -s 10 -c"
 alias pstree="pstree -ha"
 alias grep="grep --color"
@@ -85,7 +85,7 @@ alias Sunmute="amixer set Master unmute"
 
 # start app 
 alias goagent="figlet -c goagent && sudo /usr/share/goagent/local/goagent"
-# alias goagent="figlet -c goagent && sudo /usr/share/goagent/local/goagent"
+# alias goagent="figlet -c goagent && sudo sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
 alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 alias trash="sudo gvfs-trash"
 alias youdao="ydcv -f"
