@@ -6,10 +6,10 @@ function goagent_ca_update(){
 	echo -e "\n----------install ... Goagent CAcert"
 
 	# 1
-	echo -e "\n----------root ca updating ..."
-	sudo -S mkdir -p /usr/local/share/ca-certificates/goagent < $secret
-	sudo -S cp -fv $CAfile /usr/local/share/ca-certificates/goagent/GoAgent.crt < $secret
-	sudo -S update-ca-certificates -f < $secret
+	# echo -e "\n----------root ca updating ..."
+	# sudo -S mkdir -p /usr/local/share/ca-certificates/goagent < $secret
+	# sudo -S cp -fv $CAfile /usr/local/share/ca-certificates/goagent/GoAgent.crt < $secret
+	# sudo -S update-ca-certificates -f < $secret
 
 	# 2
 	echo -e "\n----------chromium ca updating ..."

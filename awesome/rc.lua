@@ -362,7 +362,7 @@ globalkeys = awful.util.table.join(
 			fc = fc .. line .. '\n'
 		end
 		f:close()
-		frame = naughty.notify({ font = "monospace 9", fg= "#222222", bg= "#ebebebcc",text = fc, border_width= 1,timeout = 15 })
+		frame = naughty.notify({ font = "monospace 9", fg= "#000000", bg= "#ebebebdd",text = fc, border_width= 0,timeout = 15 })
 	end),
 	awful.key({ modkey, "Shift" }, "d", function ()
 		awful.prompt.run({prompt = "Dict: "}, mypromptbox[mouse.screen].widget, function(cin_word)

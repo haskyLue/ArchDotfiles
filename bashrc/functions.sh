@@ -56,13 +56,14 @@ netsh_hosts(){
 }
 Uhosts(){
 	local secret="/home/hasky/Workspace/secret"
-	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
+
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
-	# rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
-	# 7z e -y /tmp/hosts.7z -o/tmp/
-	netsh_hosts
+	rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
+	# netsh_hosts
 
 	echo -e "\nFINISHING..."
 	sudo -S cp -fv /tmp/hosts.txt /etc/hosts < $secret
@@ -94,12 +95,6 @@ Ugitdir(){
 # 	sleep 5
 # 	sudo modprobe -fv ath9k
 # }
-kaoyan(){
-	local target_time=1419609600
-	local now_time=$(date +%s)
-	let spare_time="($target_time-$now_time)/3600/24"
-	echo -e "\e[5m距离考研还有 \e[0;31m$spare_time\e[0m (12.27)天\e[0m"
-}
 
 extract() {
     local c e i

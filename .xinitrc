@@ -45,6 +45,7 @@ xflux -l 32.054829 -g 118.795193&
 # stardict -h&
 pcmanfm -d&
 parcellite&
+xfce4-power-manager&
 # profile-sync-daemon&
 # urxvtd -q -f -o&
 # wicd-gtk -t&
