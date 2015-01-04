@@ -28,14 +28,14 @@ if [ $UID -ne 0 ]; then
 fi
 
 # ls
-alias ls='ls -hF --color=auto'
-alias l='ls -a'
-alias lr='ls -R'                    # recursive ls
-alias ll='ls -l'
-alias la='ll -A'
-alias lx='ll -BX'                   # sort by extension
-alias lz='ll -rS'                   # sort by size
-alias lt='ll -rt'                   # sort by date
+# alias ls='ls -hF --color=auto'
+# alias l='ls -a'
+# alias lr='ls -R'                    # recursive ls
+# alias ll='ls -l'
+# alias la='ll -A'
+# alias lx='ll -BX'                   # sort by extension
+# alias lz='ll -rS'                   # sort by size
+# alias lt='ll -rt'                   # sort by date
 
 # safety features
 alias cp='cp -i'
@@ -84,7 +84,7 @@ alias Smute="amixer set Master mute"
 alias Sunmute="amixer set Master unmute"
 
 # start app 
-alias goagent="figlet -c goagent && sudo /usr/share/goagent/local/goagent"
+alias goagent="figlet -c goagent ; sudo python2.7 /Users/hasky/Documents/devel/git/goagent-3.0/local/proxy.py"
 alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-2.serverip.co"
 # alias goagent="figlet -c goagent && sudo sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
 alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
@@ -106,11 +106,8 @@ alias tmas="TERM=xterm-256color tmux -2 attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 
 # enter directory & edit
-alias Cd="cd /home/hasky/Documents/dotfiles&&l"
-alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
-alias Cn="cd /home/hasky/Documents/note&&ll"
-alias Ca="cd /home/hasky/.config/awesome/&&ll"
-alias Cz="cd /home/hasky/.oh-my-zsh"
+alias Cd="cd /Users/hasky/Documents/devel/git/ArchDotfiles"
+# alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
 alias Vgo="vim /home/hasky/.proxy.user.ini"
 alias Vtpl="vim /home/hasky/Workspace/git/tmux-powerline/themes/default.sh"
 alias Vt="vim /home/hasky/.tmux.conf"

@@ -1,4 +1,5 @@
-netinterface=$(route -v | awk 'NR==3 {print $8}')
+# netinterface=$(route -v | awk 'NR==3 {print $8}') #for linux only
+netinterface=$(netstat -nr | awk '/default/ {print $6}') # for osx
 # MemAvailable=$(expr `cat /proc/meminfo | awk '/MemAvailable/ {print $2}'` / 1024)
 # MemTotal=$(expr `cat /proc/meminfo | awk '/MemTotal/ {print $2}'` / 1024)
 if [ $netinterface ]
