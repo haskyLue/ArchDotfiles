@@ -55,15 +55,15 @@ netsh_hosts(){
 		> /tmp/hosts.txt
 }
 Uhosts(){
-	local secret="/home/hasky/Workspace/secret"
-	local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
+	local secret="/Users/hasky/Documents/secret"
+	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
 	rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
-	# netsh_hosts
+	netsh_hosts
 
 	echo -e "\nFINISHING..."
 	sudo -S cp -fv /tmp/hosts.txt /etc/hosts < $secret
@@ -72,7 +72,7 @@ Uhosts(){
 }
 Udns()
 {
-	local secret="/home/hasky/Workspace/secret"
+	local secret="/Users/hasky/Documents/secret"
 	echo -e "nameserver 223.5.5.5 \nnameserver 223.6.6.6" > /tmp/resolv
 	# echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /tmp/resolv
 	/bin/cp -fv /etc/dnsmasq-resolv.conf /tmp/
@@ -80,7 +80,7 @@ Udns()
 	cat /etc/dnsmasq-resolv.conf
 }
 Ugitdir(){
-	local DIR="/home/hasky/Workspace/git"
+	local DIR="~/Documents/devel/git"
 	for dir in $DIR/*
 	do
 		if [ -d $dir ] || [ -L $dir ]; then
