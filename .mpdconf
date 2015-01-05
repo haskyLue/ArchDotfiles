@@ -453,7 +453,7 @@ pid_file           "~/.mpd/pid"
 state_file         "~/.mpd/mpdstate"
 audio_output {
     type                    "fifo"
-    name                    "my_fifo"
+    name                    "my fifo"
     path                    "/tmp/mpd.fifo"
     format                  "44100:16:2"
 }
@@ -462,3 +462,9 @@ audio_output {
 # 	name		"My ALSA Device"
 # 	server		"127.0.0.1"
 # }
+auto_update     "yes"
+audio_output {
+        type            "osx"
+        name            "My Mac Device"
+        mixer_type      "software"
+}

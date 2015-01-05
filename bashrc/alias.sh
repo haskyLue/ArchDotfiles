@@ -22,8 +22,8 @@ if [ $UID -ne 0 ]; then
 	alias sumount='sudo umount'
 	alias svim='sudo vim'
 	alias root='sudo su'
-	alias reboot='sudo systemctl reboot'
-	alias poweroff='sudo systemctl poweroff'
+	# alias reboot='sudo systemctl reboot'
+	# alias poweroff='sudo systemctl poweroff'
 	alias netcfg='sudo netcfg2'
 fi
 
@@ -83,8 +83,8 @@ alias Smute="amixer set Master mute"
 alias Sunmute="amixer set Master unmute"
 
 # start app 
-alias goagent="figlet -c goagent ; sudo python2.7 /Users/hasky/Documents/devel/git/goagent-3.0/local/proxy.py"
-alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-2.serverip.co"
+alias goagent="figlet -c goagent ; sudo python /Users/hasky/Documents/devel/git/goagent-3.0/local/proxy.py"
+alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
 # alias goagent="figlet -c goagent && sudo sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
 # alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 # alias trash="sudo gvfs-trash"
@@ -97,7 +97,8 @@ alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-qua
 alias iftop="sudo iftop -PnB"
 alias tshark="sudo tshark"
 alias winfo="watch -n 2 --no-title --color ~/Documents/devel/git/ArchDotfiles/script/getinfo.sh"
-alias bilibili="~/Documents/devel/git/ArchDotfiles/script/bilibili.sh"
+# alias bilibili="~/Documents/devel/git/ArchDotfiles/script/bilibili.sh"
+alias bilibili="python3 /Users/hasky/Documents/devel/git/biligrab-danmaku2ass/bilidan.py --hd"
 # alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
 alias tm="TERM=xterm-256color tmux -2"
@@ -108,7 +109,7 @@ alias tmas="TERM=xterm-256color tmux -2 attach-session"
 alias Cd="cd /Users/hasky/Documents/devel/git/ArchDotfiles"
 alias Cg="cd /Users/hasky/Documents/devel/git"
 # alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
-alias Vgo="vim ~/.proxy.user.ini"
+alias Vgo="vim ~/proxy.user.ini"
 alias Vt="vim ~/.tmux.conf"
 alias Vtask="vim ~/Documents/task.md"
 alias Vrss="vim ~/.newsbeuter/urls"

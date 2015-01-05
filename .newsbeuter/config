@@ -12,5 +12,5 @@ always-display-description true
 # use-proxy yes
 
 html-renderer "w3m -dump -T text/html"
-browser chromium
-save-path /home/hasky/Documents/note
+browser open
+save-path ~/Documents/note

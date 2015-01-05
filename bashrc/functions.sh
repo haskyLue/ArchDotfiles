@@ -5,7 +5,7 @@ parse_string(){
 } # 处理字符串变量部分字符的转义 for sed
 
 # cmd proxy {{{
-proxyon(){
+proxygo(){
 	export http_proxy="127.0.0.1:8087"
 	export https_proxy=$http_proxy
 	export ftp_proxy=$http_proxy
@@ -70,17 +70,17 @@ Uhosts(){
 	echo ""
 	grep -i "UPDATE" /etc/hosts
 }
-Udns()
-{
-	local secret="/Users/hasky/Documents/secret"
-	echo -e "nameserver 223.5.5.5 \nnameserver 223.6.6.6" > /tmp/resolv
-	# echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /tmp/resolv
-	/bin/cp -fv /etc/dnsmasq-resolv.conf /tmp/
-	sudo -S cp -fv /tmp/resolv /etc/dnsmasq-resolv.conf < $secret
-	cat /etc/dnsmasq-resolv.conf
-}
+# Udns()
+# {
+# 	local secret="/Users/hasky/Documents/secret"
+# 	echo -e "nameserver 223.5.5.5 \nnameserver 223.6.6.6" > /tmp/resolv
+# 	# echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /tmp/resolv
+# 	/bin/cp -fv /etc/dnsmasq-resolv.conf /tmp/
+# 	sudo -S cp -fv /tmp/resolv /etc/dnsmasq-resolv.conf < $secret
+# 	cat /etc/dnsmasq-resolv.conf
+# }
 Ugitdir(){
-	local DIR="~/Documents/devel/git"
+	local DIR="/Users/hasky/Documents/devel/git"
 	for dir in $DIR/*
 	do
 		if [ -d $dir ] || [ -L $dir ]; then

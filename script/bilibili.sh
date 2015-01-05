@@ -1,6 +1,6 @@
 #! /bin/bash
 
-DIR=/home/hasky/Workspace/git/biligrab-danmaku2ass
+DIR="~/Documents/devel/git/biligrab-danmaku2ass"
 URL=$( xsel -o )
 COOKIE="--cookie '$( cat $DIR/cookie )'"
 # D2AFLAGS="--d2aflags 'font_size=28,comment_duration=6.0'"
