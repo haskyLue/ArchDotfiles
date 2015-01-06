@@ -7,26 +7,28 @@ parse_string(){
 # cmd proxy {{{
 proxygo(){
 	export http_proxy="127.0.0.1:8087"
-	export https_proxy=$http_proxy
-	export ftp_proxy=$http_proxy
-	export rsync_proxy=$http_proxy
-	export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-	export HTTP_PROXY="127.0.0.1:8087"
-	export HTTPS_PROXY=$http_proxy
-	export FTP_PROXY=$http_proxy
-	export RSYNC_PROXY=$http_proxy
-	export NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
+	export ALL_PROXY=$http_proxy
+	# export https_proxy=$http_proxy
+	# export ftp_proxy=$http_proxy
+	# export rsync_proxy=$http_proxy
+	# export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+	# export HTTP_PROXY="127.0.0.1:8087"
+	# export HTTPS_PROXY=$http_proxy
+	# export FTP_PROXY=$http_proxy
+	# export RSYNC_PROXY=$http_proxy
+	# export NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
 	echo -e "\nProxy environment variable set."
 }
 proxyoff(){
 	unset HTTP_PROXY
-	unset http_proxy
-	unset HTTPS_PROXY
-	unset https_proxy
-	unset FTP_PROXY
-	unset ftp_proxy
-	unset RSYNC_PROXY
-	unset rsync_proxy
+	unset ALL_PROXY
+	# unset http_proxy
+	# unset HTTPS_PROXY
+	# unset https_proxy
+	# unset FTP_PROXY
+	# unset ftp_proxy
+	# unset RSYNC_PROXY
+	# unset rsync_proxy
 	echo -e "\nProxy environment variable removed."
 }
 # }}}
@@ -54,6 +56,14 @@ netsh_hosts(){
 	curl 'http://serve.netsh.org/pub/hosts.php?passcode=19735&gs=on&wk=on&twttr=on&fb=on&flkr=on&dpbx=on&odrv=on' -H 'Host: serve.netsh.org' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0' -H 'Accept: */*' -H 'Accept-Language: zh-cn,en-us;q=0.7,en;q=0.3' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: http://serve.netsh.org/pub/gethosts.php' -H 'Cookie: hostspasscode=19735; Hm_lvt_e26a7cd6079c926259ded8f19369bf0b=1418651792; Hm_lpvt_e26a7cd6079c926259ded8f19369bf0b=1418651792' -H 'Connection: keep-alive' \
 		> /tmp/hosts.txt
 }
+
+bilibili(){
+	cd /Users/hasky/Documents/devel/git/biligrab-danmaku2ass/ 
+
+	local c="$( cat ./cookie )"
+	./bilidan.py -c $c --hd $1
+}
+
 Uhosts(){
 	local secret="/Users/hasky/Documents/secret"
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"

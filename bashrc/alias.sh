@@ -98,7 +98,6 @@ alias iftop="sudo iftop -PnB"
 alias tshark="sudo tshark"
 alias winfo="watch -n 2 --no-title --color ~/Documents/devel/git/ArchDotfiles/script/getinfo.sh"
 # alias bilibili="~/Documents/devel/git/ArchDotfiles/script/bilibili.sh"
-alias bilibili="python3 /Users/hasky/Documents/devel/git/biligrab-danmaku2ass/bilidan.py --hd"
 # alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
 alias tm="TERM=xterm-256color tmux -2"
