@@ -11,6 +11,7 @@ alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 # alias top="top -id 2"
+alias top="top -o cpu "
 alias aria2c="aria2c -x 5 -s 10 -c"
 alias pstree="pstree -ha"
 alias grep="grep --color"
@@ -41,8 +42,6 @@ fi
 alias cp='cp -i'
 alias mv='mv -i'
 alias ln='ln -i'
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
 
 # pacman aliases
 # alias pac="sudo powerpill -S"      # default action     - install one or more packages
