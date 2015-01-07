@@ -25,6 +25,7 @@ if [ $UID -ne 0 ]; then
 	alias root='sudo su'
 	# alias reboot='sudo systemctl reboot'
 	# alias poweroff='sudo systemctl poweroff'
+	alias poweroff='sh ~/Documents/devel/git/ArchDotfiles/script/halt.sh'
 	# alias netcfg='sudo netcfg2'
 fi
 
