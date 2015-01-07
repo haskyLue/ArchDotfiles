@@ -24,7 +24,7 @@ if [ $UID -ne 0 ]; then
 	alias root='sudo su'
 	# alias reboot='sudo systemctl reboot'
 	# alias poweroff='sudo systemctl poweroff'
-	alias netcfg='sudo netcfg2'
+	# alias netcfg='sudo netcfg2'
 fi
 
 # ls
@@ -65,14 +65,14 @@ alias chmod='chmod --preserve-root'
 # alias offwifi="wicd-cli -xy;rm -f /tmp/externalip"
 # alias onwifi="if wicd-cli -y -d | grep Invalid > /dev/null;then wicd-cli -cy -n 0;curl 'http://admin:admin@192.168.1.1/userRpm/StatusRpm.htm?Connect=%C1%AC%20%BD%D3&wan=1' >> /dev/null; fi"
 # alias onwifi="sudo ip link set wlp3s0 up ; wicd-cli -ycn `wicd-cli -yl | awk '/MERCURY/ {print $1}'`"
-alias offwifi="sudo netctl stop-all ; rm -f /tmp/externalip"
+# alias offwifi="sudo netctl stop-all ; rm -f /tmp/externalip"
 # alias onwifi="sudo netctl start wlp3s0-MERCURY_C1D49C"
 # alias pon="sudo route del default && sudo pon"
 alias pon="sudo ip link set enp7s0f5 up && sudo pon" 
 alias poff="sudo poff -a"
 # alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
-alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
-alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
+# alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
+# alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
 alias elang="export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8"
 # alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
 
@@ -88,14 +88,14 @@ alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
 # alias goagent="figlet -c goagent && sudo sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
 # alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 # alias trash="sudo gvfs-trash"
-alias youdao="ydcv -f"
+# alias youdao="ydcv -f"
 # alias wifi="wicd-curses"
 # alias gmail="checkgmail -numbers -private -no_cookies &"
 alias news="newsbeuter -r  2>> /dev/null"
 # alias vmxp="vboxmanage startvm xp "
-alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist --proxy http://127.0.0.1:8087"
-alias iftop="sudo iftop -PnB"
-alias tshark="sudo tshark"
+alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist --proxy 127.0.0.1:8087"
+# alias iftop="sudo iftop -PnB"
+# alias tshark="sudo tshark"
 alias winfo="watch -n 2 --no-title --color ~/Documents/devel/git/ArchDotfiles/script/getinfo.sh"
 # alias bilibili="~/Documents/devel/git/ArchDotfiles/script/bilibili.sh"
 # alias cmatrix="cmatrix -C green"
@@ -108,7 +108,7 @@ alias tmas="TERM=xterm-256color tmux -2 attach-session"
 alias Cd="cd /Users/hasky/Documents/devel/git/ArchDotfiles"
 alias Cg="cd /Users/hasky/Documents/devel/git"
 # alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
-alias Vgo="vim ~/proxy.user.ini"
+alias Vgo="vim ~/.proxy.user.ini"
 alias Vt="vim ~/.tmux.conf"
 alias Vtask="vim ~/Documents/task.md"
 alias Vrss="vim ~/.newsbeuter/urls"
