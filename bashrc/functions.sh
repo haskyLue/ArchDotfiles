@@ -5,9 +5,10 @@ parse_string(){
 } # 处理字符串变量部分字符的转义 for sed
 
 # cmd proxy {{{
-proxygo(){
-	export http_proxy="127.0.0.1:8087"
-	export ALL_PROXY=$http_proxy
+proxyon(){
+	# export http_proxy="127.0.0.1:8087"
+	# export ALL_PROXY="127.0.0.1:8087"
+	export ALL_PROXY="socks://127.0.0.1:1080"
 	# export https_proxy=$http_proxy
 	# export ftp_proxy=$http_proxy
 	# export rsync_proxy=$http_proxy
@@ -20,7 +21,7 @@ proxygo(){
 	echo -e "\nProxy environment variable set."
 }
 proxyoff(){
-	unset HTTP_PROXY
+	# unset HTTP_PROXY
 	unset ALL_PROXY
 	# unset http_proxy
 	# unset HTTPS_PROXY
@@ -62,6 +63,19 @@ bilibili(){
 
 	local c="$( cat ./cookie )"
 	./bilidan.py -c $c --hd $1
+}
+
+Ugoagent(){
+	cd /Users/hasky/Documents/devel/git/goagent
+	# git reset --hard && git pull -fv
+	git archive HEAD --format=zip > /tmp/goagent-3.0.zip
+
+	cd /tmp && unzip /tmp/goagent-3.0.zip -d goagent-3.0 
+	cd - && sudo rm -rf ../goagent-3.0 && mv /tmp/goagent-3.0 ../
+	cd ../goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
+	# rm -f ./local/CA.crt
+	# sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
+
 }
 
 Uhosts(){
