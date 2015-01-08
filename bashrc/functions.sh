@@ -175,3 +175,10 @@ peacefun()
 }
 [[ $SHELL = "/usr/bin/bash" ]] && ( complete -F peacefun $filenames pi; complete -F peacefun $filenames i; complete -F peacefun $filenames s; complete -F peacefun $filenames p; complete -F peacefun $filenames r; )
 # }}}
+
+# remove dependencies for homebrew
+# brew-rm() {
+# 	brew rm $1
+# 	brew rm $(join <(brew leaves) <(brew deps $1))
+# 	brew clean 
+# }

@@ -6,4 +6,4 @@ mv /tmp/Caches/Google ~/Library/Caches/Google
 mv /tmp/Caches/com.apple.Safari ~/Library/Caches/com.apple.Safari
 
 
-sudo halt
+sudo shutdown -h now
