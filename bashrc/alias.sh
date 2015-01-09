@@ -76,11 +76,12 @@ alias poff="sudo poff -a"
 alias elang="export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8"
 # alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
 
+
 # adjust volume
-alias Su="amixer set Master 5+"
-alias Sd="amixer set Master 5-"
-alias Smute="amixer set Master mute"
-alias Sunmute="amixer set Master unmute"
+# alias Su="amixer set Master 5+"
+# alias Sd="amixer set Master 5-"
+# alias Smute="amixer set Master mute"
+# alias Sunmute="amixer set Master unmute"
 
 # start app 
 alias goagent="figlet -c goagent ; sudo python /Users/hasky/Documents/devel/git/goagent-3.0/local/proxy.py"
@@ -88,7 +89,7 @@ alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
 # alias goagent="figlet -c goagent && sudo sudo python2 /home/hasky/Workspace/git/goagent/local/proxy.py"
 # alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 # alias trash="sudo gvfs-trash"
-# alias youdao="ydcv -f"
+alias youdao="/Users/hasky/Documents/devel/git/ydcv/ydcv.py -f"
 # alias wifi="wicd-curses"
 # alias gmail="checkgmail -numbers -private -no_cookies &"
 alias news="newsbeuter -r  2>> /dev/null"
@@ -96,7 +97,7 @@ alias news="newsbeuter -r  2>> /dev/null"
 alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist --proxy 127.0.0.1:8087"
 # alias iftop="sudo iftop -PnB"
 # alias tshark="sudo tshark"
-alias winfo="watch -n 2 --no-title --color ~/Documents/devel/git/ArchDotfiles/script/getinfo.sh"
+# alias winfo="watch -n 2 --no-title --color ~/Documents/devel/git/ArchDotfiles/script/getinfo.sh"
 # alias bilibili="~/Documents/devel/git/ArchDotfiles/script/bilibili.sh"
 # alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
