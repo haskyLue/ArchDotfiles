@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# for os x 10.10
+# for os x 10.10 copied from stackoverflow
 
 import subprocess
 import re

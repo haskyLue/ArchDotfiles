@@ -1,4 +1,5 @@
 kernal=$(uname -s)
+_tmp='/Volumes/Caches'
 
 if [[ $kernal -eq 'Darwin' ]];then
 	netInterface=$(netstat -nr | awk '/default/ {print $6}') # for os x
@@ -13,9 +14,9 @@ fi
 
 if [ $netInterface ]
 then
-	rx_old=$( [[ -e /tmp/rx_bytes  ]] && ( cat /tmp/rx_bytes ) || echo 0 ) # 读取上一个时间戳的流量
-	tx_old=$( [[ -e /tmp/tx_bytes  ]] && ( cat /tmp/tx_bytes ) || echo 0 )
-	time_old=$( [[ -e /tmp/rx_tx_time  ]] && ( cat /tmp/rx_tx_time ) || 0 )
+	rx_old=$( [[ -e $_tmp/rx_bytes  ]] && ( cat $_tmp/rx_bytes ) || echo 0 ) # 读取上一个时间戳的流量
+	tx_old=$( [[ -e $_tmp/tx_bytes  ]] && ( cat $_tmp/tx_bytes ) || echo 0 )
+	time_old=$( [[ -e $_tmp/rx_tx_time  ]] && ( cat $_tmp/rx_tx_time ) || 0 )
 
 	if [[ $kernal -eq 'Darwin' ]];then
 		rx_new=$( netstat -I $netInterface -b | awk 'NR==3 {print $7}' )
@@ -32,7 +33,7 @@ then
 
 	# rx_new=$( ifconfig -s $Interface | awk 'NR==2 {print $3}' )
 	# tx_new=$( ifconfig -s $Interface | awk 'NR==2 {print $7}' )
-	( echo $rx_new > /tmp/rx_bytes ) && ( echo $tx_new > /tmp/tx_bytes ) && ( echo $time_new > /tmp/rx_tx_time )# 写入缓存供下一个时间使用
+	( echo $rx_new > $_tmp/rx_bytes ) && ( echo $tx_new > $_tmp/tx_bytes ) && ( echo $time_new > $_tmp/rx_tx_time )# 写入缓存供下一个时间使用
 
 	duration=$( /bin/expr $time_new \- $time_old )
 	rx_rate=$( /bin/expr \( $rx_new \- $rx_old \) / 1000 / $duration )

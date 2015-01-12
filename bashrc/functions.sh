@@ -52,20 +52,13 @@ tawsome(){
 }
 # }}}
 
-restore_cache(){
-	rm -f ~/Library/Caches/{Google,com.apple.Safari,Firefox}
-	mv /tmp/Caches/Google ~/Library/Caches/Google
-	mv /tmp/Caches/Firefox ~/Library/Caches/Firefox
-	mv /tmp/Caches/com.apple.Safari ~/Library/Caches/com.apple.Safari
-}
 
 bili.download(){
-	cd /tmp
-
 	_file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
 	_type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
 
 	echo "download xml file of danmu" && you-get -u $1
+	# echo "download videos" && you-get $1
 	echo "download videos" && youtube-dl $1
 	[[  $_type = 'x-flv' &&  -f $_file.mp4 ]] && mv $_file.mp4 $_file.flv #小处理
 
@@ -85,8 +78,7 @@ bili.ass(){
 	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
 	local height=$(ffprobe  -v quiet -show_streams $1 | awk -F'=' '/height/ {print $2}')
 	local width=$(ffprobe  -v quiet -show_streams $1 | awk -F'=' '/width/  {print $2}')
-	echo -e "$danmaku2assDir/danmaku2ass.py -o "$name".ass -s "$height"x"$width" "$name".cmt.xml"
-	$danmaku2assDir/danmaku2ass.py -o "$name".ass -s "$height"x"$width" "$name".cmt.xml
+	$danmaku2assDir/danmaku2ass.py -o "$name".ass -fs 30 -dm 10 -s "$height"x"$width" "$name".cmt.xml
 }
 bili.play(){
 	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
@@ -94,10 +86,9 @@ bili.play(){
 }
 
 netsh_hosts(){
-	proxyon
-	rm -f /tmp/hosts.txt
+	rm -f /Volumes/Caches/hosts.txt
 	curl 'http://serve.netsh.org/pub/hosts.php?passcode=19735&gs=on&wk=on&twttr=on&fb=on&flkr=on&dpbx=on&odrv=on' -H 'Host: serve.netsh.org' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0' -H 'Accept: */*' -H 'Accept-Language: zh-cn,en-us;q=0.7,en;q=0.3' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: http://serve.netsh.org/pub/gethosts.php' -H 'Cookie: hostspasscode=19735; Hm_lvt_e26a7cd6079c926259ded8f19369bf0b=1418651792; Hm_lpvt_e26a7cd6079c926259ded8f19369bf0b=1418651792' -H 'Connection: keep-alive' \
-		> /tmp/hosts.txt
+		> /Volumes/Caches/hosts.txt
 }
 
 bilibili(){
@@ -110,10 +101,10 @@ bilibili(){
 Ugoagent(){
 	cd /Users/hasky/Documents/devel/git/goagent
 	# git reset --hard && git pull -fv
-	git archive HEAD --format=zip > /tmp/goagent-3.0.zip
+	git archive HEAD --format=zip > /Volumes/Caches/goagent-3.0.zip
 
-	cd /tmp && unzip /tmp/goagent-3.0.zip -d goagent-3.0 
-	cd - && sudo rm -rf ../goagent-3.0 && mv /tmp/goagent-3.0 ../
+	cd /Volumes/Caches && unzip ./goagent-3.0.zip -d goagent-3.0 
+	cd - && sudo rm -rf ../goagent-3.0 && mv /Volumes/Caches/goagent-3.0 ../
 	cd ../goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
 	# rm -f ./local/CA.crt
 	# sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
@@ -153,12 +144,12 @@ Uhosts(){
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
-	rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
+	# rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
 	netsh_hosts
-	echo $hosts_append >> /tmp/hosts.txt
+	echo $hosts_append >> /Volumes/Caches/hosts.txt
 
 	echo -e "\nFINISHING..."
-	sudo -S cp -fv /tmp/hosts.txt /etc/hosts < $secret
+	sudo -S cp -fv /Volumes/Caches/hosts.txt /etc/hosts < $secret
 	# echo ""
 	# grep -i "UPDATE" /etc/hosts
 }

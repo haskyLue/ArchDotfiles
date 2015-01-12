@@ -107,6 +107,7 @@ alias tmas="TERM=xterm-256color tmux -2 attach-session"
 # enter directory & edit
 alias Cd="cd /Users/hasky/Documents/devel/git/ArchDotfiles"
 alias Cg="cd /Users/hasky/Documents/devel/git"
+alias Cc="cd /Volumes/Caches"
 # alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
 alias Vgo="vim ~/.proxy.user.ini"
 alias Vt="vim ~/.tmux.conf"
