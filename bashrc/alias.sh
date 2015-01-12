@@ -25,7 +25,6 @@ if [ $UID -ne 0 ]; then
 	alias root='sudo su'
 	# alias reboot='sudo systemctl reboot'
 	# alias poweroff='sudo systemctl poweroff'
-	alias poweroff='sh ~/Documents/devel/git/ArchDotfiles/script/halt.sh'
 	# alias netcfg='sudo netcfg2'
 fi
 
@@ -94,7 +93,7 @@ alias youdao="/Users/hasky/Documents/devel/git/ydcv/ydcv.py -f"
 # alias gmail="checkgmail -numbers -private -no_cookies &"
 alias news="newsbeuter -r  2>> /dev/null"
 # alias vmxp="vboxmanage startvm xp "
-alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist --proxy 127.0.0.1:8087"
+alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist -o '%(title)s.%(ext)s'"
 # alias iftop="sudo iftop -PnB"
 # alias tshark="sudo tshark"
 # alias winfo="watch -n 2 --no-title --color ~/Documents/devel/git/ArchDotfiles/script/getinfo.sh"

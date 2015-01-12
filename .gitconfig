@@ -3,10 +3,12 @@
 	email = ludebing@gmail.com
 [http]
 	; proxy = http://127.0.0.1:8087
-	sslVerify = false
+	; proxy = socks5://127.0.0.1:1080
 [https]
 	; proxy = https://127.0.0.1:8087
-	; sslCAinfo = /home/hasky/Workspace/git/goagent/local/CA.crt
+	; proxy = socks5://127.0.0.1:1080
+	; sslCAinfo = ~/Documents/devel/git/goagent-3.0/local/CA.crt
+	; sslVerify = false
 [color]
 	ui = true
 [push]

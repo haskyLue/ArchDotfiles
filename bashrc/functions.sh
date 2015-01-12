@@ -1,3 +1,4 @@
+# created by lu
 # s for .bashrc
 
 parse_string(){
@@ -51,6 +52,47 @@ tawsome(){
 }
 # }}}
 
+restore_cache(){
+	rm -f ~/Library/Caches/{Google,com.apple.Safari,Firefox}
+	mv /tmp/Caches/Google ~/Library/Caches/Google
+	mv /tmp/Caches/Firefox ~/Library/Caches/Firefox
+	mv /tmp/Caches/com.apple.Safari ~/Library/Caches/com.apple.Safari
+}
+
+bili.download(){
+	cd /tmp
+
+	_file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
+	_type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
+
+	echo "download xml file of danmu" && you-get -u $1
+	echo "download videos" && youtube-dl $1
+	[[  $_type = 'x-flv' &&  -f $_file.mp4 ]] && mv $_file.mp4 $_file.flv #小处理
+
+	[[  $_type = 'x-flv'  ]] && (bili.ass $_file.flv && bili.play $_file.flv) || (bili.ass $_file.mp4 && bili.play $_file.mp4) # 非flv即mp4
+	
+
+	# height=$(ffprobe  -v quiet -show_streams $_file.$_type | awk -F'=' '/height/ {print $2}')
+	# width=$(ffprobe  -v quiet -show_streams $_file.$_type | awk -F'=' '/width/  {print $2}')
+	# # echo -e "$danmaku2assDir/danmaku2ass.py -o $_file.ass -s "$height"x"$width" "$_file".cmt.xml"
+	# $danmaku2assDir/danmaku2ass.py -o $_file.ass -s "$height"x"$width" "$_file".cmt.xml
+    #
+	# echo -e "mpv --geometry=70%x70%+50%+50% --sub-scale-with-window=yes --sub-file=$_file.ass $_file.$_type"
+	# mpv --geometry=70%x70%+50%+50% --sub-scale-with-window=yes --sub-file=$_file.ass $_file.$_type --vf='lavfi="fps=fps=60:round=down"'
+}
+bili.ass(){
+	danmaku2assDir="/Users/hasky/Documents/devel/git/danmaku2ass"
+	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
+	local height=$(ffprobe  -v quiet -show_streams $1 | awk -F'=' '/height/ {print $2}')
+	local width=$(ffprobe  -v quiet -show_streams $1 | awk -F'=' '/width/  {print $2}')
+	echo -e "$danmaku2assDir/danmaku2ass.py -o "$name".ass -s "$height"x"$width" "$name".cmt.xml"
+	$danmaku2assDir/danmaku2ass.py -o "$name".ass -s "$height"x"$width" "$name".cmt.xml
+}
+bili.play(){
+	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
+	mpv --geometry=70%x70%+50%+50% --sub-scale-with-window=yes --sub-file=$name.ass --vf='lavfi="fps=fps=60:round=down"' $1
+}
+
 netsh_hosts(){
 	proxyon
 	rm -f /tmp/hosts.txt
@@ -80,6 +122,31 @@ Ugoagent(){
 
 Uhosts(){
 	local secret="/Users/hasky/Documents/secret"
+	local hosts_append='
+# avoid adobe PS activate
+127.0.0.1 activate.adobe.com
+127.0.0.1 practivate.adobe.com
+127.0.0.1 ereg.adobe.com
+127.0.0.1 activate.wip3.adobe.com
+127.0.0.1 3dns-3.adobe.com
+127.0.0.1 3dns-2.adobe.com
+127.0.0.1 adobe-dns.adobe.com
+127.0.0.1 adobe-dns-2.adobe.com
+127.0.0.1 adobe-dns-3.adobe.com
+127.0.0.1 ereg.wip3.adobe.com
+127.0.0.1 activate-sea.adobe.com
+127.0.0.1 wwis-dubc1-vip60.adobe.com
+127.0.0.1 activate-sjc0.adobe.com
+127.0.0.1 hl2rcv.adobe.com
+127.0.0.1 lmlicenses.wip4.adobe.com
+127.0.0.1 lm.licenses.adobe.com
+127.0.0.1 na2m-pr.licenses.adobe.com
+127.0.0.1 ims-na1-prprod.adobelogin.com
+127.0.0.1 na4r.services.adobe.com
+127.0.0.1 na1r.services.adobe.com
+127.0.0.1 hlrcv.stage.adobe.com
+'
+
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
@@ -88,11 +155,12 @@ Uhosts(){
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
 	rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
 	netsh_hosts
+	echo $hosts_append >> /tmp/hosts.txt
 
 	echo -e "\nFINISHING..."
 	sudo -S cp -fv /tmp/hosts.txt /etc/hosts < $secret
-	echo ""
-	grep -i "UPDATE" /etc/hosts
+	# echo ""
+	# grep -i "UPDATE" /etc/hosts
 }
 # Udns()
 # {
@@ -138,7 +206,6 @@ extract() {
             *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
                    c=(bsdtar xvf);;
             *.7z)  c=(7z x);;
-            *.Z)   c=(uncompress);;
             *.bz2) c=(bunzip2);;
             *.exe) c=(cabextract);;
             *.gz)  c=(gunzip);;

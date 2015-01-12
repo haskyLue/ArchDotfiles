@@ -20,7 +20,7 @@ Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/vimcdoc'
 Plugin 'vim-scripts/OmniCppComplete'
 Plugin 'vim-scripts/Javascript-OmniCompletion-with-YUI-and-j'
-Plugin 'Lokaltog/vim-powerline'
+" Plugin 'Lokaltog/vim-powerline'
 Plugin 'bling/vim-airline'
 
 " The following are examples of different formats supported.
@@ -110,7 +110,7 @@ endif
 set shell=zsh
 
 "设置VIM记录的历史数
-set history=400
+set history=1000
 
 "设置当文件被外部改变的时侯自动读入文件
 if exists("&autoread")
@@ -157,9 +157,13 @@ set foldmethod=marker
 "高亮搜索
 " set hlsearch
 
-"powerline
+"powerline airline
 set noshowmode
 set laststatus=2   " Always show the statusline
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 
