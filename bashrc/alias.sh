@@ -11,10 +11,11 @@ alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 # alias top="top -id 2"
-alias top="top -o cpu -s 2"
+alias top="sudo htop"
 alias aria2c="aria2c -x 5 -s 10 -c"
 alias pstree="pstree -ha"
 alias grep="grep --color"
+alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:round=down\"' "
 
 # privileged access
 if [ $UID -ne 0 ]; then
@@ -67,7 +68,7 @@ alias ln='ln -i'
 # alias offwifi="sudo netctl stop-all ; rm -f /tmp/externalip"
 # alias onwifi="sudo netctl start wlp3s0-MERCURY_C1D49C"
 # alias pon="sudo route del default && sudo pon"
-alias pon="sudo ip link set enp7s0f5 up && sudo pon" 
+# alias pon="sudo ip link set enp7s0f5 up && sudo pon" 
 alias poff="sudo poff -a"
 # alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 # alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
@@ -103,6 +104,8 @@ alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-qua
 alias tm="TERM=xterm-256color tmux -2"
 alias tmas="TERM=xterm-256color tmux -2 attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
+alias set_ramdisk="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh" 
+alias restore_cache="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh 1" 
 
 # enter directory & edit
 alias Cd="cd /Users/hasky/Documents/devel/git/ArchDotfiles"

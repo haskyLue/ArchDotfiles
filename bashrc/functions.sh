@@ -52,7 +52,7 @@ tawsome(){
 }
 # }}}
 
-
+# {{{ for bilibili
 bili.download(){
 	_file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
 	_type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
@@ -82,21 +82,16 @@ bili.ass(){
 }
 bili.play(){
 	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
-	mpv --geometry=70%x70%+50%+50% --sub-scale-with-window=yes --sub-file=$name.ass --vf='lavfi="fps=fps=60:round=down"' $1
+	mpv --geometry=50%:50% --autofit-larger=80% --sub-scale-with-window=yes --sub-file=$name.ass --vf='lavfi="fps=fps=60:round=down"' $1
 }
 
-netsh_hosts(){
-	rm -f /Volumes/Caches/hosts.txt
-	curl 'http://serve.netsh.org/pub/hosts.php?passcode=19735&gs=on&wk=on&twttr=on&fb=on&flkr=on&dpbx=on&odrv=on' -H 'Host: serve.netsh.org' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0' -H 'Accept: */*' -H 'Accept-Language: zh-cn,en-us;q=0.7,en;q=0.3' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: http://serve.netsh.org/pub/gethosts.php' -H 'Cookie: hostspasscode=19735; Hm_lvt_e26a7cd6079c926259ded8f19369bf0b=1418651792; Hm_lpvt_e26a7cd6079c926259ded8f19369bf0b=1418651792' -H 'Connection: keep-alive' \
-		> /Volumes/Caches/hosts.txt
-}
-
-bilibili(){
+bili.online(){
 	cd /Users/hasky/Documents/devel/git/biligrab-danmaku2ass/ 
 
 	local c="$( cat ./cookie )"
 	./bilidan.py -c $c --hd $1
 }
+# }}}
 
 Ugoagent(){
 	cd /Users/hasky/Documents/devel/git/goagent
@@ -111,6 +106,11 @@ Ugoagent(){
 
 }
 
+netsh_hosts(){
+	rm -f /Volumes/Caches/hosts.txt
+	curl 'http://serve.netsh.org/pub/hosts.php?passcode=19735&gs=on&wk=on&twttr=on&fb=on&flkr=on&dpbx=on&odrv=on' -H 'Host: serve.netsh.org' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0' -H 'Accept: */*' -H 'Accept-Language: zh-cn,en-us;q=0.7,en;q=0.3' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: http://serve.netsh.org/pub/gethosts.php' -H 'Cookie: hostspasscode=19735; Hm_lvt_e26a7cd6079c926259ded8f19369bf0b=1418651792; Hm_lpvt_e26a7cd6079c926259ded8f19369bf0b=1418651792' -H 'Connection: keep-alive' \
+		> /Volumes/Caches/hosts.txt
+}
 Uhosts(){
 	local secret="/Users/hasky/Documents/secret"
 	local hosts_append='
@@ -225,13 +225,13 @@ listAllCommands()
 }
 
 # pacman autocomplete {{{
-peacefun()
-{
-	cur=`_get_cword`
-	COMPREPLY=( $( pacman -Sl | cut -d " " -f 2 | grep ^$cur 2> /dev/null ) )
-	return 0
-}
-[[ $SHELL = "/usr/bin/bash" ]] && ( complete -F peacefun $filenames pi; complete -F peacefun $filenames i; complete -F peacefun $filenames s; complete -F peacefun $filenames p; complete -F peacefun $filenames r; )
+# peacefun()
+# {
+# 	cur=`_get_cword`
+# 	COMPREPLY=( $( pacman -Sl | cut -d " " -f 2 | grep ^$cur 2> /dev/null ) )
+# 	return 0
+# }
+# [[ $SHELL = "/usr/bin/bash" ]] && ( complete -F peacefun $filenames pi; complete -F peacefun $filenames i; complete -F peacefun $filenames s; complete -F peacefun $filenames p; complete -F peacefun $filenames r; )
 # }}}
 
 # remove dependencies for homebrew
