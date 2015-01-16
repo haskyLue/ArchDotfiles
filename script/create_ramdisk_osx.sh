@@ -3,7 +3,7 @@ secret="/Users/hasky/Documents/secret"
 mount_point=/Volumes/Caches
 create_ramdisk(){
 	# copied from web 
-	ramfs_size_mb=1024  
+	ramfs_size_mb=512  
 
 	ramfs_size_sectors=$(( ${ramfs_size_mb}*1024*1024/512 ))  
 	ramdisk_dev=`hdid -nomount ram://${ramfs_size_sectors}`  

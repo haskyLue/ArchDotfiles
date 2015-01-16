@@ -98,12 +98,13 @@ Ugoagent(){
 	# git reset --hard && git pull -fv
 	git archive HEAD --format=zip > /Volumes/Caches/goagent-3.0.zip
 
-	cd /Volumes/Caches && unzip ./goagent-3.0.zip -d goagent-3.0 
-	cd - && sudo rm -rf ../goagent-3.0 && mv /Volumes/Caches/goagent-3.0 ../
-	cd ../goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
-	# rm -f ./local/CA.crt
-	# sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
-
+	cd /Volumes/Caches && sudo rm -rf ./goagent-3.0 && unzip ./goagent-3.0.zip -d goagent-3.0 && rm -f ./goagent-3.0.zip
+	cd ./goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
+	rm -f ./CA.crt 
+	(sleep 5 && ps -jA | awk '/.*proxy.py$/ {print $2}' | head | xargs -I {} sudo kill -9 {})& # kill goagent to get CA.crt
+	sudo ./proxy.py
+	sudo security delete-certificate -c GoAgent && sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
+	sudo ./proxy.py
 }
 
 netsh_hosts(){
