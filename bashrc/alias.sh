@@ -15,6 +15,7 @@ alias top="sudo htop"
 alias aria2c="aria2c -x 5 -s 10 -c"
 alias pstree="pstree -ha"
 alias grep="grep --color"
+alias find="find ./"
 alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:round=down\"' "
 
 # privileged access
@@ -103,8 +104,8 @@ alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-qua
 alias tm="TERM=xterm-256color tmux -2"
 alias tmas="TERM=xterm-256color tmux -2 attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
-alias set_ramdisk="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh" 
-alias restore_cache="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh 1" 
+alias ramdisk="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh" 
+alias ramdisk_detach="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh 1" 
 alias update="( brew update && brew upgrade && brew prune )&"
 
 # enter directory & edit

@@ -59,7 +59,7 @@ endif
 "设置语法高亮
 syntax enable
 set background=dark
-colorscheme Tomorrow-Night-Bright
+colorscheme xoria256
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key
