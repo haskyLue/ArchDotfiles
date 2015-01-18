@@ -11,12 +11,13 @@ alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 # alias top="top -id 2"
-alias top="sudo htop"
+alias top="top -d -s 2 -u"
 alias aria2c="aria2c -x 5 -s 10 -c"
-alias pstree="pstree -ha"
+# alias pstree="pstree -ha"
 alias grep="grep --color"
 alias find="find ./"
 alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:round=down\"' "
+alias reload_shell="exec zsh"
 
 # privileged access
 if [ $UID -ne 0 ]; then

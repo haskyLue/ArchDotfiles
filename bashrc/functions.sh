@@ -9,7 +9,7 @@ parse_string(){
 proxyon(){
 	# export http_proxy="127.0.0.1:8087"
 	# export ALL_PROXY="127.0.0.1:8087"
-	export ALL_PROXY="socks://127.0.0.1:1080"
+	export ALL_PROXY="127.0.0.1:8087"
 	# export https_proxy=$http_proxy
 	# export ftp_proxy=$http_proxy
 	# export rsync_proxy=$http_proxy
@@ -36,23 +36,23 @@ proxyoff(){
 # }}}
 
 # for awesome WM {{{
-cwall(){
-	/usr/bin/cp -f $1 /home/hasky/Downloads/Image/background.jpg
-	echo "awesome.restart()"|awesome-client 2>> /dev/null
-}
-tawsome(){
-	local RCPWD="/home/hasky/Documents/dotfiles"
-	local CUR_RC="/home/hasky/.config/awesome/rc.lua"
-	if file $CUR_RC | grep -o light >> /dev/null;then
-		ln -sf $RCPWD/rc.lua $CUR_RC
-	else 
-		ln -sf $RCPWD/rc.light.lua $CUR_RC
-	fi
-	echo "awesome.restart()"|awesome-client 2>>/dev/null
-}
+# cwall(){
+# 	/usr/bin/cp -f $1 /home/hasky/Downloads/Image/background.jpg
+# 	echo "awesome.restart()"|awesome-client 2>> /dev/null
+# }
+# tawsome(){
+# 	local RCPWD="/home/hasky/Documents/dotfiles"
+# 	local CUR_RC="/home/hasky/.config/awesome/rc.lua"
+# 	if file $CUR_RC | grep -o light >> /dev/null;then
+# 		ln -sf $RCPWD/rc.lua $CUR_RC
+# 	else 
+# 		ln -sf $RCPWD/rc.light.lua $CUR_RC
+# 	fi
+# 	echo "awesome.restart()"|awesome-client 2>>/dev/null
+# }
 # }}}
 
-# {{{ for bilibili
+# {{{ bilibili 相关
 bili.download(){
 	_file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
 	_type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
@@ -100,13 +100,18 @@ Ugoagent(){
 
 	cd /Volumes/Caches && sudo rm -rf ./goagent-3.0 && unzip ./goagent-3.0.zip -d goagent-3.0 && rm -f ./goagent-3.0.zip
 	cd ./goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
+
 	rm -f ./CA.crt 
 	(sleep 5 && ps -jA | awk '/.*proxy.py$/ {print $2}' | head | xargs -I {} sudo kill -9 {})& # kill goagent to get CA.crt
 	sudo ./proxy.py
-	sudo security delete-certificate -c GoAgent && sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
+
+	sudo security delete-certificate -c GoAgent 
+	sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
+
 	sudo ./proxy.py
 }
 
+#{{{ hosts 相关
 netsh_hosts(){
 	rm -f /Volumes/Caches/hosts.txt
 	curl 'http://serve.netsh.org/pub/hosts.php?passcode=19735&gs=on&wk=on&twttr=on&fb=on&flkr=on&dpbx=on&odrv=on' -H 'Host: serve.netsh.org' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0' -H 'Accept: */*' -H 'Accept-Language: zh-cn,en-us;q=0.7,en;q=0.3' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: http://serve.netsh.org/pub/gethosts.php' -H 'Cookie: hostspasscode=19735; Hm_lvt_e26a7cd6079c926259ded8f19369bf0b=1418651792; Hm_lpvt_e26a7cd6079c926259ded8f19369bf0b=1418651792' -H 'Connection: keep-alive' \
@@ -140,13 +145,13 @@ Uhosts(){
 '
 
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
-	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
-	# rm -f /tmp/hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
-	netsh_hosts
+	rm -f /Volumes/Caches/hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
+	# netsh_hosts
 	echo $hosts_append >> /Volumes/Caches/hosts.txt
 
 	echo -e "\nFINISHING..."
@@ -154,6 +159,8 @@ Uhosts(){
 	# echo ""
 	# grep -i "UPDATE" /etc/hosts
 }
+#}}}
+
 # Udns()
 # {
 # 	local secret="/Users/hasky/Documents/secret"
@@ -217,13 +224,13 @@ calc() {
     echo "scale=3;$@" | bc -l
 }
 
-listAllCommands()
-{
-    COMMANDS=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
-        -executable -type f -printf '%P\n' 2>/dev/null`
-    ALIASES=`alias | cut -d '=' -f 1`
-    echo "$COMMANDS"$'\n'"$ALIASES" | sort -u
-}
+# listAllCommands()
+# {
+#     COMMANDS=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
+#         -executable -type f -printf '%P\n' 2>/dev/null`
+#     ALIASES=`alias | cut -d '=' -f 1`
+#     echo "$COMMANDS"$'\n'"$ALIASES" | sort -u
+# }
 
 # pacman autocomplete {{{
 # peacefun()
