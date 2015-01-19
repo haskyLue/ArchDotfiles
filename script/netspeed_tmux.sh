@@ -1,7 +1,7 @@
 kernal=$(uname -s)
 _tmp='/Volumes/Caches'
 
-if [[ $kernal -eq 'Darwin' ]];then
+if [[ $kernal = 'Darwin' ]];then
 	netInterface=$(netstat -nr | awk '/default/ {print $6}') # for os x
 else
 	netInterface=$(route -v | awk 'NR==3 {print $8}') #for linux only
@@ -18,10 +18,10 @@ then
 	tx_old=$( [[ -e $_tmp/tx_bytes  ]] && ( cat $_tmp/tx_bytes ) || echo 0 )
 	time_old=$( [[ -e $_tmp/rx_tx_time  ]] && ( cat $_tmp/rx_tx_time ) || 0 )
 
-	if [[ $kernal -eq 'Darwin' ]];then
+	if [[ $kernal = 'Darwin' ]];then
 		rx_new=$( netstat -I $netInterface -b | awk 'NR==3 {print $7}' )
 		tx_new=$( netstat -I $netInterface -b | awk 'NR==3 {print $10}')
-	elif [[ $kernal -eq 'Linux' ]];then
+	elif [[ $kernal = 'Linux' ]];then
 		rx_new=$( cat /sys/class/net/$netInterface/statistics/$rx_bytes )
 		tx_new=$( cat /sys/class/net/$netInterface/statistics/$tx_bytes )
 	else 

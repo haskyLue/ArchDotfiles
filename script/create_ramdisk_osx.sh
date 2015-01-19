@@ -19,7 +19,7 @@ create_ramdisk(){
 
 cache_to_ram(){
 	if [ ! -d $mount_point/Google ] ;then
-		mkdir $mount_point/{Google,com.apple.Safari,Firefox,com.xiami.client,Logs,Homebrew,com.apple.dashboard.client}
+		sudo -S mkdir -v $mount_point/{Google,com.apple.Safari,Firefox,com.xiami.client,Logs,sys_Logs,Homebrew,com.apple.dashboard.client} < $secret
 	fi
 }
 ram_restoreto_cache(){
