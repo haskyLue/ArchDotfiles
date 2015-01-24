@@ -57,6 +57,8 @@ bili.download(){
 	_file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
 	_type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
 
+	figlet -c bilibili-dw
+
 	echo "download xml file of danmu" && you-get -u $1
 	# echo "download videos" && you-get $1
 	echo "download videos" && youtube-dl $1
@@ -94,6 +96,7 @@ bili.online(){
 # }}}
 
 Ugoagent(){
+	figlet -c GoAgent-Init
 	cd /Users/hasky/Documents/devel/git/goagent
 	# git reset --hard && git pull -fv
 	git archive HEAD --format=zip > /Volumes/Caches/goagent-3.0.zip
@@ -108,6 +111,7 @@ Ugoagent(){
 	sudo security delete-certificate -c GoAgent 
 	sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
 
+	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
 	sudo ./proxy.py
 }
 
@@ -145,10 +149,11 @@ Uhosts(){
 '
 
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
-	local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
-	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 
+	figlet -c Fuck-GFW
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
 	rm -f /Volumes/Caches/hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
 	# netsh_hosts
