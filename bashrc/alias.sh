@@ -88,7 +88,7 @@ alias elang="export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8"
 # start app 
 # alias rename_mp3_dir="find . -iname '*mp3' -exec eyeD3 --rename '$artist - $title' {} >> /Volumes/Caches/Music_rename_log \;"
 alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
-alias dns="figlet -c ChinaDNS && /Users/hasky/Documents/devel/chinadns/exec"
+alias dns="figlet -c ChinaDNS && /Users/hasky/Documents/devel/git/ArchDotfiles/chinadns/exec" 
 alias goagent="figlet -c goagent && sudo sudo python2 /Volumes/Caches/goagent-3.0/local/proxy.py"
 # alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 # alias trash="sudo gvfs-trash"
