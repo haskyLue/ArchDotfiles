@@ -7,30 +7,30 @@ parse_string(){
 
 # cmd proxy {{{
 proxyon(){
-	# export http_proxy="127.0.0.1:8087"
-	# export ALL_PROXY="127.0.0.1:8087"
-	export ALL_PROXY="127.0.0.1:8087"
-	# export https_proxy=$http_proxy
-	# export ftp_proxy=$http_proxy
-	# export rsync_proxy=$http_proxy
-	# export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-	# export HTTP_PROXY="127.0.0.1:8087"
-	# export HTTPS_PROXY=$http_proxy
-	# export FTP_PROXY=$http_proxy
-	# export RSYNC_PROXY=$http_proxy
-	# export NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
+	export http_proxy="127.0.0.1:8087"
+	export https_proxy=$http_proxy
+	export ftp_proxy=$http_proxy
+	export rsync_proxy=$http_proxy
+	export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+
+	export HTTP_PROXY=$http_proxy
+	export HTTPS_PROXY=$http_proxy
+	export FTP_PROXY=$http_proxy
+	export RSYNC_PROXY=$http_proxy
+	export NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
+	export ALL_PROXY=$http_proxy
 	echo -e "\nProxy environment variable set."
 }
 proxyoff(){
-	# unset HTTP_PROXY
+	unset HTTP_PROXY
 	unset ALL_PROXY
-	# unset http_proxy
-	# unset HTTPS_PROXY
-	# unset https_proxy
-	# unset FTP_PROXY
-	# unset ftp_proxy
-	# unset RSYNC_PROXY
-	# unset rsync_proxy
+	unset http_proxy
+	unset HTTPS_PROXY
+	unset https_proxy
+	unset FTP_PROXY
+	unset ftp_proxy
+	unset RSYNC_PROXY
+	unset rsync_proxy
 	echo -e "\nProxy environment variable removed."
 }
 # }}}
@@ -52,7 +52,7 @@ proxyoff(){
 # }
 # }}}
 
-# {{{ bilibili 相关
+# {{{ bilibili 
 bili.download(){
 	_file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
 	_type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
@@ -95,6 +95,7 @@ bili.online(){
 }
 # }}}
 
+#{{{ fuck gwf 
 Ugoagent(){
 	figlet -c GoAgent-Init
 	cd /Users/hasky/Documents/devel/git/goagent
@@ -114,8 +115,20 @@ Ugoagent(){
 	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
 	sudo ./proxy.py
 }
+get_goagent_ip(){
+	local location="/Users/hasky/Documents/devel/git/checkgoogleip"
+	echo "running per an hour..."
+	# local ip=`awk 'NR<15 {print $1}' ip_tmpok.txt | xargs | tr ' ' '|'` 
+	# echo $ip | pbcopy ""  && echo -e "copied to clip\n$ip"
+	while 1;do
+		$location/checkip.py 
+		echo -e "$location \n"
+		sleep 3600
+	done
+	cat ip.txt | pbcopy && echo "copied to clipb" && cp ip.txt /Volumes/Caches/
+	# vim +13 ~/.proxy.user.ini
+}
 
-#{{{ hosts 相关
 netsh_hosts(){
 	rm -f /Volumes/Caches/hosts.txt
 	curl 'http://serve.netsh.org/pub/hosts.php?passcode=19735&gs=on&wk=on&twttr=on&fb=on&flkr=on&dpbx=on&odrv=on' -H 'Host: serve.netsh.org' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0' -H 'Accept: */*' -H 'Accept-Language: zh-cn,en-us;q=0.7,en;q=0.3' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: http://serve.netsh.org/pub/gethosts.php' -H 'Cookie: hostspasscode=19735; Hm_lvt_e26a7cd6079c926259ded8f19369bf0b=1418651792; Hm_lpvt_e26a7cd6079c926259ded8f19369bf0b=1418651792' -H 'Connection: keep-alive' \
@@ -149,14 +162,14 @@ Uhosts(){
 '
 
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
-	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
-	local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 
-	figlet -c Fuck-GFW
+	figlet -c Fuck-GWF
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
 	rm -f /Volumes/Caches/hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
-	# netsh_hosts
+	# netsh_hosts # 注释HOSTS_URL rm -f 
 	echo $hosts_append >> /Volumes/Caches/hosts.txt
 
 	echo -e "\nFINISHING..."
@@ -175,6 +188,11 @@ Uhosts(){
 # 	sudo -S cp -fv /tmp/resolv /etc/dnsmasq-resolv.conf < $secret
 # 	cat /etc/dnsmasq-resolv.conf
 # }
+
+rename_mp3(){
+	eyeD3 --rename '$artist - $title' $1 >> /Volumes/Caches/Music_rename_log
+}
+
 Ugitdir(){
 	local DIR="/Users/hasky/Documents/devel/git"
 	for dir in $DIR/*

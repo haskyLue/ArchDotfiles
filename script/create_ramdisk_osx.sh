@@ -25,13 +25,14 @@ cache_to_ram(){
 	R_L_Logs
 	Homebrew
 	com.apple.dashboard.client
+	nginx
 	)
 	if [ ! -d $mount_point/Google ] ;then
 		cd $mount_point 
 		for i in ${_dir[@]};do
 			mkdir -pv $i 
 		done
-		[[ ! -L /var/log ]] && mv /var/log var_log && ln -sf $mount_point/var_log /var/log || rm -f /var/log # /var/log 在此脚本直接生成
+		[[ -L /var/log ]] && rm -f /var/log || ( mv /var/log $mount_point/var_log && ln -sf $mount_point/var_log /var/log ) # /var/log 在此脚本直接生成
 	fi
 }
 ram_restoreto_cache(){

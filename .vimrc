@@ -19,6 +19,7 @@ Plugin 'Markdown-syntax'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/vimcdoc'
 Plugin 'vim-scripts/OmniCppComplete'
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'vim-scripts/Javascript-OmniCompletion-with-YUI-and-j'
 " Plugin 'Lokaltog/vim-powerline'
 Plugin 'bling/vim-airline'
@@ -153,6 +154,12 @@ set modifiable
 
 "代码折叠
 set foldmethod=marker
+"
+" switch window
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
 
 "高亮搜索
 " set hlsearch
