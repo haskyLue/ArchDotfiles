@@ -125,7 +125,7 @@ get_goagent_ip(){
 		echo -e "$location \n"
 		sleep 3600
 	done
-	cat ip.txt | pbcopy && echo "copied to clipb" && cp ip.txt /Volumes/Caches/
+	cat ip.txt && cp -fv ip.txt /Volumes/Caches/
 	# vim +13 ~/.proxy.user.ini
 }
 

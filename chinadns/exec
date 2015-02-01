@@ -4,5 +4,5 @@
 # curl 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | grep ipv4 | grep CN | awk -F\| '{ printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > chnroute.txt
 # configure: dnsmasq server to 127.0.0.1:5335 || no-resolv
 cd `dirname $0`
-# sudo chinadns -v -c chnroute.txt -p 5335 >> /var/log/chinadns_log
-sudo chinadns -c chnroute.txt -p 5335 
+sudo -S chinadns -v -c chnroute.txt -p 5335 < ~/Documents/secret >> /Volumes/Caches/chinadnsLogs
+
