@@ -42,6 +42,6 @@ then
 	echo "#[bg=default]#[fg=red] #[fg=blue]↑↓#[fg=red]$netInterface#[fg=blue] ↘ ${rx_rate}.0#[fg=red]KB/s#[fg=blue] ↗ ${tx_rate}.0#[fg=red]KB/s"
 else
 	# echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] Invalid Interface!"
-	echo "#[bg=default]#[fg=magenta] Invalid Interface!"
+	echo "#[bg=default]#[fg=magenta] 😢"
 fi
 
