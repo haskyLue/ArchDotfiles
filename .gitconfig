@@ -3,13 +3,15 @@
 	email = ludebing@gmail.com
 [http]
 	; proxy = http://127.0.0.1:8087
-	; proxy = socks5://127.0.0.1:1080
+	proxy = socks5://127.0.0.1:1080
 [https]
 	; proxy = https://127.0.0.1:8087
-	; proxy = socks5://127.0.0.1:1080
+	proxy = socks5://127.0.0.1:1080
 	sslVerify = false
 [color]
 	ui = true
+	status = auto
+	branch = auto
 [push]
 	default = simple
 [core]
@@ -20,3 +22,5 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 	required = true
+[branch]
+	autosetuprebase = always
