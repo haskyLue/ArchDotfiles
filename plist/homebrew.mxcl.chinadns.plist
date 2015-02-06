@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>homebrew.shadowsocks.chinadns</string>
+    <key>ProgramArguments</key>
+    <array>
+		<string>/usr/local/bin/chinadns</string>
+      <string>-c</string>
+	  <string>/Users/hasky/Documents/devel/git/ArchDotfiles/chnroute.txt</string>
+      <string>-p</string>
+      <string>5335</string>
+      <string>-m</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <dict>
+      <key>SuccessfulExit</key>
+      <false/>
+    </dict>
+  </dict>
+</plist>

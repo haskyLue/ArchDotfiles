@@ -1,11 +1,12 @@
 [user]
 	name = haskyLue
-	email = ludebing@gmail.com
+	email = 
 [http]
+	; 用https协议的git url
 	; proxy = http://127.0.0.1:8087
 	proxy = socks5://127.0.0.1:1080
 [https]
-	; proxy = https://127.0.0.1:8087
+	; proxy = http://127.0.0.1:8087
 	proxy = socks5://127.0.0.1:1080
 	sslVerify = false
 [color]
@@ -16,6 +17,7 @@
 	default = simple
 [core]
 	editor = vim
+	excludesfile = /Users/hasky/.gitignore_global
 [merge]
 	tool = vimdiff
 [filter "media"]
@@ -24,3 +26,9 @@
 	required = true
 [branch]
 	autosetuprebase = always
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

@@ -53,34 +53,56 @@ proxyoff(){
 # }}}
 
 # {{{ bilibili 
+# you-get 只用来下载弹幕,谁叫你老抽风呢
+
 bili.download(){
-	_file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
-	_type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
+	# niconvert(bili.ass1)/you-get(bili.ass2)下载处理弹幕,youtube-dl下载视频,mpv播放
 
 	figlet -c bilibili-dw
+	# _file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
+	# _type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
 
-	echo "download xml file of danmu" && you-get -u $1
-	# echo "download videos" && you-get $1
-	echo "download videos" && youtube-dl $1
-	[[  $_type = 'x-flv' &&  -f $_file.mp4 ]] && mv $_file.mp4 $_file.flv #小处理
+	echo "\e[0;35m get video name from remote \e[0m" 
+	_name_ext="$(youtube-dl --get-filename $1)"
+	_name="$( basename $_name_ext .flv | xargs -I {} basename {} .mp4 )" # 视频文件名称
 
-	[[  $_type = 'x-flv'  ]] && (bili.ass $_file.flv && bili.play $_file.flv) || (bili.ass $_file.mp4 && bili.play $_file.mp4) # 非flv即mp4
-	
-
-	# height=$(ffprobe  -v quiet -show_streams $_file.$_type | awk -F'=' '/height/ {print $2}')
-	# width=$(ffprobe  -v quiet -show_streams $_file.$_type | awk -F'=' '/width/  {print $2}')
-	# # echo -e "$danmaku2assDir/danmaku2ass.py -o $_file.ass -s "$height"x"$width" "$_file".cmt.xml"
-	# $danmaku2assDir/danmaku2ass.py -o $_file.ass -s "$height"x"$width" "$_file".cmt.xml
-    #
-	# echo -e "mpv --geometry=70%x70%+50%+50% --sub-scale-with-window=yes --sub-file=$_file.ass $_file.$_type"
-	# mpv --geometry=70%x70%+50%+50% --sub-scale-with-window=yes --sub-file=$_file.ass $_file.$_type --vf='lavfi="fps=fps=60:round=down"'
+	# echo "\e[0;35m download file of danmu \e[0m" && bili.ass1 -o $_name $1
+	echo "\e[0;35m download video \e[0m"			 && youtube-dl $1
+	echo "\e[0;35m download file of danmu \e[0m" && bili.ass2 $1 $_name $_name_ext
+	echo "\e[0;35m playing video \e[0m"				 && bili.play $_name_ext 
 }
-bili.ass(){
-	danmaku2assDir="/Users/hasky/Documents/devel/git/danmaku2ass"
-	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
-	local height=$(ffprobe  -v quiet -show_streams $1 | awk -F'=' '/height/ {print $2}')
-	local width=$(ffprobe  -v quiet -show_streams $1 | awk -F'=' '/width/  {print $2}')
-	$danmaku2assDir/danmaku2ass.py -o "$name".ass -fs 30 -dm 10 -s "$height"x"$width" "$name".cmt.xml
+bili.ass1(){
+	# 自动处理为ass文件 @niconvert // 只是弹幕行为比较单一
+	niconvert="/Users/hasky/Documents/devel/git/niconvert/niconvert.pyw"
+	echo " for cid mesg or some other parameters : open url -> jsconsole -> \$('#bofqi').attr('src') \n"
+	$niconvert -B -G -V +l 0 +a async $1
+}
+bili.ass2(){
+	# 转换xml弹幕 @danmaku2ass/you-get
+	# you-get下载cmt.xml / danmuku2ass处理为ass,所需的参数由媒体文件提供
+
+	if [[ $# -eq 3 && -f $3 ]] ;then 
+		danmaku2assDir="/Users/hasky/Documents/devel/git/danmaku2ass"
+
+		echo "\e[0;35m getting the name of xxx.cmt.xml ...\e[0m"
+		_name=$( you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//' )
+		url=$1
+		name=$2 #真实的文件名(由youtube-dl下载的为准)
+		name_ext=$3
+		echo $name $name_ext 
+		
+		echo "\e[0;35m downloading xxx.cmt.xml...\e[0m" && you-get -u $url
+
+		if [[ -e "$_name".cmt.xml ]];then # 判断xml弹幕文件是否下载完成
+				local height=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/height/ {print $2}')
+				local width=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/width/  {print $2}')
+				$danmaku2assDir/danmaku2ass.py -o "$name".ass -fs 30 -dm 10 -s "$height"x"$width" "$_name".cmt.xml
+		else
+			echo "\e[0;34m no "$_name".cmt.xml file found"
+		fi
+	else
+		echo -e "\e[0;33m provide the title and name of the media file \n or check the existence of the media file" 
+	fi
 }
 bili.play(){
 	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
@@ -123,9 +145,9 @@ get_goagent_ip(){
 	while 1;do
 		$location/checkip.py 
 		echo -e "$location \n"
+		cat ip.txt && cp -fv ip.txt /Volumes/Caches/
 		sleep 3600
 	done
-	cat ip.txt && cp -fv ip.txt /Volumes/Caches/
 	# vim +13 ~/.proxy.user.ini
 }
 
@@ -193,11 +215,17 @@ rename_mp3(){
 	eyeD3 --rename '$artist - $title' $1 >> /Volumes/Caches/Music_rename_log
 }
 
+move_log()
+{
+	mount_point=/Volumes/Caches
+	[[ -L /var/log ]] && ( cd /var/log && pwd -P ) || ( sudo mv /var/log $mount_point/var_log && sudo ln -sf $mount_point/var_log /var/log ) 
+}
+
 Ugitdir(){
 	local DIR="/Users/hasky/Documents/devel/git"
 	for dir in $DIR/*
 	do
-		if [ -d $dir ] || [ -L $dir ]; then
+		if [ -d $dir/.git ]; then
 			echo "\e[34m remote pulling $dir...\e[0m "
 			cd $dir
 			git pull -v origin

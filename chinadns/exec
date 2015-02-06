@@ -9,4 +9,5 @@
 cd `dirname $0`
 logdir="/var/log"
 [[ -d /Volumes/Caches ]] && logdir="/Volumes/Caches"
-chinadns -v -c chnroute.txt -l iplist.txt -p 5335 >> $logdir/chinadns_log
+chinadns  -vm -c chnroute.txt -p 5335 
+# chinadns -v -c chnroute.txt -l iplist.txt -p 5335 

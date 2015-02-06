@@ -18,13 +18,16 @@ create_ramdisk(){
 cache_to_ram(){
 	_dir=(
 	Google
-	com.apple.Safari
 	Firefox
+	com.apple.Safari
+	com.apple.iTunes
 	com.xiami.client
+	com.netease.163music
+	com.apple.dashboard.client
+	GameKit
 	U_L_Logs
 	R_L_Logs
 	Homebrew
-	com.apple.dashboard.client
 	nginx
 	)
 	if [ ! -d $mount_point/Google ] ;then
