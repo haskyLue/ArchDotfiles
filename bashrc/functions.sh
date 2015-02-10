@@ -145,7 +145,7 @@ get_goagent_ip(){
 	while 1;do
 		$location/checkip.py 
 		echo -e "$location \n"
-		cat ip.txt && cp -fv ip.txt /Volumes/Caches/
+		cat $location/ip.txt && cp -fv $location/ip.txt /Volumes/Caches/
 		sleep 3600
 	done
 	# vim +13 ~/.proxy.user.ini

@@ -8,7 +8,8 @@ create_ramdisk(){
 	ramdisk_dev=`hdid -nomount ram://${ramfs_size_sectors}`  
 	newfs_hfs ${ramdisk_dev}  
 	mkdir -p ${mount_point}
-	mount -o noatime,noowners -t hfs ${ramdisk_dev} ${mount_point} 
+	mount -o noatime -t hfs ${ramdisk_dev} ${mount_point} 
+	chmod 777 ${mount_point}
 	# echo ""
 	# echo "-------remove with----------"  
 	# echo "hdiutil detach ${ramdisk_dev}" 
@@ -30,12 +31,32 @@ cache_to_ram(){
 	Homebrew
 	nginx
 	)
+	_dir_perm_w=(
+	Google
+	Firefox
+	com.apple.Safari
+	com.apple.iTunes
+	com.xiami.client
+	com.netease.163music
+	com.apple.dashboard.client
+	GameKit
+	U_L_Logs
+	Homebrew
+	nginx
+	)
 	if [ ! -d $mount_point/Google ] ;then
 		cd $mount_point 
+
 		for i in ${_dir[@]};do
 			mkdir -pv $i 
 		done
-		[[ -L /var/log ]] && rm -f /var/log || ( mv /var/log $mount_point/var_log && ln -sf $mount_point/var_log /var/log ) # /var/log 在此脚本直接生成
+
+		# 调整用户目录权限
+		for i in ${_dir_perm_w[@]};do
+			chown -R hasky:wheel $i
+		done
+
+		[[ -L /var/log ]] && rm -f /var/log || { mv /var/log $mount_point/var_log && ln -sf $mount_point/var_log /var/log } # /var/log 在此脚本直接生成
 	fi
 }
 ram_restoreto_cache(){
