@@ -6,7 +6,7 @@ create_ramdisk(){
 
 	ramfs_size_sectors=$(( ${ramfs_size_mb}*1024*1024/512 ))  
 	ramdisk_dev=`hdid -nomount ram://${ramfs_size_sectors}`  
-	newfs_hfs ${ramdisk_dev}  
+	newfs_hfs -v Ramdisk ${ramdisk_dev}  
 	mkdir -p ${mount_point}
 	mount -o noatime -t hfs ${ramdisk_dev} ${mount_point} 
 	chmod 777 ${mount_point}
@@ -56,7 +56,7 @@ cache_to_ram(){
 			chown -R hasky:wheel $i
 		done
 
-		[[ -L /var/log ]] && rm -f /var/log || { mv /var/log $mount_point/var_log && ln -sf $mount_point/var_log /var/log } # /var/log 在此脚本直接生成
+		# [[ -L /var/log ]] && rm -f /var/log || ( /bin/cp -Rpf /var/log $mount_point/var_log && rm -fr /var/log && ln -sf $mount_point/var_log /var/log ) # /var/log 在此脚本直接生成
 	fi
 }
 ram_restoreto_cache(){

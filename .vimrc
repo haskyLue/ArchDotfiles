@@ -95,9 +95,6 @@ let Tlist_Process_File_Always=1 "不管taglist窗口是否打开，始终解析�
 "设置CSCOPE
 set cscopequickfix=s-,c-,d-,i-,t-,e- "设定是否使用quickfix窗口显示cscope结果
 
-"按键映射
-map <F6> :make<CR>
-
 "设置自动补全
 filetype plugin indent on   "打开文件类型检测
 set completeopt=longest,menu "关掉智能补全时的预览窗口
@@ -174,4 +171,22 @@ let g:airline_right_alt_sep = ''
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 
+
 au BufNewFile,BufRead *.md set filetype=markdown
+
+" C detection
+augroup project
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
+
+" build system
+set makeprg=make\ -C\ ../build\ -j9
+map <F5> :make<CR>
+""%" is taken the current file name.
+"%<" is file name without extension.
+map <F8> :w <CR> :!clear; gcc % -o %< && ./%< <CR>
+imap jk <Esc>
+
+"vim 复制到clipboard
+set clipboard=unnamed

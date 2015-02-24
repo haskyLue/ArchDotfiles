@@ -8,7 +8,7 @@
     <array>
       <string>/usr/local/opt/shadowsocks-libev/bin/ss-local</string>
       <string>-c</string>
-      <string>/usr/local/etc/shadowsocks-libev.json</string>
+      <string>/usr/local/etc/shadowsocks-libev.jp.json</string>
       <string>-u</string>
     </array>
     <key>RunAtLoad</key>

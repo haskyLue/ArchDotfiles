@@ -12,8 +12,8 @@
       <string>-p</string>
       <string>5335</string>
       <string>-m</string>
-      <!-- <string>&#45;s</string> -->
-      <!-- <string>114.114.114.114,223.5.5.5,127.0.0.1:54</string> -->
+      <string>-s</string>
+      <string>114.114.114.114,223.5.5.5,208.67.222.222:443,8.8.8.8,127.0.0.1:54</string>
     </array>
     <key>RunAtLoad</key>
     <true/>

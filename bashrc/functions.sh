@@ -118,10 +118,19 @@ bili.online(){
 # }}}
 
 #{{{ fuck gwf 
+Upac(){
+	gfwlist="https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt"
+	userlist="https://raw.githubusercontent.com/clowwindy/gfwlist2pac/master/test/user_rule.txt"
+	cd /Volumes/Caches/ && rm -f user_rule.* gfwlist.*
+	proxyon;
+	aria2c $gfwlist 
+	aria2c $userlist && echo "" >> user_rule.txt
+
+	gfwlist2pac -i gfwlist.txt -f /usr/local/var/www/proxy.pac -p 'SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT;' --user-rule user_rule.txt  
+}
 Ugoagent(){
 	figlet -c GoAgent-Init
 	cd /Users/hasky/Documents/devel/git/goagent
-	# git reset --hard && git pull -fv
 	git archive HEAD --format=zip > /Volumes/Caches/goagent-3.0.zip
 
 	cd /Volumes/Caches && sudo rm -rf ./goagent-3.0 && unzip ./goagent-3.0.zip -d goagent-3.0 && rm -f ./goagent-3.0.zip
@@ -135,6 +144,8 @@ Ugoagent(){
 	sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
 
 	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
+	# ln -fs /Users/hasky/Documents/devel/git/gfwlist2pac/test/proxy.pac
+
 	sudo ./proxy.py
 }
 get_goagent_ip(){
@@ -146,7 +157,7 @@ get_goagent_ip(){
 		$location/checkip.py 
 		echo -e "$location \n"
 		cat $location/ip.txt && cp -fv $location/ip.txt /Volumes/Caches/
-		sleep 3600
+		sleep 18000
 	done
 	# vim +13 ~/.proxy.user.ini
 }
@@ -184,13 +195,17 @@ Uhosts(){
 '
 
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
-	local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
+	# 广告-------------
+	local HOSTS_URL="http://hosts.eladkarako.com/hosts.txt"
 
-	figlet -c Fuck-GWF
+	figlet -c Uhost
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
-	rm -f /Volumes/Caches/hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
+	proxyon;
+	cd /Volumes/Caches/ && rm -f hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
+	dos2unix hosts.txt
 	# netsh_hosts # 注释HOSTS_URL rm -f 
 	echo $hosts_append >> /Volumes/Caches/hosts.txt
 
@@ -218,6 +233,7 @@ rename_mp3(){
 move_log()
 {
 	mount_point=/Volumes/Caches
+	sudo -s
 	[[ -L /var/log ]] && ( cd /var/log && pwd -P ) || ( sudo mv /var/log $mount_point/var_log && sudo ln -sf $mount_point/var_log /var/log ) 
 }
 

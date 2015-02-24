@@ -9,7 +9,7 @@ reload-threads 6
 
 proxy localhost:8087
 always-display-description true
-# use-proxy yes
+use-proxy yes
 
 html-renderer "w3m -dump -T text/html"
 browser open

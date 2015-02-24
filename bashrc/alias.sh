@@ -35,19 +35,15 @@ if [ $UID -ne 0 ]; then
 fi
 
 # ls
-# alias ls='ls -hF --color=auto'
+alias ls='ls -hFG'
 # alias l='ls -a'
-# alias lr='ls -R'                    # recursive ls
+alias lr='ls -R'                    # recursive ls
 # alias ll='ls -l'
 # alias la='ll -A'
 # alias lx='ll -BX'                   # sort by extension
 # alias lz='ll -rS'                   # sort by size
 # alias lt='ll -rt'                   # sort by date
 
-# safety features
-alias cp='cp -i'
-alias mv='mv -i'
-alias ln='ln -i'
 
 # pacman aliases
 # alias pac="sudo powerpill -S"      # default action     - install one or more packages
@@ -85,6 +81,7 @@ alias elang="export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8"
 alias gitac="git commit -a -m "
 alias gitpusho="git push origin master"
 alias gitrv="git remove -v"
+alias shadowsocks="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.shadowsocks-libev.plist && sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.shadowsocks-libev.plist"
 
 
 # adjust volume
@@ -121,6 +118,7 @@ alias tmas="TERM=xterm-256color tmux -2 attach-session"
 alias update="figlet -c brew-updating && (brew update && brew upgrade && brew-cask update && brew cleanup --force -s && brew cask cleanup && brew prune)&"
 alias subl="reattach-to-user-namespace subl"
 alias open="reattach-to-user-namespace open ."
+alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"
 
 
 # enter directory & edit
