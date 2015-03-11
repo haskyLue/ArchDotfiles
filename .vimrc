@@ -15,7 +15,6 @@ Plugin 'vim-scripts/surround.vim'
 Plugin 'vim-scripts/tComment'
 Plugin 'scrooloose/nerdtree'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'Markdown-syntax'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/vimcdoc'
 Plugin 'vim-scripts/OmniCppComplete'
@@ -59,8 +58,11 @@ endif
 
 "设置语法高亮
 syntax enable
+" 允许用指定语法高亮配色方案替换默认方案
+syntax on
 set background=dark
-colorscheme xoria256
+" colorscheme asu1dark
+colorscheme 256-grayvim
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key
@@ -146,11 +148,18 @@ set number
 set cursorline 
 " hi CursorLine cterm=NONE ctermbg=blue ctermfg=white guibg=NONE guifg=NONE
 
+set ruler
+
 "modify
 set modifiable
 
 "代码折叠
-set foldmethod=marker
+" 基于缩进或语法进行代码折叠
+"set foldmethod=marker
+set foldmethod=indent
+" set foldmethod=syntax
+" 启动 vim 时关闭折叠代码
+set nofoldenable
 "
 " switch window
 nnoremap <c-h> <c-w>h
@@ -189,4 +198,4 @@ map <F8> :w <CR> :!clear; gcc % -o %< && ./%< <CR>
 imap jk <Esc>
 
 "vim 复制到clipboard
-set clipboard=unnamed
+" set clipboard=unnamed

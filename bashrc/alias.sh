@@ -81,7 +81,6 @@ alias elang="export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8"
 alias gitac="git commit -a -m "
 alias gitpusho="git push origin master"
 alias gitrv="git remove -v"
-alias shadowsocks="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.shadowsocks-libev.plist && sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.shadowsocks-libev.plist"
 
 
 # adjust volume
@@ -96,7 +95,6 @@ alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
 alias dns="/Users/hasky/Documents/devel/git/ArchDotfiles/chinadns/exec" 
 alias goagent="figlet -c goagent && sudo sudo python2 /Volumes/Caches/goagent-3.0/local/proxy.py"
 alias archlinux="ssh root@10.211.55.8"
-# alias goagent-update="/home/hasky/Documents/dotfiles/script/goagent_update.sh"
 # alias trash="sudo gvfs-trash"
 alias youdao="figlet -c YouDaoDict && /Users/hasky/Documents/devel/git/ydcv/ydcv.py -f"
 # alias wifi="wicd-curses"
@@ -113,12 +111,12 @@ alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-qua
 alias tm="TERM=xterm-256color tmux -2"
 alias tmas="TERM=xterm-256color tmux -2 attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
-# alias ramdisk="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh" 
-# alias ramdisk_detach="/Users/hasky/Documents/devel/git/ArchDotfiles/script/create_ramdisk_osx.sh 1" 
-alias update="figlet -c brew-updating && (brew update && brew upgrade && brew-cask update && brew cleanup --force -s && brew cask cleanup && brew prune)&"
+# alias update="figlet -c brew-updating && (brew update && brew upgrade && brew-cask update && brew cleanup --force -s && brew cask cleanup && brew prune)&"
+alias update="figlet -c brew-updating && brew update && brew upgrade ; brew-cask update ; brew cleanup ; brew cask cleanup ; brew prune"
 alias subl="reattach-to-user-namespace subl"
 alias open="reattach-to-user-namespace open ."
 alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"
+alias reboot_router="curl 'http://192.168.1.1/userRpm/SysRebootRpm.htm?Reboot=%D6%D8%C6%F4%C2%B7%D3%C9%C6%F7' -H 'Host: 192.168.1.1' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:36.0) Gecko/20100101 Firefox/36.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3' --compressed -H 'Referer: http://192.168.1.1/userRpm/SysRebootRpm.htm' -H 'Cookie: Authorization=Basic%20YWRtaW46MzU0ODk1OA%3D%3D' -H 'Connection: keep-alive'"
 
 
 # enter directory & edit

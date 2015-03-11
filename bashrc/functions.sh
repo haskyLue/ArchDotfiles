@@ -126,26 +126,35 @@ Upac(){
 	aria2c $gfwlist 
 	aria2c $userlist && echo "" >> user_rule.txt
 
-	gfwlist2pac -i gfwlist.txt -f /usr/local/var/www/proxy.pac -p 'SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT;' --user-rule user_rule.txt  
+	gfwlist2pac -i gfwlist.txt -f /usr/local/var/www/proxy.pac -p 'SOCKS5 127.0.0.1:1080; PROXY 127.0.0.1:8087; DIRECT;' --user-rule user_rule.txt  
 }
 Ugoagent(){
 	figlet -c GoAgent-Init
 	cd /Users/hasky/Documents/devel/git/goagent
 	git archive HEAD --format=zip > /Volumes/Caches/goagent-3.0.zip
 
+	echo -e "\nextract goagent dir from git archive\n"
 	cd /Volumes/Caches && sudo rm -rf ./goagent-3.0 && unzip ./goagent-3.0.zip -d goagent-3.0 && rm -f ./goagent-3.0.zip
 	cd ./goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
 
+	echo -e "\ngenerate new fake cert for goagent\n"
 	rm -f ./CA.crt 
 	(sleep 5 && ps -jA | awk '/.*proxy.py$/ {print $2}' | head | xargs -I {} sudo kill -9 {})& # kill goagent to get CA.crt
 	sudo ./proxy.py
 
+	echo -e "\ninstall cert to root && firefox\n"
 	sudo security delete-certificate -c GoAgent 
 	sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
+	# for nss (mainly for firefox)
+	certutil -D -n 'GoAgent - GoAgent' -d "/Users/hasky/Library/Application Support/Firefox/Profiles/1yijdi2a.default" 
+	certutil -A -n 'GoAgent - GoAgent' -i "CA.crt" -t "CT,C,C" -d "/Users/hasky/Library/Application Support/Firefox/Profiles/1yijdi2a.default" 
+	# reboot firefox
 
-	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
+	echo -e "\nremove info log for performance\n"
+	# sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
 	# ln -fs /Users/hasky/Documents/devel/git/gfwlist2pac/test/proxy.pac
 
+	echo -e "\nstart!!!\n"
 	sudo ./proxy.py
 }
 get_goagent_ip(){
@@ -194,12 +203,12 @@ Uhosts(){
 127.0.0.1 hlrcv.stage.adobe.com
 '
 
-	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 	# 广告-------------
-	local HOSTS_URL="http://hosts.eladkarako.com/hosts.txt"
+	# local HOSTS_URL="http://hosts.eladkarako.com/hosts.txt"
 
 	figlet -c Uhost
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
@@ -207,13 +216,65 @@ Uhosts(){
 	cd /Volumes/Caches/ && rm -f hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
 	dos2unix hosts.txt
 	# netsh_hosts # 注释HOSTS_URL rm -f 
-	echo $hosts_append >> /Volumes/Caches/hosts.txt
+	if [[ -e hosts.txt ]] ;then
+		echo $hosts_append >> /Volumes/Caches/hosts.txt
 
-	echo -e "\nFINISHING..."
-	sudo -S cp -fv /Volumes/Caches/hosts.txt /etc/hosts < $secret
+		echo -e "\nFINISHING..."
+		sudo -S cp -fv /Volumes/Caches/hosts.txt /etc/hosts < $secret
+	fi
+
 	# echo ""
 	# grep -i "UPDATE" /etc/hosts
 }
+dnsmasq()
+{
+	arg=$1
+	case $arg in
+		start)
+			echo "Starting dnsmasq..."
+			sudo launchctl start homebrew.mxcl.dnsmasq
+			;;
+		stop)
+			echo "Stopping dnsmasq..."
+			sudo launchctl stop homebrew.mxcl.dnsmasq
+			;;
+		restart)
+			dnsmasq stop
+			dnsmasq start
+			;;
+		edit)
+			vim /usr/local/etc/dnsmasq.conf
+			;;
+	esac
+} 
+shadowsocks()
+{
+	arg=$1
+	dir="/Library/LaunchDaemons"
+	case $arg in
+		start)
+			echo "Starting shadowsocks..."
+			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.plist
+			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
+			;;
+		stop)
+			echo "Stopping shadowsocks..."
+			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.plist
+			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
+			;;
+		restart)
+			echo -e "Starting shadowsocks...\n"
+			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.plist
+			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
+			echo "Stopping shadowsocks..."
+			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.plist
+			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
+			;;
+		edit)
+			sudo vim -o $dir/{homebrew.mxcl.shadowsocks-libev.plist,homebrew.mxcl.shadowsocks-libev.tunnel.plist}
+			;;
+	esac
+} 
 #}}}
 
 # Udns()
@@ -254,39 +315,6 @@ Ugitdir(){
 # 	sudo modprobe -fv ath9k
 # }
 
-# extract() {
-#     local c e i
-#
-#     (($#)) || return
-#
-#     for i; do
-#         c=''
-#         e=1
-#
-#         if [[ ! -r $i ]]; then
-#             echo "$0: file is unreadable: \`$i'" >&2
-#             continue
-#         fi
-#
-#         case $i in
-#             *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
-#                    c=(bsdtar xvf);;
-#             *.7z)  c=(7z x);;
-#             *.bz2) c=(bunzip2);;
-#             *.exe) c=(cabextract);;
-#             *.gz)  c=(gunzip);;
-#             *.rar) c=(unrar x);;
-#             *.xz)  c=(unxz);;
-#             *.zip) c=(gbkunzip);;
-#             *)     echo "$0: unrecognized file extension: \`$i'" >&2
-#                    continue;;
-#         esac
-#
-#         command "${c[@]}" "$i"
-#         ((e = e || $?))
-#     done
-#     return "$e"
-# }
 calc() {
     echo "scale=3;$@" | bc -l
 }
