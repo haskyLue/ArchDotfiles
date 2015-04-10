@@ -11,13 +11,13 @@ alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -Af | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 # alias top="top -id 2"
-alias top="top -d -s 2 -u"
+alias top="sudo top -d -s 2 -u -F"
 alias aria2c="aria2c --file-allocation none -x 5 -s 10 -c"
 alias htop="sudo htop -d 20"
 # alias pstree="pstree -ha"
 alias grep="grep --color"
 alias find="find ."
-# alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:round=down\"' "
+alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:round=down\"' "
 alias updatedb="sudo /usr/libexec/locate.updatedb"
 alias reload_shell=". ~/.zshrc"
 alias lsnetport="lsof -i -n"
@@ -28,7 +28,7 @@ if [ $UID -ne 0 ]; then
 	alias smount='sudo mount'
 	alias sumount='sudo umount'
 	alias svim='sudo vim'
-	alias root='sudo su'
+	alias root='sudo -s'
 	# alias reboot='sudo systemctl reboot'
 	# alias poweroff='sudo systemctl poweroff'
 	# alias netcfg='sudo netcfg2'
@@ -93,7 +93,7 @@ alias gitrv="git remove -v"
 # alias rename_mp3_dir="find . -iname '*mp3' -exec eyeD3 --rename '$artist - $title' {} >> /Volumes/Caches/Music_rename_log \;"
 alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
 alias dns="/Users/hasky/Documents/devel/git/ArchDotfiles/chinadns/exec" 
-alias goagent="figlet -c goagent && sudo sudo python2 /Volumes/Caches/goagent-3.0/local/proxy.py"
+alias goagent="figlet -c goagent && sudo python /Volumes/Caches/goagent-3.0/local/proxy.py"
 alias archlinux="ssh root@10.211.55.8"
 # alias trash="sudo gvfs-trash"
 alias youdao="figlet -c YouDaoDict && /Users/hasky/Documents/devel/git/ydcv/ydcv.py -f"
@@ -112,7 +112,7 @@ alias tm="TERM=xterm-256color tmux -2"
 alias tmas="TERM=xterm-256color tmux -2 attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 # alias update="figlet -c brew-updating && (brew update && brew upgrade && brew-cask update && brew cleanup --force -s && brew cask cleanup && brew prune)&"
-alias update="figlet -c brew-updating && brew update && brew upgrade ; brew-cask update ; brew cleanup ; brew cask cleanup ; brew prune"
+alias update="figlet -c brew-updating && brew update && brew upgrade ; brew-cask update ; brew cask cleanup ; brew cleanup --force; brew prune"
 alias subl="reattach-to-user-namespace subl"
 alias open="reattach-to-user-namespace open ."
 alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"

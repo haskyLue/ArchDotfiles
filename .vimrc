@@ -194,7 +194,7 @@ set makeprg=make\ -C\ ../build\ -j9
 map <F5> :make<CR>
 ""%" is taken the current file name.
 "%<" is file name without extension.
-map <F8> :w <CR> :!clear; gcc % -o %< && ./%< <CR>
+map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
 imap jk <Esc>
 
 "vim 复制到clipboard

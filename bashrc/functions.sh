@@ -124,7 +124,7 @@ Upac(){
 	cd /Volumes/Caches/ && rm -f user_rule.* gfwlist.*
 	proxyon;
 	aria2c $gfwlist 
-	aria2c $userlist && echo "" >> user_rule.txt
+	aria2c $userlist 
 
 	gfwlist2pac -i gfwlist.txt -f /usr/local/var/www/proxy.pac -p 'SOCKS5 127.0.0.1:1080; PROXY 127.0.0.1:8087; DIRECT;' --user-rule user_rule.txt  
 }
@@ -142,7 +142,7 @@ Ugoagent(){
 	(sleep 5 && ps -jA | awk '/.*proxy.py$/ {print $2}' | head | xargs -I {} sudo kill -9 {})& # kill goagent to get CA.crt
 	sudo ./proxy.py
 
-	echo -e "\ninstall cert to root && firefox\n"
+	echo -e "\ninstall cert to system && firefox\n"
 	sudo security delete-certificate -c GoAgent 
 	sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
 	# for nss (mainly for firefox)
@@ -151,7 +151,7 @@ Ugoagent(){
 	# reboot firefox
 
 	echo -e "\nremove info log for performance\n"
-	# sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
+	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
 	# ln -fs /Users/hasky/Documents/devel/git/gfwlist2pac/test/proxy.pac
 
 	echo -e "\nstart!!!\n"
@@ -226,28 +226,31 @@ Uhosts(){
 	# echo ""
 	# grep -i "UPDATE" /etc/hosts
 }
-dnsmasq()
+_dnsmasq()
 {
 	arg=$1
+	dir="/Library/LaunchDaemons"
 	case $arg in
 		start)
 			echo "Starting dnsmasq..."
-			sudo launchctl start homebrew.mxcl.dnsmasq
+			sudo launchctl load $dir/homebrew.mxcl.dnsmasq.plist
 			;;
 		stop)
 			echo "Stopping dnsmasq..."
-			sudo launchctl stop homebrew.mxcl.dnsmasq
+			sudo launchctl unload $dir/homebrew.mxcl.dnsmasq.plist
 			;;
 		restart)
-			dnsmasq stop
-			dnsmasq start
+			echo "Stopping dnsmasq..."
+			sudo launchctl unload $dir/homebrew.mxcl.dnsmasq.plist
+			echo "Starting dnsmasq..."
+			sudo launchctl load $dir/homebrew.mxcl.dnsmasq.plist
 			;;
 		edit)
 			vim /usr/local/etc/dnsmasq.conf
 			;;
 	esac
 } 
-shadowsocks()
+_shadowsocks()
 {
 	arg=$1
 	dir="/Library/LaunchDaemons"
@@ -263,15 +266,39 @@ shadowsocks()
 			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
 			;;
 		restart)
-			echo -e "Starting shadowsocks...\n"
+			echo -e "Stopping shadowsocks...\n"
 			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.plist
 			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
-			echo "Stopping shadowsocks..."
+			echo "Starting shadowsocks..."
 			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.plist
 			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
 			;;
 		edit)
 			sudo vim -o $dir/{homebrew.mxcl.shadowsocks-libev.plist,homebrew.mxcl.shadowsocks-libev.tunnel.plist}
+			;;
+	esac
+} 
+_chinadns()
+{
+	arg=$1
+	dir="/Library/LaunchDaemons"
+	case $arg in
+		start)
+			echo "Starting chinadns..."
+			sudo launchctl load $dir/homebrew.mxcl.chinadns.plist
+			;;
+		stop)
+			echo "Stopping chinadns..."
+			sudo launchctl unload $dir/homebrew.mxcl.chinadns.plist
+			;;
+		restart)
+			echo -e "Stopping chinadns...\n"
+			sudo launchctl unload $dir/homebrew.mxcl.chinadns.plist
+			echo "Starting chinadns..."
+			sudo launchctl load $dir/homebrew.mxcl.chinadns.plist
+			;;
+		edit)
+			sudo vim $dir/homebrew.mxcl.chinadns.plist
 			;;
 	esac
 } 
@@ -291,12 +318,12 @@ rename_mp3(){
 	eyeD3 --rename '$artist - $title' $1 >> /Volumes/Caches/Music_rename_log
 }
 
-move_log()
-{
-	mount_point=/Volumes/Caches
-	sudo -s
-	[[ -L /var/log ]] && ( cd /var/log && pwd -P ) || ( sudo mv /var/log $mount_point/var_log && sudo ln -sf $mount_point/var_log /var/log ) 
-}
+# move_log()
+# {
+# 	sudo -s
+# 	mount_point=/Volumes/Caches
+# 	[[ -L /var/log ]] && ( cd /var/log && pwd -P ) || ( sudo mv /var/log $mount_point/var_log && sudo ln -sf $mount_point/var_log /var/log ) 
+# }
 
 Ugitdir(){
 	local DIR="/Users/hasky/Documents/devel/git"
