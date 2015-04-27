@@ -26,7 +26,6 @@ cache_to_ram(){
 	Firefox
 	com.apple.Safari
 	com.apple.iTunes
-	com.xiami.client
 	com.netease.163music
 	com.apple.dashboard.client
 	GameKit
@@ -62,6 +61,6 @@ cache_to_ram(){
 # 	ram_restoreto_cache
 # 	df -a
 # else
-create_ramdisk && cache_to_ram 
+[[ ! -d /Volumes/Caches ]] && create_ramdisk && cache_to_ram 
 # 	df -a
 # fi

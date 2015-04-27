@@ -345,6 +345,19 @@ Ugitdir(){
 calc() {
     echo "scale=3;$@" | bc -l
 }
+update()
+{
+	figlet -c brew-updating 
+	brew update 
+	brew upgrade --all
+	brew upgrade brew-cask
+	brew prune
+	brew cleanup --force
+
+	# figlet -c brew-cask-updating 
+	# brew cask list | xargs brew cask install
+	# brew cask cleanup 
+}
 
 # listAllCommands()
 # {
