@@ -151,7 +151,7 @@ Ugoagent(){
 	# reboot firefox
 
 	echo -e "\nremove info log for performance\n"
-	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
+	# sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
 	# ln -fs /Users/hasky/Documents/devel/git/gfwlist2pac/test/proxy.pac
 
 	echo -e "\nstart!!!\n"
@@ -257,24 +257,25 @@ _shadowsocks()
 	case $arg in
 		start)
 			echo "Starting shadowsocks..."
-			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.plist
+			# sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.plist
 			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
 			;;
 		stop)
 			echo "Stopping shadowsocks..."
-			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.plist
+			# sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.plist
 			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
 			;;
 		restart)
 			echo -e "Stopping shadowsocks...\n"
-			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.plist
+			# sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.plist
 			sudo launchctl unload $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
 			echo "Starting shadowsocks..."
-			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.plist
+			# sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.plist
 			sudo launchctl load $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
 			;;
 		edit)
-			sudo vim -o $dir/{homebrew.mxcl.shadowsocks-libev.plist,homebrew.mxcl.shadowsocks-libev.tunnel.plist}
+			# sudo vim -o $dir/{homebrew.mxcl.shadowsocks-libev.plist,homebrew.mxcl.shadowsocks-libev.tunnel.plist}
+			sudo vim -o $dir/homebrew.mxcl.shadowsocks-libev.tunnel.plist
 			;;
 	esac
 } 
@@ -354,9 +355,18 @@ update()
 	brew prune
 	brew cleanup --force
 
-	# figlet -c brew-cask-updating 
+	echo -e "\nbrew-cask-updating\n"
+	brew cask update
 	# brew cask list | xargs brew cask install
 	# brew cask cleanup 
+}
+
+brew-cask-upgrade()
+{
+	package=($(brew cask list | xargs))
+	for ele in ${package[@]};do
+		[[ $ele != 'eclipse-java' ]] && brew cask install $ele;
+	done
 }
 
 # listAllCommands()

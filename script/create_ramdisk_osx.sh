@@ -28,6 +28,7 @@ cache_to_ram(){
 	com.apple.iTunes
 	com.netease.163music
 	com.apple.dashboard.client
+	AndroidStudio1.2
 	GameKit
 	U_L_Logs
 	Homebrew

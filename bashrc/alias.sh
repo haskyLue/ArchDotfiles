@@ -9,7 +9,7 @@ alias mkdir='mkdir -p -v'
 alias ping='ping -c 5'
 alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
-alias pg='ps -axf | grep $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
+alias pg='ps -axf | grep -i $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 # alias top="top -id 2"
 alias top="top -d -s 2 -u -F"
 alias aria2c="aria2c --file-allocation none -x 5 -s 10 -c"
@@ -17,6 +17,7 @@ alias htop="sudo htop -d 20"
 # alias pstree="pstree -ha"
 alias grep="grep --color"
 alias find="find ."
+alias mdfind="mdfind -onlyin ."
 alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:round=down\"' "
 alias updatedb="sudo /usr/libexec/locate.updatedb"
 alias reload_shell=". ~/.zshrc"
@@ -108,11 +109,10 @@ alias youtube-dl="youtube-dl --no-check-certificate --write-auto-sub --audio-qua
 # alias bilibili="~/Documents/devel/git/ArchDotfiles/script/bilibili.sh"
 # alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
-alias tm="TERM=xterm-256color tmux -2"
-alias tmas="TERM=xterm-256color tmux -2 attach-session"
+alias tm="TERM=xterm-256color tmux -2 -u"
+alias tmas="TERM=xterm-256color tmux -2 -u attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 # alias update="figlet -c brew-updating && (brew update && brew upgrade && brew-cask update && brew cleanup --force -s && brew cask cleanup && brew prune)&"
-alias brew-cask-upgrade="brew cask list | xargs brew cask install"
 alias subl="reattach-to-user-namespace subl"
 alias open="reattach-to-user-namespace open ."
 alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"
@@ -125,6 +125,7 @@ alias Cg="cd /Users/hasky/Documents/devel/git"
 alias Cc="cd /Volumes/Caches"
 alias Ce="cd /Volumes/Elements"
 alias Ch="cd /usr/local/bin/homebrew"
+alias Ca="cd /Users/hasky/Documents/devel/alfred.workflows.dev"
 # alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
 alias Vgo="vim ~/.proxy.user.ini"
 alias Vt="vim ~/.tmux.conf"
