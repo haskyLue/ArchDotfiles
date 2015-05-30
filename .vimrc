@@ -1,32 +1,37 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set        nocompatible
+filetype   off                                                                                   "   required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+
+Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-scripts/vimcdoc'
+
 Plugin 'ervandew/supertab'
 Plugin 'Townk/vim-autoclose'
-Plugin 'vim-scripts/JavaScript-syntax.git'
 Plugin 'vim-scripts/surround.vim'
 Plugin 'vim-scripts/tComment'
-Plugin 'scrooloose/nerdtree'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-scripts/taglist.vim'
-Plugin 'vim-scripts/vimcdoc'
-Plugin 'vim-scripts/OmniCppComplete'
 Plugin 'terryma/vim-multiple-cursors'
+
+Plugin 'vim-scripts/OmniCppComplete'
 Plugin 'vim-scripts/Javascript-OmniCompletion-with-YUI-and-j'
+Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'elzr/vim-json'
+
 " Plugin 'Lokaltog/vim-powerline'
 Plugin 'bling/vim-airline'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo 
-" All of your Plugins must be added before the following line
+Plugin 'scrooloose/nerdtree'
+Plugin 'danro/rename.vim'
+
+" Code Format
+Plugin 'godlygeek/tabular'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Brief help
@@ -61,8 +66,8 @@ syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
 set background=dark
-" colorscheme asu1dark
-colorscheme 256-grayvim
+colorscheme asu1dark
+" colorscheme 256-grayvim
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key
@@ -140,6 +145,8 @@ set t_vb=
 "不要备份文件
 set nobackup
 set nowb
+set nowritebackup
+set noswapfile
 
 "显示行号
 set number
@@ -198,4 +205,8 @@ map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
 imap jk <Esc>
 
 "vim 复制到clipboard
-" set clipboard=unnamed
+set clipboard=unnamed
+
+"fzf
+set rtp+=/usr/local/bin/homebrew/Cellar/fzf/0.9.12
+

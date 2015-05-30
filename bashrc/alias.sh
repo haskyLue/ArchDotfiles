@@ -21,7 +21,7 @@ alias mdfind="mdfind -onlyin ."
 alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:round=down\"' "
 alias updatedb="sudo /usr/libexec/locate.updatedb"
 alias reload_shell=". ~/.zshrc"
-alias lsnetport="lsof -i -n"
+alias lsnetport="sudo lsof -i -n"
 
 # privileged access
 if [ $UID -ne 0 ]; then

@@ -120,7 +120,7 @@ bili.online(){
 #{{{ fuck gwf 
 Upac(){
 	gfwlist="https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt"
-	userlist="https://raw.githubusercontent.com/clowwindy/gfwlist2pac/master/test/user_rule.txt"
+	userlist="https://raw.githubusercontent.com/JinnLynn/genpac/master/genpac/res/user-rules-sample.txt"
 	cd /Volumes/Caches/ && rm -f user_rule.* gfwlist.*
 	proxyon;
 	aria2c $gfwlist 
