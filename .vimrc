@@ -1,5 +1,5 @@
-set        nocompatible
-filetype   off                                                                                   "   required
+set nocompatible
+filetype off                                                                                   "   required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -10,7 +10,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-scripts/vimcdoc'
 
-Plugin 'ervandew/supertab'
 Plugin 'Townk/vim-autoclose'
 Plugin 'vim-scripts/surround.vim'
 Plugin 'vim-scripts/tComment'
@@ -18,10 +17,14 @@ Plugin 'vim-scripts/taglist.vim'
 Plugin 'terryma/vim-multiple-cursors'
 
 Plugin 'vim-scripts/OmniCppComplete'
-Plugin 'vim-scripts/Javascript-OmniCompletion-with-YUI-and-j'
+Plugin 'ervandew/supertab'
+" Plugin 'vim-scripts/Javascript-OmniCompletion-with-YUI-and-j'
 Plugin 'pangloss/vim-javascript'
-Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'manzur/vim-java-syntax'
+
+" Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'elzr/vim-json'
+Plugin 'kelwin/vim-smali'
 
 " Plugin 'Lokaltog/vim-powerline'
 Plugin 'bling/vim-airline'
@@ -65,9 +68,9 @@ endif
 syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
-set background=dark
-colorscheme asu1dark
+set background=light
 " colorscheme 256-grayvim
+colorscheme molokai
 
 "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
 set selectmode=mouse,key
@@ -187,8 +190,11 @@ let g:airline_right_alt_sep = ''
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 
+" 更改<leader>前缀
+let mapleader=","
 
-au BufNewFile,BufRead *.md set filetype=markdown
+
+au BufReadPost *.md set filetype=markdown
 
 " C detection
 augroup project
@@ -202,11 +208,46 @@ map <F5> :make<CR>
 ""%" is taken the current file name.
 "%<" is file name without extension.
 map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
-imap jk <Esc>
+" imap jk <Esc>
 
 "vim 复制到clipboard
 set clipboard=unnamed
 
-"fzf
-set rtp+=/usr/local/bin/homebrew/Cellar/fzf/0.9.12
+"--------------------------fzf插件--------------------------
+set rtp+=/usr/local/bin/homebrew/Cellar/fzf/0.10.0
+" Open files in horizontal split
+nnoremap <silent> <Leader>s :call fzf#run({
+\   'down': '40%',
+\   'sink': 'botright split' })<CR>
+" Open files in vertical horizontal split
+nnoremap <silent> <Leader>v :call fzf#run({
+\   'right': winwidth('.') / 2,
+\   'sink':  'vertical botright split' })<CR>
+" Choose color scheme
+nnoremap <silent> <Leader>C :call fzf#run({
+\   'source':
+\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+\   'sink':    'colo',
+\   'options': '+m',
+\   'left':    30
+\ })<CR>
+"Select buffer
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
 
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+"--------------------------fzf插件--------------------------

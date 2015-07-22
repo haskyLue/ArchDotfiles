@@ -7,23 +7,24 @@ parse_string(){
 
 # cmd proxy {{{
 proxyon(){
-	export http_proxy="127.0.0.1:8087"
+	# export http_proxy="127.0.0.1:8087"
+	export http_proxy="localhost:8087"
 	export https_proxy=$http_proxy
 	export ftp_proxy=$http_proxy
 	export rsync_proxy=$http_proxy
-	export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+	export all_proxy=$http_proxy
+	export no_proxy="localhost,localaddress,.localdomain.com"
 
 	export HTTP_PROXY=$http_proxy
 	export HTTPS_PROXY=$http_proxy
 	export FTP_PROXY=$http_proxy
 	export RSYNC_PROXY=$http_proxy
-	export NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
 	export ALL_PROXY=$http_proxy
-	echo -e "\nProxy environment variable set."
+	export NO_PROXY="localhost,localaddress,.localdomain.com"
+	echo -e "设置代理环境变量\n"
 }
 proxyoff(){
 	unset HTTP_PROXY
-	unset ALL_PROXY
 	unset http_proxy
 	unset HTTPS_PROXY
 	unset https_proxy
@@ -31,7 +32,9 @@ proxyoff(){
 	unset ftp_proxy
 	unset RSYNC_PROXY
 	unset rsync_proxy
-	echo -e "\nProxy environment variable removed."
+	unset ALL_PROXY
+	unset all_proxy
+	echo -e "清除代理环境变量\n"
 }
 # }}}
 
@@ -151,7 +154,7 @@ Ugoagent(){
 	# reboot firefox
 
 	echo -e "\nremove info log for performance\n"
-	# sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
+	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
 	# ln -fs /Users/hasky/Documents/devel/git/gfwlist2pac/test/proxy.pac
 
 	echo -e "\nstart!!!\n"
@@ -165,7 +168,7 @@ get_goagent_ip(){
 	while 1;do
 		$location/checkip.py 
 		echo -e "$location \n"
-		cat $location/ip.txt && cp -fv $location/ip.txt /Volumes/Caches/
+		cat $location/ip.txt && cp -f $location/ip.txt /Volumes/Caches/
 		sleep 18000
 	done
 	# vim +13 ~/.proxy.user.ini
@@ -201,9 +204,20 @@ Uhosts(){
 127.0.0.1 na4r.services.adobe.com
 127.0.0.1 na1r.services.adobe.com
 127.0.0.1 hlrcv.stage.adobe.com
+
+# baidupcs
+2400:da00::dbf:0:6666 p.baidupcs.com
+2400:da00::dbf:0:6666 nj.baidupcs.com
+2400:da00::dbf:0:6666 qd.baidupcs.com
+2400:da00::dbf:0:6666 cdn.baidupcs.com
+2400:da00::dbf:0:6666 hot.baidupcs.com
+2400:da00::dbf:0:6666 www.baidupcs.com
+2400:da00::dbf:0:6666 hot.cdn.baidupcs.com
+2400:da00::dbf:0:6666 d.pcs.baidu.com
 '
 
-	local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
@@ -212,7 +226,7 @@ Uhosts(){
 
 	figlet -c Uhost
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
-	proxyon;
+	# proxyon;
 	cd /Volumes/Caches/ && rm -f hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
 	dos2unix hosts.txt
 	# netsh_hosts # 注释HOSTS_URL rm -f 
@@ -240,8 +254,12 @@ _dnsmasq()
 			sudo launchctl unload $dir/homebrew.mxcl.dnsmasq.plist
 			;;
 		restart)
+			sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist
+			sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist
+
 			echo "Stopping dnsmasq..."
 			sudo launchctl unload $dir/homebrew.mxcl.dnsmasq.plist
+			sleep 1
 			echo "Starting dnsmasq..."
 			sudo launchctl load $dir/homebrew.mxcl.dnsmasq.plist
 			;;
@@ -352,8 +370,8 @@ update()
 	brew update 
 	brew upgrade --all
 	brew upgrade brew-cask
-	brew prune
 	brew cleanup --force
+	brew prune
 
 	echo -e "\nbrew-cask-updating\n"
 	brew cask update
@@ -365,10 +383,36 @@ brew-cask-upgrade()
 {
 	package=($(brew cask list | xargs))
 	for ele in ${package[@]};do
-		[[ $ele != 'eclipse-java' ]] && brew cask install $ele;
+		# [[ $ele != 'eclipse-java' ]] && brew cask install $ele;
+		brew cask install $ele;
 	done
 }
 
+decode-apk(){
+	fullPath=$@  
+	filePath=${fullPath%'.apk'}  
+
+	echo 1.开始反编译 $fullPath  
+	apktool -f d $fullPath
+	# java -Xmx512M -Djava.awt.headless=true -jar apktool -f d -o "${filePath}" $@
+
+	echo "\n"
+
+	echo 2.解压出dex文件...  
+	unzip  -o -d "${filePath}" "${fullPath}" '*.dex'
+
+	echo "\n"
+
+	echo 3.反编译dex为jar...  
+	cd ${filePath}
+	for i in ./*.dex
+	do
+		d2j-dex2jar $i -f -o ${i}.jar  
+	done
+
+	open .
+
+}
 # listAllCommands()
 # {
 #     COMMANDS=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
