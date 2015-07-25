@@ -1,51 +1,45 @@
 set nocompatible
-filetype off                                                                                   "   required
-" set the runtime path to include Vundle and initialize
+filetype off   
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'flazz/vim-colorschemes'
-Plugin 'vim-scripts/vimcdoc'
+" 操作
+Plugin 'Townk/vim-autoclose' "自动插入添加匹配符号
+Plugin 'vim-scripts/surround.vim' "符号处理
+Plugin 'vim-scripts/tComment' "注释
+Plugin 'terryma/vim-multiple-cursors' "多行选中
+Plugin 'Valloric/YouCompleteMe'  "出现 python 之类的报错，一般在更新 python 后重装
+Plugin 'scrooloose/syntastic'  " 语义检查
 
-Plugin 'Townk/vim-autoclose'
-Plugin 'vim-scripts/surround.vim'
-Plugin 'vim-scripts/tComment'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'terryma/vim-multiple-cursors'
+" snippets
+Plugin 'honza/vim-snippets' 
+Plugin 'SirVer/ultisnips' 
 
-Plugin 'vim-scripts/OmniCppComplete'
-Plugin 'ervandew/supertab'
-" Plugin 'vim-scripts/Javascript-OmniCompletion-with-YUI-and-j'
-Plugin 'pangloss/vim-javascript'
+" 语法高亮
 Plugin 'manzur/vim-java-syntax'
-
-" Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
 Plugin 'kelwin/vim-smali'
 
-" Plugin 'Lokaltog/vim-powerline'
-Plugin 'bling/vim-airline'
-
+" 文件项目
 Plugin 'scrooloose/nerdtree'
 Plugin 'danro/rename.vim'
+Plugin 'majutsushi/tagbar'
 
-" Code Format
-Plugin 'godlygeek/tabular'
+" 外观
+" Plugin 'Lokaltog/vim-powerline'
+" Plugin 'vim-scripts/vimcdoc'
+Plugin 'bling/vim-airline'
+Plugin 'godlygeek/tabular' " Code Format
+Plugin 'flazz/vim-colorschemes'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
-" Brief help
-" :PluginList          - list configured plugins
-" :PluginInstall(!)    - install (update) plugins
-" :PluginSearch(!) foo - search (or refresh cache first) for foo
-" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
+call vundle#end()      
+filetype plugin indent on    
+filetype on "打开文件类型自动检测功能
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 """""""""""""""""""""""""""""Vundle_above""""""""""""""""""""""""""""""""""" 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
@@ -55,90 +49,43 @@ set encoding=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set fileencodings=utf8,cp936,gb18030,big5
 set termencoding=utf8
+set langmenu=zh_CN.UTF-8 "语言设置
 
-"语言设置
-set langmenu=zh_CN.UTF-8
 
-"vimdoc语言
-if version >= 603
-	set helplang=cn
-endif
-
-"设置语法高亮
 syntax enable
-" 允许用指定语法高亮配色方案替换默认方案
 syntax on
-set background=light
-" colorscheme 256-grayvim
+set background=dark
+set t_Co=256
 colorscheme molokai
+colorscheme Tomorrow-Night
+" colorscheme Tomorrow-Night-Bright
+" colorscheme desert
 
-"可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
-set selectmode=mouse,key
+" 设置标记一列的背景颜色和数字一行颜色一致
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
 
-"高亮显示匹配的括号
-set showmatch
+set selectmode=mouse,key "可以在buffer的任何地方使用鼠标 set mouse=a set selection=exclusive
+set showmatch "高亮显示匹配的括号
+set nocompatible "去掉vi一致性
+set history=1000 "设置VIM记录的历史数
+set ambiwidth=double "设置ambiwidth
+set ffs=unix,dos,mac "设置文件类型
 
-"去掉vi一致性
-set nocompatible
+set incsearch "设置增量搜索模式
+set ignorecase "搜索时大小写不敏感
+" set hlsearch "高亮搜索
 
-"设置缩进
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set autoindent
-set cindent
-" if $TERM == "xterm-256color"
-	set t_Co=256
-  " set t_ut=
-" endif
+set modifiable "modify
+set clipboard=unnamed "vim 复制到clipboard
 
-"打开文件类型自动检测功能
-filetype on
-
-"设置taglist
-let Tlist_Show_One_File=0   "显示多个文件的tags
-let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏
-let Tlist_Exit_OnlyWindow=1 "在taglist是最后一个窗口时退出vim
-let Tlist_Use_SingleClick=1 "单击时跳转 let Tlist_GainFocus_On_ToggleOpen=1 "打开taglist时获得输入焦点
-let Tlist_Process_File_Always=1 "不管taglist窗口是否打开，始终解析文件中的tag
-
-"设置CSCOPE
-set cscopequickfix=s-,c-,d-,i-,t-,e- "设定是否使用quickfix窗口显示cscope结果
-
-"设置自动补全
-filetype plugin indent on   "打开文件类型检测
-set completeopt=longest,menu "关掉智能补全时的预览窗口
-
-"启动vim时如果存在tags则自动加载
-if exists("tags")
-	set tags=./tags
-endif
-
-"设置默认shell
-set shell=zsh
-
-"设置VIM记录的历史数
-set history=1000
-
-"设置当文件被外部改变的时侯自动读入文件
-if exists("&autoread")
-	set autoread
-endif
-
-"设置ambiwidth
-set ambiwidth=double
-
-"设置文件类型
-set ffs=unix,dos,mac
-
-"设置增量搜索模式
-set incsearch
-
-"搜索时大小写不敏感
-set ignorecase
-
-" 禁止折行
-set nowrap
+set nowrap " 禁止折行
+set number "显示行号
+set ruler
+set cursorline " 高亮当前行
+set showtabline=2 "标签栏
+" hi CursorLine cterm=NONE ctermbg=blue ctermfg=white guibg=NONE guifg=NONE
 
 "设置静音模式
 set noerrorbells
@@ -151,36 +98,74 @@ set nowb
 set nowritebackup
 set noswapfile
 
-"显示行号
-set number
+"设置缩进
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set cindent
 
-" 高亮当前行
-set cursorline 
-" hi CursorLine cterm=NONE ctermbg=blue ctermfg=white guibg=NONE guifg=NONE
+"设置CSCOPE
+set cscopequickfix=s-,c-,d-,i-,t-,e- "设定是否使用quickfix窗口显示cscope结果
 
-set ruler
+filetype plugin indent on   "打开文件类型检测
 
-"modify
-set modifiable
+"设置自动补全
+set completeopt=longest,menuone
+" 纠正选中回车 item 后的行为
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+
+"加载tags
+if exists("tags")
+	set tags=tags;/
+endif
+
+"设置当文件被外部改变的时侯自动读入文件
+if exists("&autoread")
+	set autoread
+endif
 
 "代码折叠
-" 基于缩进或语法进行代码折叠
-"set foldmethod=marker
-set foldmethod=indent
+"set foldmethod=marker " 基于缩进或语法进行代码折叠
 " set foldmethod=syntax
-" 启动 vim 时关闭折叠代码
-set nofoldenable
-"
-" switch window
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
+set foldmethod=indent
+set nofoldenable " 启动 vim 时关闭折叠代码
 
-"高亮搜索
-" set hlsearch
+" 按键调整
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-h> <C-w>h
+map <C-l> <C-w>l
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-t>     <Esc>:tabnew<CR>
 
-"powerline airline
+" w!! to sudo & write a file
+cmap w!! w !sudo tee >/dev/null %
+
+
+" 更改<leader>前缀
+let mapleader=";"
+
+" C detection
+augroup project
+	autocmd!
+	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
+au BufReadPost *.md set filetype=markdown
+
+" build system
+set makeprg=make\ -C\ ../build\ -j9
+map <F5> :make<CR>
+map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
+""%" is taken the current file name.
+"%<" is file name without extension.
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+"""""""""""""""""""""""""""""Plugin_below""""""""""""""""""""""""""""""""""" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+
+"powerline airline"""""
 set noshowmode
 set laststatus=2   " Always show the statusline
 let g:airline_left_sep = ''
@@ -189,65 +174,95 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|' 
 
-" 更改<leader>前缀
-let mapleader=","
+" NERDTree"""""
+map <leader>n :NERDTreeToggle<CR>
 
+" TagBar"""""
+map <leader>t :TagbarToggle<CR>
 
-au BufReadPost *.md set filetype=markdown
-
-" C detection
-augroup project
-    autocmd!
-    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
-augroup END
-
-" build system
-set makeprg=make\ -C\ ../build\ -j9
-map <F5> :make<CR>
-""%" is taken the current file name.
-"%<" is file name without extension.
-map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
-" imap jk <Esc>
-
-"vim 复制到clipboard
-set clipboard=unnamed
-
-"--------------------------fzf插件--------------------------
-set rtp+=/usr/local/bin/homebrew/Cellar/fzf/0.10.0
+" fzf插件"""""
+set rtp+=/usr/local/bin/homebrew/Cellar/fzf/HEAD
 " Open files in horizontal split
 nnoremap <silent> <Leader>s :call fzf#run({
-\   'down': '40%',
-\   'sink': 'botright split' })<CR>
+			\   'down': '40%',
+			\   'sink': 'botright split' })<CR>
+
 " Open files in vertical horizontal split
 nnoremap <silent> <Leader>v :call fzf#run({
-\   'right': winwidth('.') / 2,
-\   'sink':  'vertical botright split' })<CR>
-" Choose color scheme
+			\   'right': winwidth('.') / 2,
+			\   'sink':  'vertical botright split' })<CR>
+
+nnoremap <silent> <Leader>e :call fzf#run({
+			\   'down': '40%',
+			\	'source': 'mdfind -onlyin ./ .',
+			\   'sink': 'tabe' })<CR>
+
+"Choose color scheme
 nnoremap <silent> <Leader>C :call fzf#run({
-\   'source':
-\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-\   'sink':    'colo',
-\   'options': '+m',
-\   'left':    30
-\ })<CR>
-"Select buffer
+			\   'source':
+			\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+			\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+			\   'sink':    'colo',
+			\   'options': '+m',
+			\   'left':    30
+			\ })<CR>
+
+" Select buffer
 function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
+	redir => ls
+	silent ls
+	redir END
+	return split(ls, '\n')
 endfunction
-
 function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+	execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
-
 nnoremap <silent> <Leader><Enter> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
-"--------------------------fzf插件--------------------------
+			\   'source':  reverse(<sid>buflist()),
+			\   'sink':    function('<sid>bufopen'),
+			\   'options': '+m',
+			\   'down':    len(<sid>buflist()) + 2
+			\ })<CR>
+
+" YouCompleteMe"""""
+let g:ycm_filetype_blacklist = {
+			\ 'tagbar' : 1,
+			\ 'qf' : 1,
+			\ 'notes' : 1,
+			\ 'markdown' : 1,
+			\ 'unite' : 1,
+			\ 'text' : 1,
+			\ 'vimwiki' : 1,
+			\ 'gitcommit' : 1,
+			\}
+let g:ycm_global_ycm_extra_conf="/Users/hasky/.ycm_global_ycm_extra_conf"
+let g:ycm_key_list_select_completion=["<tab>"]
+let g:ycm_key_list_previous_completion=["<S-tab>"]
+
+"  Ultisnips""""" (https://github.com/SirVer/ultisnips/issues/376)
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsExpandTrigger="<nop>"
+let g:ulti_expand_or_jump_res = 0
+function! <SID>ExpandSnippetOrReturn()
+	let snippet = UltiSnips#ExpandSnippetOrJump()
+	if g:ulti_expand_or_jump_res > 0
+		return snippet
+	else
+		return "\<CR>"
+	endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
+
+" syntasic"""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
