@@ -39,7 +39,7 @@ then
 	rx_rate=$( /bin/expr \( $rx_new \- $rx_old \) / 1000 / $duration )
 	tx_rate=$( /bin/expr \( $tx_new \- $tx_old \) / 1000 / $duration )
 	# echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$netInterface#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
-	echo "#[bg=default]#[fg=red] #[fg=white]↑↓#[fg=red]$netInterface#[fg=white,bold] ↘ ${rx_rate}.0#[fg=red,none]KB/s#[fg=white,bold] ↗ ${tx_rate}.0#[fg=red,none]KB/s"
+	echo "#[bg=default]#[fg=red] #[fg=cyan]↑↓#[fg=red]$netInterface#[fg=cyan,bold] ↘ ${rx_rate}.0#[fg=red,none]KB/s#[fg=cyan,bold] ↗ ${tx_rate}.0#[fg=red,none]KB/s"
 else
 	# echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] Invalid Interface!"
 	echo "#[bg=default]#[fg=magenta] NotFound!"

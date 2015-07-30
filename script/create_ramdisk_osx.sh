@@ -50,17 +50,5 @@ cache_to_ram(){
 		# [[ -L /var/log ]] && rm -f /var/log || ( /bin/cp -Rpf /var/log $mount_point/var_log && rm -fr /var/log && ln -sf $mount_point/var_log /var/log ) # /var/log 在此脚本直接生成
 	fi
 }
-# ram_restoreto_cache(){
-# 	_ramdisk_dev=$(df | awk '/Caches/ {print $1}')
-# 	if [[ -n $_ramdisk_dev ]];then
-# 		# 暂不处理
-# 		hdiutil detach $_ramdisk_dev
-# 	fi
-# }
-# if [ $# -gt 0 ];then
-# 	ram_restoreto_cache
-# 	df -a
-# else
+
 [[ ! -d /Volumes/Caches ]] && create_ramdisk && cache_to_ram 
-# 	df -a
-# fi

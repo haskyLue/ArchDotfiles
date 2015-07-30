@@ -413,6 +413,8 @@ decode-apk(){
 	open .
 
 }
+
+
 # listAllCommands()
 # {
 #     COMMANDS=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \

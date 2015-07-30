@@ -11,8 +11,8 @@ Plugin 'Townk/vim-autoclose' "自动插入添加匹配符号
 Plugin 'vim-scripts/surround.vim' "符号处理
 Plugin 'vim-scripts/tComment' "注释
 Plugin 'terryma/vim-multiple-cursors' "多行选中
-Plugin 'Valloric/YouCompleteMe'  "出现 python 之类的报错，一般在更新 python 后重装
-Plugin 'scrooloose/syntastic'  " 语义检查
+Plugin 'Valloric/YouCompleteMe'  "出现 python 之类的报错，一般在更新 python 后重新编译vim
+Plugin 'scrooloose/syntastic'  " 语法检查
 
 " snippets
 Plugin 'honza/vim-snippets' 
@@ -23,6 +23,7 @@ Plugin 'manzur/vim-java-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
 Plugin 'kelwin/vim-smali'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 
 " 文件项目
 Plugin 'scrooloose/nerdtree'
@@ -32,9 +33,10 @@ Plugin 'majutsushi/tagbar'
 " 外观
 " Plugin 'Lokaltog/vim-powerline'
 " Plugin 'vim-scripts/vimcdoc'
+" Plugin 'flazz/vim-colorschemes'
 Plugin 'bling/vim-airline'
 Plugin 'godlygeek/tabular' " Code Format
-Plugin 'flazz/vim-colorschemes'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()      
 filetype plugin indent on    
@@ -54,10 +56,12 @@ set langmenu=zh_CN.UTF-8 "语言设置
 
 syntax enable
 syntax on
+" let g:solarized_termcolors=256
 set background=dark
 set t_Co=256
-colorscheme molokai
-colorscheme Tomorrow-Night
+" colorscheme molokai
+" colorscheme zenburn
+colorscheme solarized
 " colorscheme Tomorrow-Night-Bright
 " colorscheme desert
 
@@ -108,8 +112,6 @@ set cindent
 "设置CSCOPE
 set cscopequickfix=s-,c-,d-,i-,t-,e- "设定是否使用quickfix窗口显示cscope结果
 
-filetype plugin indent on   "打开文件类型检测
-
 "设置自动补全
 set completeopt=longest,menuone
 " 纠正选中回车 item 后的行为
@@ -151,7 +153,18 @@ augroup project
 	autocmd!
 	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
-au BufReadPost *.md set filetype=markdown
+augroup filetypedetect
+  au! BufNewFile,BufRead *.json				setfiletype json
+  au! BufNewFile,BufRead *.md				setfiletype markdown
+  au! BufNewFile,BufRead *.txt				setfiletype text
+  au! BufNewFile,BufRead *.xyz				setfiletype drawing
+  au! BufNewFile,BufRead *.log				setfiletype log
+  au! BufNewFile,BufRead *.less			  setfiletype less
+  au! BufNewFile,BufRead .xinitrc 		setfiletype sh
+  au! BufNewFile,BufRead *.rc				setfiletype sh
+  au! BufNewFile,BufRead /etc/conf.d/*    setfiletype sh
+augroup end
+
 
 " build system
 set makeprg=make\ -C\ ../build\ -j9
@@ -199,7 +212,7 @@ nnoremap <silent> <Leader>v :call fzf#run({
 nnoremap <silent> <Leader>e :call fzf#run({
 			\   'down': '40%',
 			\	'source': 'mdfind -onlyin ./ .',
-			\   'sink': 'tabe' })<CR>
+			\   'sink': 'e' })<CR>
 
 "Choose color scheme
 nnoremap <silent> <Leader>C :call fzf#run({
@@ -242,6 +255,7 @@ let g:ycm_filetype_blacklist = {
 let g:ycm_global_ycm_extra_conf="/Users/hasky/.ycm_global_ycm_extra_conf"
 let g:ycm_key_list_select_completion=["<tab>"]
 let g:ycm_key_list_previous_completion=["<S-tab>"]
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 "  Ultisnips""""" (https://github.com/SirVer/ultisnips/issues/376)
 let g:UltiSnipsJumpForwardTrigger="<tab>"

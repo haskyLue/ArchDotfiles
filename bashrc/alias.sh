@@ -115,6 +115,8 @@ alias tmas="TERM=xterm-256color tmux -2 -u attach-session"
 alias subl="reattach-to-user-namespace /usr/local/bin/subl"
 alias open="reattach-to-user-namespace open ."
 alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"
+alias ctags="ctags -R --c++-kinds=+px --fields=+aiKSz --extra=+q"
+
 
 
 # enter directory & edit
