@@ -1,3 +1,4 @@
+" Vundle {{{
 set nocompatible
 filetype off   
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -12,7 +13,7 @@ Plugin 'vim-scripts/surround.vim' "符号处理
 Plugin 'vim-scripts/tComment' "注释
 Plugin 'terryma/vim-multiple-cursors' "多行选中
 Plugin 'Valloric/YouCompleteMe'  "出现 python 之类的报错，一般在更新 python 后重新编译vim
-Plugin 'scrooloose/syntastic'  " 语法检查
+" Plugin 'scrooloose/syntastic'  " 语法检查
 
 " snippets
 Plugin 'honza/vim-snippets' 
@@ -39,12 +40,8 @@ Plugin 'godlygeek/tabular' " Code Format
 Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()      
-filetype plugin indent on    
-filetype on "打开文件类型自动检测功能
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-"""""""""""""""""""""""""""""Vundle_above""""""""""""""""""""""""""""""""""" 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+"Vundle }}}
 
 "设置编码
 set encoding=utf-8
@@ -53,15 +50,16 @@ set fileencodings=utf8,cp936,gb18030,big5
 set termencoding=utf8
 set langmenu=zh_CN.UTF-8 "语言设置
 
-
+filetype plugin indent on    
+filetype on "打开文件类型自动检测功能
 syntax enable
 syntax on
 " let g:solarized_termcolors=256
-set background=dark
+set background=light
 set t_Co=256
+colorscheme solarized
 " colorscheme molokai
 " colorscheme zenburn
-colorscheme solarized
 " colorscheme Tomorrow-Night-Bright
 " colorscheme desert
 
@@ -82,14 +80,13 @@ set ignorecase "搜索时大小写不敏感
 " set hlsearch "高亮搜索
 
 set modifiable "modify
-set clipboard=unnamed "vim 复制到clipboard
+" set clipboard=unnamed "vim 复制到clipboard
 
 set nowrap " 禁止折行
 set number "显示行号
 set ruler
 set cursorline " 高亮当前行
 set showtabline=2 "标签栏
-" hi CursorLine cterm=NONE ctermbg=blue ctermfg=white guibg=NONE guifg=NONE
 
 "设置静音模式
 set noerrorbells
@@ -128,9 +125,9 @@ if exists("&autoread")
 endif
 
 "代码折叠
-"set foldmethod=marker " 基于缩进或语法进行代码折叠
+set foldmethod=marker " 基于缩进或语法进行代码折叠
 " set foldmethod=syntax
-set foldmethod=indent
+" set foldmethod=indent
 set nofoldenable " 启动 vim 时关闭折叠代码
 
 " 按键调整
@@ -148,21 +145,17 @@ cmap w!! w !sudo tee >/dev/null %
 " 更改<leader>前缀
 let mapleader=";"
 
-" C detection
-augroup project
-	autocmd!
-	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
-augroup END
 augroup filetypedetect
-  au! BufNewFile,BufRead *.json				setfiletype json
-  au! BufNewFile,BufRead *.md				setfiletype markdown
-  au! BufNewFile,BufRead *.txt				setfiletype text
-  au! BufNewFile,BufRead *.xyz				setfiletype drawing
-  au! BufNewFile,BufRead *.log				setfiletype log
-  au! BufNewFile,BufRead *.less			  setfiletype less
-  au! BufNewFile,BufRead .xinitrc 		setfiletype sh
-  au! BufNewFile,BufRead *.rc				setfiletype sh
-  au! BufNewFile,BufRead /etc/conf.d/*    setfiletype sh
+	au! BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+	au! BufNewFile,BufRead *.json				setfiletype json
+	au! BufNewFile,BufRead *.md				setfiletype markdown
+	au! BufNewFile,BufRead *.txt				setfiletype text
+	au! BufNewFile,BufRead *.xyz				setfiletype drawing
+	au! BufNewFile,BufRead *.log				setfiletype log
+	au! BufNewFile,BufRead *.less			  setfiletype less
+	au! BufNewFile,BufRead .xinitrc 		setfiletype sh
+	au! BufNewFile,BufRead *.rc				setfiletype sh
+	au! BufNewFile,BufRead /etc/conf.d/*    setfiletype sh
 augroup end
 
 
@@ -174,9 +167,7 @@ map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
 "%<" is file name without extension.
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-"""""""""""""""""""""""""""""Plugin_below""""""""""""""""""""""""""""""""""" 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+"Plugin {{{
 
 "powerline airline"""""
 set noshowmode
@@ -280,3 +271,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" }}}
