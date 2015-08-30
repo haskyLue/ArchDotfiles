@@ -4,11 +4,11 @@
 [http]
 	; 用https协议的git url
 	;proxy = http://127.0.0.1:8087
-	; proxy = socks5://localhost:1080
+	;proxy = socks5://localhost:1080
 [https]
 	;proxy = http://127.0.0.1:8087
-	; proxy = socks5://localhost:1080
-	sslVerify = false
+	;proxy = socks5://localhost:1080
+	;sslVerify = false
 [color]
 	ui = true
 	status = auto

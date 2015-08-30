@@ -6,36 +6,37 @@ parse_string(){
 } # 处理字符串变量部分字符的转义 for sed
 
 # cmd proxy {{{
-proxyon(){
-	# export http_proxy="127.0.0.1:8087"
-	export http_proxy="localhost:8087"
-	export https_proxy=$http_proxy
-	export ftp_proxy=$http_proxy
-	export rsync_proxy=$http_proxy
-	export all_proxy=$http_proxy
-	export no_proxy="localhost,localaddress,.localdomain.com"
-
-	export HTTP_PROXY=$http_proxy
-	export HTTPS_PROXY=$http_proxy
-	export FTP_PROXY=$http_proxy
-	export RSYNC_PROXY=$http_proxy
-	export ALL_PROXY=$http_proxy
-	export NO_PROXY="localhost,localaddress,.localdomain.com"
-	echo -e "设置代理环境变量\n"
-}
-proxyoff(){
-	unset HTTP_PROXY
-	unset http_proxy
-	unset HTTPS_PROXY
-	unset https_proxy
-	unset FTP_PROXY
-	unset ftp_proxy
-	unset RSYNC_PROXY
-	unset rsync_proxy
-	unset ALL_PROXY
-	unset all_proxy
-	echo -e "清除代理环境变量\n"
-}
+# 用proxychains!!!
+# proxyon(){
+# 	# export http_proxy="127.0.0.1:8087"
+# 	export http_proxy="localhost:8087"
+# 	export https_proxy=$http_proxy
+# 	export ftp_proxy=$http_proxy
+# 	export rsync_proxy=$http_proxy
+# 	export all_proxy=$http_proxy
+# 	export no_proxy="localhost,localaddress,.localdomain.com"
+#
+# 	export HTTP_PROXY=$http_proxy
+# 	export HTTPS_PROXY=$http_proxy
+# 	export FTP_PROXY=$http_proxy
+# 	export RSYNC_PROXY=$http_proxy
+# 	export ALL_PROXY=$http_proxy
+# 	export NO_PROXY="localhost,localaddress,.localdomain.com"
+# 	echo -e "设置代理环境变量\n"
+# }
+# proxyoff(){
+# 	unset HTTP_PROXY
+# 	unset http_proxy
+# 	unset HTTPS_PROXY
+# 	unset https_proxy
+# 	unset FTP_PROXY
+# 	unset ftp_proxy
+# 	unset RSYNC_PROXY
+# 	unset rsync_proxy
+# 	unset ALL_PROXY
+# 	unset all_proxy
+# 	echo -e "清除代理环境变量\n"
+# }
 # }}}
 
 # for awesome WM {{{
@@ -125,9 +126,8 @@ Upac(){
 	gfwlist="https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt"
 	userlist="https://raw.githubusercontent.com/JinnLynn/genpac/master/genpac/res/user-rules-sample.txt"
 	cd /Volumes/Caches/ && rm -f user_rule.* gfwlist.*
-	proxyon;
-	aria2c $gfwlist 
-	aria2c $userlist 
+	proxychains4 aria2c $gfwlist 
+	proxychains4 aria2c $userlist 
 
 	gfwlist2pac -i gfwlist.txt -f /usr/local/var/www/proxy.pac -p 'SOCKS5 127.0.0.1:1080; PROXY 127.0.0.1:8087; DIRECT;' --user-rule user_rule.txt  
 }
@@ -206,18 +206,21 @@ Uhosts(){
 127.0.0.1 hlrcv.stage.adobe.com
 
 # baidupcs
-2400:da00::dbf:0:6666 p.baidupcs.com
-2400:da00::dbf:0:6666 nj.baidupcs.com
-2400:da00::dbf:0:6666 qd.baidupcs.com
-2400:da00::dbf:0:6666 cdn.baidupcs.com
-2400:da00::dbf:0:6666 hot.baidupcs.com
-2400:da00::dbf:0:6666 www.baidupcs.com
-2400:da00::dbf:0:6666 hot.cdn.baidupcs.com
-2400:da00::dbf:0:6666 d.pcs.baidu.com
+# 2400:da00::dbf:0:6666 p.baidupcs.com
+# 2400:da00::dbf:0:6666 nj.baidupcs.com
+# 2400:da00::dbf:0:6666 qd.baidupcs.com
+# 2400:da00::dbf:0:6666 cdn.baidupcs.com
+# 2400:da00::dbf:0:6666 hot.baidupcs.com
+# 2400:da00::dbf:0:6666 www.baidupcs.com
+# 2400:da00::dbf:0:6666 hot.cdn.baidupcs.com
+# 2400:da00::dbf:0:6666 d.pcs.baidu.com
+# 2400:da00::dbf:0:6666 pcs.n.shifen.com
+
+10.0.4.101 git.sudoteam.com
 '
 
-	local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
-	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
@@ -226,7 +229,6 @@ Uhosts(){
 
 	figlet -c Uhost
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
-	# proxyon;
 	cd /Volumes/Caches/ && rm -f hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
 	dos2unix hosts.txt
 	# netsh_hosts # 注释HOSTS_URL rm -f 
@@ -351,7 +353,7 @@ Ugitdir(){
 		if [ -d $dir/.git ]; then
 			echo "\e[34m remote pulling $dir...\e[0m "
 			cd $dir
-			git pull -v origin
+			proxychains4 git pull -v origin
 		fi
 	done
 }
@@ -367,14 +369,14 @@ calc() {
 update()
 {
 	figlet -c brew-updating 
-	brew update 
-	brew upgrade --all
-	brew upgrade brew-cask
+	proxychains4 brew update 
+	proxychains4 brew upgrade --all
+	proxychains4 brew upgrade brew-cask
 	brew cleanup --force
 	brew prune
 
 	echo -e "\nbrew-cask-updating\n"
-	brew cask update
+	proxychains4 brew cask update
 	# brew cask list | xargs brew cask install
 	# brew cask cleanup 
 }
@@ -384,7 +386,7 @@ brew-cask-upgrade()
 	package=($(brew cask list | xargs))
 	for ele in ${package[@]};do
 		# [[ $ele != 'eclipse-java' ]] && brew cask install $ele;
-		brew cask install $ele;
+		proxychains4 brew cask install $ele;
 	done
 }
 

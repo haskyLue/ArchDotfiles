@@ -35,9 +35,10 @@ Plugin 'majutsushi/tagbar'
 " Plugin 'Lokaltog/vim-powerline'
 " Plugin 'vim-scripts/vimcdoc'
 " Plugin 'flazz/vim-colorschemes'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'godlygeek/tabular' " Code Format
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'MPiccinato/wombat256'
 
 call vundle#end()      
 
@@ -47,6 +48,7 @@ call vundle#end()
 set encoding=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set fileencodings=utf8,cp936,gb18030,big5
+set ffs=unix,dos,mac "设置文件类型
 set termencoding=utf8
 set langmenu=zh_CN.UTF-8 "语言设置
 
@@ -54,14 +56,14 @@ filetype plugin indent on
 filetype on "打开文件类型自动检测功能
 syntax enable
 syntax on
-" let g:solarized_termcolors=256
-set background=light
+set background=dark
 set t_Co=256
-colorscheme solarized
+" let g:solarized_termcolors=256
+" colorscheme solarized
 " colorscheme molokai
 " colorscheme zenburn
 " colorscheme Tomorrow-Night-Bright
-" colorscheme desert
+colorscheme wombat256
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
@@ -73,7 +75,6 @@ set showmatch "高亮显示匹配的括号
 set nocompatible "去掉vi一致性
 set history=1000 "设置VIM记录的历史数
 set ambiwidth=double "设置ambiwidth
-set ffs=unix,dos,mac "设置文件类型
 
 set incsearch "设置增量搜索模式
 set ignorecase "搜索时大小写不敏感
@@ -85,7 +86,7 @@ set modifiable "modify
 set nowrap " 禁止折行
 set number "显示行号
 set ruler
-set cursorline " 高亮当前行
+" set cursorline " 高亮当前行
 set showtabline=2 "标签栏
 
 "设置静音模式
@@ -146,13 +147,13 @@ cmap w!! w !sudo tee >/dev/null %
 let mapleader=";"
 
 augroup filetypedetect
-	au! BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
-	au! BufNewFile,BufRead *.json				setfiletype json
+	au! BufRead,BufNewFile *.h,*.c			setfiletype=c.doxygen
+	au! BufNewFile,BufRead *.				setfiletype json
 	au! BufNewFile,BufRead *.md				setfiletype markdown
-	au! BufNewFile,BufRead *.txt				setfiletype text
-	au! BufNewFile,BufRead *.xyz				setfiletype drawing
-	au! BufNewFile,BufRead *.log				setfiletype log
-	au! BufNewFile,BufRead *.less			  setfiletype less
+	au! BufNewFile,BufRead *.txt			setfiletype text
+	au! BufNewFile,BufRead *.xyz			setfiletype drawing
+	au! BufNewFile,BufRead *.log			setfiletype log
+	au! BufNewFile,BufRead *.less			setfiletype less
 	au! BufNewFile,BufRead .xinitrc 		setfiletype sh
 	au! BufNewFile,BufRead *.rc				setfiletype sh
 	au! BufNewFile,BufRead /etc/conf.d/*    setfiletype sh
