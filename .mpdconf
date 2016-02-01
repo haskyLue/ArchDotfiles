@@ -187,12 +187,12 @@
 # Input #######################################################################
 #
 
-input {
-        plugin "curl"
+# input {
+#       plugin "curl"
 #       proxy "proxy.isp.com:8080"
 #       proxy_user "user"
 #       proxy_password "password"
-}
+# }
 
 #
 ###############################################################################
@@ -448,15 +448,9 @@ bind_to_address		"127.0.0.1"
 music_directory    "~/Music"         
 playlist_directory "~/.mpd/playlists"
 db_file            "~/.mpd/database"
-log_file           "/tmp/mpdlog"
+log_file           "~/.mpd/log"
 pid_file           "~/.mpd/pid"
 state_file         "~/.mpd/mpdstate"
-audio_output {
-    type                    "fifo"
-    name                    "my fifo"
-    path                    "/tmp/mpd.fifo"
-    format                  "44100:16:2"
-}
 # audio_output {
 # 	type		"alsa"
 # 	name		"My ALSA Device"
@@ -465,6 +459,11 @@ audio_output {
 auto_update     "yes"
 audio_output {
         type            "osx"
-        name            "My Mac Device"
-        mixer_type      "software"
+        name            "coreaudiod"
 }
+# audio_output {
+#     type                    "fifo"
+#     name                    "my fifo"
+#     path                    "/tmp/mpd.fifo"
+#     format                  "44100:16:2"
+# }

@@ -32,7 +32,6 @@ cache_to_ram(){
 	U_L_Logs
 	Homebrew
 	nginx
-	Adobe
 	)
 	if [ ! -d $mount_point/Google ] ;then
 		cd $mount_point 

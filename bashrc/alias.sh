@@ -10,7 +10,7 @@ alias ping='ping -c 5'
 alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -axf | grep -i $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
-# alias top="top -id 2"
+# alias top="top -i 2"
 alias top="top -d -s 2 -u -F"
 alias aria2c="aria2c --file-allocation none -x 5 -s 10 -c"
 alias htop="sudo htop -d 20"
@@ -22,6 +22,7 @@ alias mpv="mpv --geometry=50%:50% --autofit-larger=80% --vf='lavfi=\"fps=fps=60:
 alias updatedb="sudo /usr/libexec/locate.updatedb"
 alias reload_shell=". ~/.zshrc"
 alias lsnetport="sudo lsof -i -n"
+alias smbd-down="sudo pkill smbd"
 
 # privileged access
 if [ $UID -ne 0 ]; then
@@ -92,32 +93,35 @@ alias gitrv="git remove -v"
 
 # start app 
 # alias rename_mp3_dir="find . -iname '*mp3' -exec eyeD3 --rename '$artist - $title' {} >> /Volumes/Caches/Music_rename_log \;"
-alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
+# alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
 alias dns="/Users/hasky/Documents/devel/git/ArchDotfiles/chinadns/exec" 
-alias goagent="figlet -c goagent && sudo python /Volumes/Caches/goagent-3.0/local/proxy.py"
+# alias goagent="figlet -c goagent && sudo python /Volumes/Caches/goagent-3.0/local/proxy.py"
 # alias trash="sudo gvfs-trash"
 alias youdao="figlet -c YouDaoDict && /Users/hasky/Documents/devel/git/ydcv/ydcv.py -f"
 # alias wifi="wicd-curses"
 # alias gmail="checkgmail -numbers -private -no_cookies &"
-alias news="newsbeuter -r  2>> /dev/null"
 # alias vmxp="vboxmanage startvm xp "
 alias youtube-dl-proxy="proxychains4 youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist -o '%(title)s.%(ext)s'"
 alias iftop="sudo iftop -PnB"
+alias glances="sudo glances --full-quicklook --disable-load"
 # alias tshark="sudo tshark"
 # alias winfo="watch -n 2 --no-title --color ~/Documents/devel/git/ArchDotfiles/script/getinfo.sh"
 # alias bilibili="~/Documents/devel/git/ArchDotfiles/script/bilibili.sh"
 # alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
-alias tm="TERM=screen-256color-bce tmux -2 -u"
-alias tmas="TERM=xterm-256color tmux -2 -u attach-session"
+alias tm="tmux -2 "
+alias tmas="tmux -2 -u attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
-# alias update="figlet -c brew-updating && (brew update && brew upgrade && brew-cask update && brew cleanup --force -s && brew cask cleanup && brew prune)&"
 alias subl="reattach-to-user-namespace /usr/local/bin/subl"
 alias open="reattach-to-user-namespace open ."
 alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"
 alias ctags="ctags -R --c++-kinds=+px --fields=+aiKSz --extra=+q"
-
-
+alias clean="sudo rm -rf /var/log/* ; sudo rm -rf /Library/Logs ; rm -rf ~/Library/Logs ; rm -rf /Library/Caches/Homebrew "
+alias goagent="sudo /Users/hasky/Documents/devel/git/goagent/local/proxy.py"
+alias andbug="cd /Users/hasky/Documents/devel/git/AndBug/ && PYTHONPATH=lib ./andbug"
+alias si="echo opening source insight3 && wine ~/.wine/drive_c/Program\ Files/Source\ Insight\ 3/Insight3.exe"
+alias ida="echo opening ida 6.5 && wine /Users/hasky/.wine/drive_c/Program\ Files/idapro6.5plus/idaq.exe"
+alias ncmpcpp="proxychains4 /usr/local/bin/ncmpcpp"
 
 # enter directory & edit
 alias Cd="cd /Users/hasky/Documents/devel/git/ArchDotfiles"

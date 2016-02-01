@@ -131,35 +131,35 @@ Upac(){
 
 	gfwlist2pac -i gfwlist.txt -f /usr/local/var/www/proxy.pac -p 'SOCKS5 127.0.0.1:1080; PROXY 127.0.0.1:8087; DIRECT;' --user-rule user_rule.txt  
 }
-Ugoagent(){
-	figlet -c GoAgent-Init
-	cd /Users/hasky/Documents/devel/git/goagent
-	git archive HEAD --format=zip > /Volumes/Caches/goagent-3.0.zip
-
-	echo -e "\nextract goagent dir from git archive\n"
-	cd /Volumes/Caches && sudo rm -rf ./goagent-3.0 && unzip ./goagent-3.0.zip -d goagent-3.0 && rm -f ./goagent-3.0.zip
-	cd ./goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
-
-	echo -e "\ngenerate new fake cert for goagent\n"
-	rm -f ./CA.crt 
-	(sleep 5 && ps -jA | awk '/.*proxy.py$/ {print $2}' | head | xargs -I {} sudo kill -9 {})& # kill goagent to get CA.crt
-	sudo ./proxy.py
-
-	echo -e "\ninstall cert to system && firefox\n"
-	sudo security delete-certificate -c GoAgent 
-	sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
-	# for nss (mainly for firefox)
-	certutil -D -n 'GoAgent - GoAgent' -d "/Users/hasky/Library/Application Support/Firefox/Profiles/1yijdi2a.default" 
-	certutil -A -n 'GoAgent - GoAgent' -i "CA.crt" -t "CT,C,C" -d "/Users/hasky/Library/Application Support/Firefox/Profiles/1yijdi2a.default" 
-	# reboot firefox
-
-	echo -e "\nremove info log for performance\n"
-	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
-	# ln -fs /Users/hasky/Documents/devel/git/gfwlist2pac/test/proxy.pac
-
-	echo -e "\nstart!!!\n"
-	sudo ./proxy.py
-}
+# Ugoagent(){
+# 	figlet -c GoAgent-Init
+# 	cd /Users/hasky/Documents/devel/git/goagent
+# 	git archive HEAD --format=zip > /Volumes/Caches/goagent-3.0.zip
+#
+# 	echo -e "\nextract goagent dir from git archive\n"
+# 	cd /Volumes/Caches && sudo rm -rf ./goagent-3.0 && unzip ./goagent-3.0.zip -d goagent-3.0 && rm -f ./goagent-3.0.zip
+# 	cd ./goagent-3.0/local && ln -sf ~/.proxy.user.ini proxy.user.ini
+#
+# 	echo -e "\ngenerate new fake cert for goagent\n"
+# 	rm -f ./CA.crt 
+# 	(sleep 5 && ps -jA | awk '/.*proxy.py$/ {print $2}' | head | xargs -I {} sudo kill -9 {})& # kill goagent to get CA.crt
+# 	sudo ./proxy.py
+#
+# 	echo -e "\ninstall cert to system && firefox\n"
+# 	sudo security delete-certificate -c GoAgent 
+# 	sudo security add-trusted-cert -d -r trustRoot -k "/Library/Keychains/System.keychain" "CA.crt"
+# 	# for nss (mainly for firefox)
+# 	certutil -D -n 'GoAgent - GoAgent' -d "/Users/hasky/Library/Application Support/Firefox/Profiles/1yijdi2a.default" 
+# 	certutil -A -n 'GoAgent - GoAgent' -i "CA.crt" -t "CT,C,C" -d "/Users/hasky/Library/Application Support/Firefox/Profiles/1yijdi2a.default" 
+# 	# reboot firefox
+#
+# 	echo -e "\nremove info log for performance\n"
+# 	sed 's/self.log.*INFO.*/pass/' proxy.py > proxy.py- && mv -f proxy.py- proxy.py && chmod +x proxy.py # 去掉正常的显示
+# 	# ln -fs /Users/hasky/Documents/devel/git/gfwlist2pac/test/proxy.pac
+#
+# 	echo -e "\nstart!!!\n"
+# 	sudo ./proxy.py
+# }
 get_goagent_ip(){
 	local location="/Users/hasky/Documents/devel/git/checkgoogleip"
 	echo "running per an hour..."
@@ -177,7 +177,7 @@ get_goagent_ip(){
 netsh_hosts(){
 	rm -f /Volumes/Caches/hosts.txt
 	curl 'http://serve.netsh.org/pub/hosts.php?passcode=19735&gs=on&wk=on&twttr=on&fb=on&flkr=on&dpbx=on&odrv=on' -H 'Host: serve.netsh.org' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0' -H 'Accept: */*' -H 'Accept-Language: zh-cn,en-us;q=0.7,en;q=0.3' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: http://serve.netsh.org/pub/gethosts.php' -H 'Cookie: hostspasscode=19735; Hm_lvt_e26a7cd6079c926259ded8f19369bf0b=1418651792; Hm_lpvt_e26a7cd6079c926259ded8f19369bf0b=1418651792' -H 'Connection: keep-alive' \
-		> /Volumes/Caches/hosts.txt
+		> /tmp/hosts.txt
 }
 Uhosts(){
 	local secret="/Users/hasky/Documents/secret"
@@ -216,27 +216,30 @@ Uhosts(){
 # 2400:da00::dbf:0:6666 d.pcs.baidu.com
 # 2400:da00::dbf:0:6666 pcs.n.shifen.com
 
-10.0.4.101 git.sudoteam.com
+10.0.4.251 godinsec.gitlab.com
+10.0.4.251 godinsec.phabricator.com
+10.0.4.251 godinsec.jenkins.com
 '
 
-	# local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
-	local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
+	# local HOSTS_URL="http://godinsec.gitlab.com/genglei.cuan/hosts/raw/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
-	# local HOSTS_URL="https://raw.githubusercontent.com/Elegantid/Hosts/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/racaljk/hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 	# 广告-------------
 	# local HOSTS_URL="http://hosts.eladkarako.com/hosts.txt"
 
 	figlet -c Uhost
 	echo "\e[34m DOWNLOADING HOSTS\e[0m"
-	cd /Volumes/Caches/ && rm -f hosts.txt && aria2c --dir=/Volumes/Caches --out=hosts.txt $HOSTS_URL
+	cd /tmp && rm -f hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
 	dos2unix hosts.txt
 	# netsh_hosts # 注释HOSTS_URL rm -f 
 	if [[ -e hosts.txt ]] ;then
-		echo $hosts_append >> /Volumes/Caches/hosts.txt
+		echo $hosts_append >> /tmp/hosts.txt
 
 		echo -e "\nFINISHING..."
-		sudo -S cp -fv /Volumes/Caches/hosts.txt /etc/hosts < $secret
+		sudo -S cp -fv /tmp/hosts.txt /etc/hosts < $secret
 	fi
 
 	# echo ""
@@ -369,7 +372,7 @@ calc() {
 update()
 {
 	figlet -c brew-updating 
-	proxychains4 brew update 
+	brew update 
 	proxychains4 brew upgrade --all
 	proxychains4 brew upgrade brew-cask
 	brew cleanup --force
@@ -413,9 +416,13 @@ decode-apk(){
 	done
 
 	open .
-
 }
 
+smbd-up(){
+	smbd-down 
+	sudo /usr/local/bin/homebrew/Cellar/samba/3.6.25/sbin/smbd -D
+	[[ $(echo $(pg smb | wc -l)) > 1 ]] && echo success || echo failed # echo去首位重复
+}
 
 # listAllCommands()
 # {

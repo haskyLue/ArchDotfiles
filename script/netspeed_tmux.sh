@@ -1,7 +1,7 @@
-kernal=$(uname -s)
-_tmp='/Volumes/Caches'
+kernel=$(uname -s)
+_tmp='/tmp'
 
-if [[ $kernal = 'Darwin' ]];then
+if [[ $kernel = 'Darwin' ]];then
 	netInterface=$(netstat -nr | awk '/default/ {print $6}') # for os x
 else
 	netInterface=$(route -v | awk 'NR==3 {print $8}') #for linux only
@@ -18,9 +18,9 @@ then
 	tx_old=$( [[ -e $_tmp/tx_bytes  ]] && ( cat $_tmp/tx_bytes ) || echo 0 )
 	time_old=$( [[ -e $_tmp/rx_tx_time  ]] && ( cat $_tmp/rx_tx_time ) || 0 )
 
-	if [[ $kernal = 'Darwin' ]];then
-		rx_new=$( netstat -I $netInterface -b | awk 'NR==3 {print $7}' )
-		tx_new=$( netstat -I $netInterface -b | awk 'NR==3 {print $10}')
+	if [[ $kernel = 'Darwin' ]];then
+		rx_new=$( netstat -I $netInterface -b | awk 'NR==2 {print $7}' )
+		tx_new=$( netstat -I $netInterface -b | awk 'NR==2 {print $10}')
 	elif [[ $kernal = 'Linux' ]];then
 		rx_new=$( cat /sys/class/net/$netInterface/statistics/$rx_bytes )
 		tx_new=$( cat /sys/class/net/$netInterface/statistics/$tx_bytes )
@@ -39,8 +39,10 @@ then
 	rx_rate=$( /bin/expr \( $rx_new \- $rx_old \) / 1000 / $duration )
 	tx_rate=$( /bin/expr \( $tx_new \- $tx_old \) / 1000 / $duration )
 	# echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$netInterface#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
-	echo "#[bg=default] #[fg=blue,bold]↑↓#[fg=red,none]$netInterface#[fg=blue,bold] ↘ ${rx_rate}.0#[fg=red,none]KB/s#[fg=blue,bold] ↗ ${tx_rate}.0#[fg=red,none]KB/s"
+	echo "#[bg=default] \
+	#[fg=blue,none]$netInterface \
+	#[fg=blue,italic]⇓ ${rx_rate}K ⇑ ${tx_rate}K"
 else
 	# echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] Invalid Interface!"
-	echo "#[bg=default]#[fg=magenta] Interface NotFound!"
+	echo "#[bg=default]#[fg=magenta] ∅"
 fi

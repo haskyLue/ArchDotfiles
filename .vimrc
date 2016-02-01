@@ -21,7 +21,7 @@ Plugin 'SirVer/ultisnips'
 
 " 语法高亮
 Plugin 'manzur/vim-java-syntax'
-Plugin 'pangloss/vim-javascript'
+" Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
 Plugin 'kelwin/vim-smali'
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -35,10 +35,11 @@ Plugin 'majutsushi/tagbar'
 " Plugin 'Lokaltog/vim-powerline'
 " Plugin 'vim-scripts/vimcdoc'
 " Plugin 'flazz/vim-colorschemes'
-" Plugin 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'godlygeek/tabular' " Code Format
-Plugin 'MPiccinato/wombat256'
+" Plugin 'CodeFalling/fcitx-vim-osx' 
+
 
 call vundle#end()      
 
@@ -56,14 +57,13 @@ filetype plugin indent on
 filetype on "打开文件类型自动检测功能
 syntax enable
 syntax on
-set background=dark
+set background=light
 set t_Co=256
 " let g:solarized_termcolors=256
 " colorscheme solarized
 " colorscheme molokai
 " colorscheme zenburn
 " colorscheme Tomorrow-Night-Bright
-colorscheme wombat256
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
@@ -87,6 +87,7 @@ set nowrap " 禁止折行
 set number "显示行号
 set ruler
 " set cursorline " 高亮当前行
+" set cursorcolumn
 set showtabline=2 "标签栏
 
 "设置静音模式

@@ -7,7 +7,7 @@ color info green black
 reload-time 180	
 reload-threads 6
 
-proxy localhost:8087
+# proxy localhost:8087
 always-display-description true
 use-proxy yes
 
