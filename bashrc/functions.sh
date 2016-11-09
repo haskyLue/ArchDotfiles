@@ -2,9 +2,10 @@
 # s for .bashrc
 
 shadowsocks(){
+	local DEVICE="Wi-Fi"
+
 	echo "清理server"
 	[[ `jobs -l ` ]] && pkill Python || ( cd ~/Downloads/ && python -m SimpleHTTPServer > /dev/null )&; # 后台启动一个server
-
 
 	local shadow_conf="jp"
 	case $1 in
@@ -22,13 +23,14 @@ shadowsocks(){
 
 	if [[ $2 = "gb" ]]; then 
 		echo "设置全局"
-		sudo networksetup -setautoproxyurl "Wi-Fi" "  ";
-		sudo networksetup -setsocksfirewallproxystate "Wi-Fi" on # close socks5 proxy
-		sudo networksetup -setsocksfirewallproxy "Wi-Fi" localhost 1080;
+		sudo networksetup -setautoproxystate $DEVICE off
+		sudo networksetup -setsocksfirewallproxystate $DEVICE on 
+		sudo networksetup -setsocksfirewallproxy $DEVICE localhost 1080;
 	else 
 		echo "设置auto pac"
-		sudo networksetup -setsocksfirewallproxystate "Wi-Fi" off # close socks5 proxy
-		sudo networksetup -setautoproxyurl "Wi-Fi" "http://127.0.0.1:8000/proxy.pac";
+		sudo networksetup -setsocksfirewallproxystate $DEVICE off 
+		sudo networksetup -setautoproxystate $DEVICE on
+		sudo networksetup -setautoproxyurl $DEVICE "http://127.0.0.1:8000/proxy.pac";
 	fi
 
 	ss-local -c "/usr/local/etc/shadowsocks-libev."$shadow_conf".json" -v ; # 启动 shadowsocks
