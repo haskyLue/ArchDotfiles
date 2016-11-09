@@ -1,6 +1,40 @@
 # created by lu
 # s for .bashrc
 
+shadowsocks(){
+	echo "清理server"
+	[[ `jobs -l ` ]] && pkill Python || ( cd ~/Downloads/ && python -m SimpleHTTPServer > /dev/null )&; # 后台启动一个server
+
+
+	local shadow_conf="jp"
+	case $1 in
+		hk)
+		shadow_conf="hk"
+		;;
+		jp)
+		shadow_conf="jp"
+		;;
+		sg)
+		shadow_conf="sg"
+		;;
+	esac
+	echo "使用$shadow_conf"
+
+	if [[ $2 = "gb" ]]; then 
+		echo "设置全局"
+		sudo networksetup -setautoproxyurl "Wi-Fi" "  ";
+		sudo networksetup -setsocksfirewallproxystate "Wi-Fi" on # close socks5 proxy
+		sudo networksetup -setsocksfirewallproxy "Wi-Fi" localhost 1080;
+	else 
+		echo "设置auto pac"
+		sudo networksetup -setsocksfirewallproxystate "Wi-Fi" off # close socks5 proxy
+		sudo networksetup -setautoproxyurl "Wi-Fi" "http://127.0.0.1:8000/proxy.pac";
+	fi
+
+	ss-local -c "/usr/local/etc/shadowsocks-libev."$shadow_conf".json" -v ; # 启动 shadowsocks
+}
+
+
 parse_string(){
 	echo $1 | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g' 
 } # 处理字符串变量部分字符的转义 for sed
@@ -168,7 +202,7 @@ get_goagent_ip(){
 	while 1;do
 		$location/checkip.py 
 		echo -e "$location \n"
-		cat $location/ip.txt && cp -f $location/ip.txt /Volumes/Caches/
+		cat $location/ip.txt && cp -f $location/ip.txt /tmp
 		sleep 18000
 	done
 	# vim +13 ~/.proxy.user.ini
@@ -221,11 +255,10 @@ Uhosts(){
 10.0.4.251 godinsec.jenkins.com
 '
 
-	local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
+	# local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
 	# local HOSTS_URL="http://godinsec.gitlab.com/genglei.cuan/hosts/raw/master/hosts"
-	# local HOSTS_URL="https://raw.githubusercontent.com/vokins/simpleu/master/hosts"
-	# local HOSTS_URL="https://raw.githubusercontent.com/racaljk/hosts/master/hosts"
+	local HOSTS_URL="https://raw.githubusercontent.com/racaljk/hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/DingSoung/hosts/master/hosts"
 	# 广告-------------
 	# local HOSTS_URL="http://hosts.eladkarako.com/hosts.txt"
@@ -235,7 +268,8 @@ Uhosts(){
 	cd /tmp && rm -f hosts.txt && aria2c --dir=/tmp --out=hosts.txt $HOSTS_URL
 	dos2unix hosts.txt
 	# netsh_hosts # 注释HOSTS_URL rm -f 
-	if [[ -e hosts.txt ]] ;then
+	touch /tmp/hosts
+	if [[ -e /tmp/hosts.txt ]] ;then
 		echo $hosts_append >> /tmp/hosts.txt
 
 		echo -e "\nFINISHING..."
@@ -356,7 +390,9 @@ Ugitdir(){
 		if [ -d $dir/.git ]; then
 			echo "\e[34m remote pulling $dir...\e[0m "
 			cd $dir
-			proxychains4 git pull -v origin
+			git stash
+			proxychains4 -q git pull -v origin
+			git stash pop
 		fi
 	done
 }
@@ -371,31 +407,19 @@ calc() {
 }
 update()
 {
-	figlet -c brew-updating 
+	figlet -c brew-all-update
+	export ALL_PROXY=socks5://127.0.0.1:1080
 	brew update 
-	proxychains4 brew upgrade --all
-	proxychains4 brew upgrade brew-cask
+	brew upgrade 
 	brew cleanup --force
 	brew prune
-
-	echo -e "\nbrew-cask-updating\n"
-	proxychains4 brew cask update
-	# brew cask list | xargs brew cask install
-	# brew cask cleanup 
-}
-
-brew-cask-upgrade()
-{
-	package=($(brew cask list | xargs))
-	for ele in ${package[@]};do
-		# [[ $ele != 'eclipse-java' ]] && brew cask install $ele;
-		proxychains4 brew cask install $ele;
-	done
+	unset ALL_PROXY
 }
 
 decode-apk(){
 	fullPath=$@  
 	filePath=${fullPath%'.apk'}  
+	baksmali="/Users/hasky/Documents/baksmali-2.1.3.jar"
 
 	echo 1.开始反编译 $fullPath  
 	apktool -f d $fullPath
@@ -413,6 +437,7 @@ decode-apk(){
 	for i in ./*.dex
 	do
 		d2j-dex2jar $i -f -o ${i}.jar  
+		java -jar $baksmali $i -o $i
 	done
 
 	open .
@@ -422,6 +447,11 @@ smbd-up(){
 	smbd-down 
 	sudo /usr/local/bin/homebrew/Cellar/samba/3.6.25/sbin/smbd -D
 	[[ $(echo $(pg smb | wc -l)) > 1 ]] && echo success || echo failed # echo去首位重复
+}
+
+c_jni_header(){
+	default_class_path="/usr/local/bin/homebrew/Cellar/android-sdk/24.4/extras/android/support/v7/appcompat/libs/android-support-v7-appcompat.jar:/usr/local/bin/homebrew/Cellar/android-sdk/24.4/extras/android/support/v4/android-support-v4.jar:/usr/local/bin/homebrew/Cellar/android-sdk/24.4/platforms/android-22/android.jar"
+	javah -v -d jni -classpath $default_class_path:$1 $2
 }
 
 # listAllCommands()
@@ -448,3 +478,4 @@ smbd-up(){
 # 	brew rm $(join <(brew leaves) <(brew deps $1))
 # 	brew clean 
 # }
+

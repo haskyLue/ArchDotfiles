@@ -34,9 +34,10 @@ Plugin 'majutsushi/tagbar'
 " 外观
 " Plugin 'Lokaltog/vim-powerline'
 " Plugin 'vim-scripts/vimcdoc'
-" Plugin 'flazz/vim-colorschemes'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
+Plugin 'flazz/vim-colorschemes'
+" Plugin 'altercation/vim-colors-solarized'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'godlygeek/tabular' " Code Format
 " Plugin 'CodeFalling/fcitx-vim-osx' 
 
@@ -57,12 +58,12 @@ filetype plugin indent on
 filetype on "打开文件类型自动检测功能
 syntax enable
 syntax on
-set background=light
 set t_Co=256
+set background=dark
 " let g:solarized_termcolors=256
 " colorscheme solarized
 " colorscheme molokai
-" colorscheme zenburn
+" colorscheme pablo
 " colorscheme Tomorrow-Night-Bright
 
 " 设置标记一列的背景颜色和数字一行颜色一致
@@ -148,8 +149,7 @@ cmap w!! w !sudo tee >/dev/null %
 let mapleader=";"
 
 augroup filetypedetect
-	au! BufRead,BufNewFile *.h,*.c			setfiletype=c.doxygen
-	au! BufNewFile,BufRead *.				setfiletype json
+	au! BufNewFile,BufRead *.json			setfiletype json
 	au! BufNewFile,BufRead *.md				setfiletype markdown
 	au! BufNewFile,BufRead *.txt			setfiletype text
 	au! BufNewFile,BufRead *.xyz			setfiletype drawing
@@ -158,6 +158,7 @@ augroup filetypedetect
 	au! BufNewFile,BufRead .xinitrc 		setfiletype sh
 	au! BufNewFile,BufRead *.rc				setfiletype sh
 	au! BufNewFile,BufRead /etc/conf.d/*    setfiletype sh
+	au! BufNewFile,BufRead *.sh				setfiletype sh
 augroup end
 
 
@@ -174,6 +175,7 @@ map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
 "powerline airline"""""
 set noshowmode
 set laststatus=2   " Always show the statusline
+" let g:airline_theme='murmur'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -245,10 +247,14 @@ let g:ycm_filetype_blacklist = {
 			\ 'vimwiki' : 1,
 			\ 'gitcommit' : 1,
 			\}
-let g:ycm_global_ycm_extra_conf="/Users/hasky/.ycm_global_ycm_extra_conf"
+let g:ycm_global_ycm_extra_conf="/Users/hasky/.ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=["<tab>"]
 let g:ycm_key_list_previous_completion=["<S-tab>"]
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" nnoremap <leader>] :YcmCompleter GoToImprecise<CR>
+map <C-]> :YcmCompleter GoToImprecise<CR>
+" nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nmap <F4> :YcmDiags<CR>
+
 
 "  Ultisnips""""" (https://github.com/SirVer/ultisnips/issues/376)
 let g:UltiSnipsJumpForwardTrigger="<tab>"
