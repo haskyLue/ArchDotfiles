@@ -392,9 +392,7 @@ Ugitdir(){
 		if [ -d $dir/.git ]; then
 			echo "\e[34m remote pulling $dir...\e[0m "
 			cd $dir
-			git stash
 			proxychains4 -q git pull -v origin
-			git stash pop
 		fi
 	done
 }
