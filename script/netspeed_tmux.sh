@@ -1,6 +1,6 @@
 KERNEL=$(uname -s)
 DIR='/tmp'
-DEV='en0'
+DEV='NULL'
 
 if [[ $KERNEL = 'Darwin' ]];then
 	DEV=$(netstat -nr | head | awk '/default/ {print $6}') # for os x
@@ -13,8 +13,7 @@ fi
 # MemTotal=$(expr `cat /proc/meminfo | awk '/MemTotal/ {print $2}'` / 1024)
 
 
-if [ $DEV ]
-then
+if [ $DEV ]; then
 	rx_old=$( [[ -e $DIR/rx_bytes  ]] && ( cat $DIR/rx_bytes ) || echo 0 ) # 读取上一个时间戳的流量
 	tx_old=$( [[ -e $DIR/tx_bytes  ]] && ( cat $DIR/tx_bytes ) || echo 0 )
 	time_old=$( [[ -e $DIR/rx_tx_time  ]] && ( cat $DIR/rx_tx_time ) || 0 )
@@ -22,7 +21,7 @@ then
 	if [[ $KERNEL = 'Darwin' ]];then
 		rx_new=$( netstat -I $DEV -b | awk 'NR==2 {print $7}' )
 		tx_new=$( netstat -I $DEV -b | awk 'NR==2 {print $10}')
-	elif [[ $kernal = 'Linux' ]];then
+	elif [[ $KERNEL = 'Linux' ]];then
 		rx_new=$( cat /sys/class/net/$DEV/statistics/$rx_bytes )
 		tx_new=$( cat /sys/class/net/$DEV/statistics/$tx_bytes )
 	else 
@@ -39,11 +38,14 @@ then
 	duration=$( /bin/expr $time_new \- $time_old )
 	rx_rate=$( /bin/expr \( $rx_new \- $rx_old \) / 1000 / $duration )
 	tx_rate=$( /bin/expr \( $tx_new \- $tx_old \) / 1000 / $duration )
+
 	# echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] #[fg=blue]↑↓#[fg=magenta]$DEV#[fg=blue] ↘${rx_rate}.0#[fg=magenta]KB/s#[fg=blue] ↗${tx_rate}.0#[fg=magenta]KB/s"
 	echo "#[bg=default] \
-	#[fg=blue,none]$DEV \
-	#[fg=blue,italic]⇓ ${rx_rate}K ⇑ ${tx_rate}K"
+		#[fg=blue,none]$DEV \
+		#[fg=blue,italic]⇓ ${rx_rate}K ⇑ ${tx_rate}K"
 else
 	# echo "#[bg=red] $(expr $MemTotal - $MemAvailable)/$MemTotal MB #[bg=default]#[fg=magenta] Invalid Interface!"
 	echo "#[bg=default]#[fg=magenta] ∅"
 fi
+
+tmux source-file ~/.tmux.conf
