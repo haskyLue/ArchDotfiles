@@ -61,7 +61,7 @@ syntax on
 set t_Co=256
 set background=dark
 " let g:solarized_termcolors=256
-" colorscheme solarized
+colorscheme solarized
 " colorscheme molokai
 " colorscheme pablo
 " colorscheme Tomorrow-Night-Bright
@@ -175,7 +175,7 @@ map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
 "powerline airline"""""
 set noshowmode
 set laststatus=2   " Always show the statusline
-" let g:airline_theme='murmur'
+let g:airline_theme='solarized'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -193,7 +193,7 @@ map <leader>n :NERDTreeToggle<CR>
 map <leader>t :TagbarToggle<CR>
 
 " fzf插件"""""
-set rtp+=/usr/local/bin/homebrew/Cellar/fzf/HEAD
+set rtp+=/usr/local/Cellar/fzf/0.15.9
 " Open files in horizontal split
 nnoremap <silent> <Leader>s :call fzf#run({
 			\   'down': '40%',

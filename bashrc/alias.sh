@@ -1,6 +1,5 @@
-#------------------------
-#	alias for .bashrc
-#------------------------
+#! /bin/bash
+
 # modified commands
 alias diff='colordiff'              # requires colordiff package
 alias df='df -h'

@@ -1,39 +1,31 @@
-# created by lu
-# s for .bashrc
-
+#! /bin/bash
 shadowsocks(){
-	local DEVICE="Wi-Fi"
+	# 清理
+	[[ `jobs -l` ]] && pkill Python 
 
-	echo "清理server"
-	[[ `jobs -l ` ]] && pkill Python || ( cd ~/Downloads/ && python -m SimpleHTTPServer > /dev/null )&; # 后台启动一个server
+	# 配置shadowsocks
+	local shadow_conf="/usr/local/etc/shadowsocks-libev.$1.json"
+	if [[ -e $shadow_conf ]] ; then
+		# 设置代理
+		local DEVICE="Wi-Fi";
+		if [[ $2 = "gb" ]]; then 
+			echo "设置全局"
+			sudo networksetup -setautoproxystate $DEVICE off
+			sudo networksetup -setsocksfirewallproxystate $DEVICE on 
+			sudo networksetup -setsocksfirewallproxy $DEVICE localhost 1080
+		else 
+			echo "设置AUTO PAC"
+			sudo networksetup -setsocksfirewallproxystate $DEVICE off 
+			sudo networksetup -setautoproxystate $DEVICE on
+			sudo networksetup -setautoproxyurl $DEVICE "http://127.0.0.1:8000/proxy.pac"
+			cd ~/Downloads/ && python -m SimpleHTTPServer > /dev/null & #启动server
+		fi
 
-	local shadow_conf="jp"
-	case $1 in
-		hk)
-		shadow_conf="hk"
-		;;
-		jp)
-		shadow_conf="jp"
-		;;
-		sg)
-		shadow_conf="sg"
-		;;
-	esac
-	echo "使用$shadow_conf"
-
-	if [[ $2 = "gb" ]]; then 
-		echo "设置全局"
-		sudo networksetup -setautoproxystate $DEVICE off
-		sudo networksetup -setsocksfirewallproxystate $DEVICE on 
-		sudo networksetup -setsocksfirewallproxy $DEVICE localhost 1080;
-	else 
-		echo "设置auto pac"
-		sudo networksetup -setsocksfirewallproxystate $DEVICE off 
-		sudo networksetup -setautoproxystate $DEVICE on
-		sudo networksetup -setautoproxyurl $DEVICE "http://127.0.0.1:8000/proxy.pac";
+		echo "将使用$shadow_conf"
+		ss-local -c $shadow_conf -v ; # 启动 shadowsocks
+	else
+		echo "$shadow_conf 不存在"
 	fi
-
-	ss-local -c "/usr/local/etc/shadowsocks-libev."$shadow_conf".json" -v ; # 启动 shadowsocks
 }
 
 
@@ -96,64 +88,64 @@ parse_string(){
 # you-get 只用来下载弹幕,谁叫你老抽风呢
 
 bili.download(){
-	# niconvert(bili.ass1)/you-get(bili.ass2)下载处理弹幕,youtube-dl下载视频,mpv播放
+# niconvert(bili.ass1)/you-get(bili.ass2)下载处理弹幕,youtube-dl下载视频,mpv播放
 
-	figlet -c bilibili-dw
-	# _file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
-	# _type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
+figlet -c bilibili-dw
+# _file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
+# _type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
 
-	echo "\e[0;35m get video name from remote \e[0m" 
-	_name_ext="$(youtube-dl --get-filename $1)"
-	_name="$( basename $_name_ext .flv | xargs -I {} basename {} .mp4 )" # 视频文件名称
+echo "\e[0;35m get video name from remote \e[0m" 
+_name_ext="$(youtube-dl --get-filename $1)"
+_name="$( basename $_name_ext .flv | xargs -I {} basename {} .mp4 )" # 视频文件名称
 
-	# echo "\e[0;35m download file of danmu \e[0m" && bili.ass1 -o $_name $1
-	echo "\e[0;35m download video \e[0m"			 && youtube-dl $1
-	echo "\e[0;35m download file of danmu \e[0m" && bili.ass2 $1 $_name $_name_ext
-	echo "\e[0;35m playing video \e[0m"				 && bili.play $_name_ext 
+# echo "\e[0;35m download file of danmu \e[0m" && bili.ass1 -o $_name $1
+echo "\e[0;35m download video \e[0m"			 && youtube-dl $1
+echo "\e[0;35m download file of danmu \e[0m" && bili.ass2 $1 $_name $_name_ext
+echo "\e[0;35m playing video \e[0m"				 && bili.play $_name_ext 
 }
 bili.ass1(){
-	# 自动处理为ass文件 @niconvert // 只是弹幕行为比较单一
-	niconvert="/Users/hasky/Documents/devel/git/niconvert/niconvert.pyw"
-	echo " for cid mesg or some other parameters : open url -> jsconsole -> \$('#bofqi').attr('src') \n"
-	$niconvert -B -G -V +l 0 +a async $1
+# 自动处理为ass文件 @niconvert // 只是弹幕行为比较单一
+niconvert="/Users/hasky/Documents/devel/git/niconvert/niconvert.pyw"
+echo " for cid mesg or some other parameters : open url -> jsconsole -> \$('#bofqi').attr('src') \n"
+$niconvert -B -G -V +l 0 +a async $1
 }
 bili.ass2(){
-	# 转换xml弹幕 @danmaku2ass/you-get
-	# you-get下载cmt.xml / danmuku2ass处理为ass,所需的参数由媒体文件提供
+# 转换xml弹幕 @danmaku2ass/you-get
+# you-get下载cmt.xml / danmuku2ass处理为ass,所需的参数由媒体文件提供
 
-	if [[ $# -eq 3 && -f $3 ]] ;then 
-		danmaku2assDir="/Users/hasky/Documents/devel/git/danmaku2ass"
+if [[ $# -eq 3 && -f $3 ]] ;then 
+	danmaku2assDir="/Users/hasky/Documents/devel/git/danmaku2ass"
 
-		echo "\e[0;35m getting the name of xxx.cmt.xml ...\e[0m"
-		_name=$( you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//' )
-		url=$1
-		name=$2 #真实的文件名(由youtube-dl下载的为准)
-		name_ext=$3
-		echo $name $name_ext 
-		
-		echo "\e[0;35m downloading xxx.cmt.xml...\e[0m" && you-get -u $url
+	echo "\e[0;35m getting the name of xxx.cmt.xml ...\e[0m"
+	_name=$( you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//' )
+	url=$1
+	name=$2 #真实的文件名(由youtube-dl下载的为准)
+	name_ext=$3
+	echo $name $name_ext 
 
-		if [[ -e "$_name".cmt.xml ]];then # 判断xml弹幕文件是否下载完成
-				local height=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/height/ {print $2}')
-				local width=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/width/  {print $2}')
-				$danmaku2assDir/danmaku2ass.py -o "$name".ass -fs 30 -dm 10 -s "$height"x"$width" "$_name".cmt.xml
-		else
-			echo "\e[0;34m no "$_name".cmt.xml file found"
-		fi
+	echo "\e[0;35m downloading xxx.cmt.xml...\e[0m" && you-get -u $url
+
+	if [[ -e "$_name".cmt.xml ]];then # 判断xml弹幕文件是否下载完成
+		local height=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/height/ {print $2}')
+		local width=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/width/  {print $2}')
+		$danmaku2assDir/danmaku2ass.py -o "$name".ass -fs 30 -dm 10 -s "$height"x"$width" "$_name".cmt.xml
 	else
-		echo -e "\e[0;33m provide the title and name of the media file \n or check the existence of the media file" 
+		echo "\e[0;34m no "$_name".cmt.xml file found"
 	fi
+else
+	echo -e "\e[0;33m provide the title and name of the media file \n or check the existence of the media file" 
+fi
 }
 bili.play(){
-	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
-	mpv --geometry=50%:50% --autofit-larger=80% --sub-scale-with-window=yes --sub-file=$name.ass --vf='lavfi="fps=fps=60:round=down"' $1
+name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
+mpv --geometry=50%:50% --autofit-larger=80% --sub-scale-with-window=yes --sub-file=$name.ass --vf='lavfi="fps=fps=60:round=down"' $1
 }
 
 bili.online(){
-	cd /Users/hasky/Documents/devel/git/biligrab-danmaku2ass/ 
+cd /Users/hasky/Documents/devel/git/biligrab-danmaku2ass/ 
 
-	local c="$( cat ./cookie )"
-	./bilidan.py -c $c --hd $1
+local c="$( cat ./cookie )"
+./bilidan.py -c $c --hd $1
 }
 # }}}
 
@@ -218,44 +210,44 @@ netsh_hosts(){
 Uhosts(){
 	local secret="/Users/hasky/Documents/secret"
 	local hosts_append='
-# avoid adobe PS activate
-127.0.0.1 activate.adobe.com
-127.0.0.1 practivate.adobe.com
-127.0.0.1 ereg.adobe.com
-127.0.0.1 activate.wip3.adobe.com
-127.0.0.1 3dns-3.adobe.com
-127.0.0.1 3dns-2.adobe.com
-127.0.0.1 adobe-dns.adobe.com
-127.0.0.1 adobe-dns-2.adobe.com
-127.0.0.1 adobe-dns-3.adobe.com
-127.0.0.1 ereg.wip3.adobe.com
-127.0.0.1 activate-sea.adobe.com
-127.0.0.1 wwis-dubc1-vip60.adobe.com
-127.0.0.1 activate-sjc0.adobe.com
-127.0.0.1 hl2rcv.adobe.com
-127.0.0.1 lmlicenses.wip4.adobe.com
-127.0.0.1 lm.licenses.adobe.com
-127.0.0.1 na2m-pr.licenses.adobe.com
-127.0.0.1 ims-na1-prprod.adobelogin.com
-127.0.0.1 na4r.services.adobe.com
-127.0.0.1 na1r.services.adobe.com
-127.0.0.1 hlrcv.stage.adobe.com
+	# avoid adobe PS activate
+	127.0.0.1 activate.adobe.com
+	127.0.0.1 practivate.adobe.com
+	127.0.0.1 ereg.adobe.com
+	127.0.0.1 activate.wip3.adobe.com
+	127.0.0.1 3dns-3.adobe.com
+	127.0.0.1 3dns-2.adobe.com
+	127.0.0.1 adobe-dns.adobe.com
+	127.0.0.1 adobe-dns-2.adobe.com
+	127.0.0.1 adobe-dns-3.adobe.com
+	127.0.0.1 ereg.wip3.adobe.com
+	127.0.0.1 activate-sea.adobe.com
+	127.0.0.1 wwis-dubc1-vip60.adobe.com
+	127.0.0.1 activate-sjc0.adobe.com
+	127.0.0.1 hl2rcv.adobe.com
+	127.0.0.1 lmlicenses.wip4.adobe.com
+	127.0.0.1 lm.licenses.adobe.com
+	127.0.0.1 na2m-pr.licenses.adobe.com
+	127.0.0.1 ims-na1-prprod.adobelogin.com
+	127.0.0.1 na4r.services.adobe.com
+	127.0.0.1 na1r.services.adobe.com
+	127.0.0.1 hlrcv.stage.adobe.com
 
-# baidupcs
-# 2400:da00::dbf:0:6666 p.baidupcs.com
-# 2400:da00::dbf:0:6666 nj.baidupcs.com
-# 2400:da00::dbf:0:6666 qd.baidupcs.com
-# 2400:da00::dbf:0:6666 cdn.baidupcs.com
-# 2400:da00::dbf:0:6666 hot.baidupcs.com
-# 2400:da00::dbf:0:6666 www.baidupcs.com
-# 2400:da00::dbf:0:6666 hot.cdn.baidupcs.com
-# 2400:da00::dbf:0:6666 d.pcs.baidu.com
-# 2400:da00::dbf:0:6666 pcs.n.shifen.com
+	# baidupcs
+	# 2400:da00::dbf:0:6666 p.baidupcs.com
+	# 2400:da00::dbf:0:6666 nj.baidupcs.com
+	# 2400:da00::dbf:0:6666 qd.baidupcs.com
+	# 2400:da00::dbf:0:6666 cdn.baidupcs.com
+	# 2400:da00::dbf:0:6666 hot.baidupcs.com
+	# 2400:da00::dbf:0:6666 www.baidupcs.com
+	# 2400:da00::dbf:0:6666 hot.cdn.baidupcs.com
+	# 2400:da00::dbf:0:6666 d.pcs.baidu.com
+	# 2400:da00::dbf:0:6666 pcs.n.shifen.com
 
-10.0.4.251 godinsec.gitlab.com
-10.0.4.251 godinsec.phabricator.com
-10.0.4.251 godinsec.jenkins.com
-'
+	10.0.4.251 godinsec.gitlab.com
+	10.0.4.251 godinsec.phabricator.com
+	10.0.4.251 godinsec.jenkins.com
+	'
 
 	# local HOSTS_URL="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts"
 	# local HOSTS_URL="https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts"
@@ -403,7 +395,7 @@ Ugitdir(){
 # }
 
 calc() {
-    echo "scale=3;$@" | bc -l
+	echo "scale=3;$@" | bc -l
 }
 update()
 {
@@ -420,18 +412,18 @@ decode-apk(){
 	fullPath=$@  
 	filePath=${fullPath%'.apk'}  
 	baksmali="/Users/hasky/Documents/baksmali-2.1.3.jar"
-
+	
 	echo 1.开始反编译 $fullPath  
 	apktool -f d $fullPath
 	# java -Xmx512M -Djava.awt.headless=true -jar apktool -f d -o "${filePath}" $@
-
+	
 	echo "\n"
-
+	
 	echo 2.解压出dex文件...  
 	unzip  -o -d "${filePath}" "${fullPath}" '*.dex'
-
+	
 	echo "\n"
-
+	
 	echo 3.反编译dex为jar...  
 	cd ${filePath}
 	for i in ./*.dex
@@ -444,9 +436,9 @@ decode-apk(){
 }
 
 smbd-up(){
-	smbd-down 
-	sudo /usr/local/bin/homebrew/Cellar/samba/3.6.25/sbin/smbd -D
-	[[ $(echo $(pg smb | wc -l)) > 1 ]] && echo success || echo failed # echo去首位重复
+smbd-down 
+sudo /usr/local/bin/homebrew/Cellar/samba/3.6.25/sbin/smbd -D
+[[ $(echo $(pg smb | wc -l)) > 1 ]] && echo success || echo failed # echo去首位重复
 }
 
 c_jni_header(){
@@ -457,7 +449,7 @@ c_jni_header(){
 # listAllCommands()
 # {
 #     COMMANDS=`echo -n $PATH | xargs -d : -I {} find {} -maxdepth 1 \
-#         -executable -type f -printf '%P\n' 2>/dev/null`
+	#         -executable -type f -printf '%P\n' 2>/dev/null`
 #     ALIASES=`alias | cut -d '=' -f 1`
 #     echo "$COMMANDS"$'\n'"$ALIASES" | sort -u
 # }
