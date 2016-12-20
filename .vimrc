@@ -41,7 +41,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'godlygeek/tabular' " Code Format
 " Plugin 'CodeFalling/fcitx-vim-osx' 
 
-
 call vundle#end()      
 
 "Vundle }}}
@@ -61,7 +60,7 @@ syntax on
 set t_Co=256
 set background=dark
 " let g:solarized_termcolors=256
-colorscheme solarized
+" colorscheme solarized
 " colorscheme molokai
 " colorscheme pablo
 " colorscheme Tomorrow-Night-Bright
@@ -175,7 +174,7 @@ map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
 "powerline airline"""""
 set noshowmode
 set laststatus=2   " Always show the statusline
-let g:airline_theme='solarized'
+"let g:airline_theme='solarized'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -250,6 +249,10 @@ let g:ycm_filetype_blacklist = {
 let g:ycm_global_ycm_extra_conf="/Users/hasky/.ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=["<tab>"]
 let g:ycm_key_list_previous_completion=["<S-tab>"]
+let g:ycm_path_to_python_interpreter="/usr/local/bin/python2"
+
+
+
 " nnoremap <leader>] :YcmCompleter GoToImprecise<CR>
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>

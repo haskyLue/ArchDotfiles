@@ -409,30 +409,30 @@ update()
 }
 
 decode-apk(){
-	fullPath=$@  
-	filePath=${fullPath%'.apk'}  
-	baksmali="/Users/hasky/Documents/baksmali-2.1.3.jar"
-	
-	echo 1.开始反编译 $fullPath  
-	apktool -f d $fullPath
-	# java -Xmx512M -Djava.awt.headless=true -jar apktool -f d -o "${filePath}" $@
-	
-	echo "\n"
-	
-	echo 2.解压出dex文件...  
-	unzip  -o -d "${filePath}" "${fullPath}" '*.dex'
-	
-	echo "\n"
-	
-	echo 3.反编译dex为jar...  
-	cd ${filePath}
-	for i in ./*.dex
-	do
-		d2j-dex2jar $i -f -o ${i}.jar  
-		java -jar $baksmali $i -o $i
-	done
+fullPath=$@  
+filePath=${fullPath%'.apk'}  
+baksmali="/Users/hasky/Documents/baksmali-2.1.3.jar"
 
-	open .
+echo 1.开始反编译 $fullPath  
+apktool -f d $fullPath
+# java -Xmx512M -Djava.awt.headless=true -jar apktool -f d -o "${filePath}" $@
+
+echo "\n"
+
+echo 2.解压出dex文件...  
+unzip  -o -d "${filePath}" "${fullPath}" '*.dex'
+
+echo "\n"
+
+echo 3.反编译dex为jar...  
+cd ${filePath}
+for i in ./*.dex
+do
+	d2j-dex2jar $i -f -o ${i}.jar  
+	java -jar $baksmali $i -o $i
+done
+
+open .
 }
 
 smbd-up(){
