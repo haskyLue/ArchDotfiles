@@ -62,7 +62,7 @@ set background=dark
 " let g:solarized_termcolors=256
 " colorscheme solarized
 " colorscheme molokai
-" colorscheme pablo
+colorscheme pablo
 " colorscheme Tomorrow-Night-Bright
 
 " 设置标记一列的背景颜色和数字一行颜色一致
@@ -164,7 +164,7 @@ augroup end
 " build system
 set makeprg=make\ -C\ ../build\ -j9
 map <F5> :make<CR>
-map <F8> :w <CR> :!clear; cc % -o %< && ./%< <CR>
+map <F8> :w <CR> :!clear; g++ % -o %< && ./%< <CR>
 ""%" is taken the current file name.
 "%<" is file name without extension.
 
@@ -246,7 +246,7 @@ let g:ycm_filetype_blacklist = {
 			\ 'vimwiki' : 1,
 			\ 'gitcommit' : 1,
 			\}
-let g:ycm_global_ycm_extra_conf="/Users/hasky/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf="/Users/hasky/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=["<tab>"]
 let g:ycm_key_list_previous_completion=["<S-tab>"]
 let g:ycm_path_to_python_interpreter="/usr/local/bin/python2"

@@ -71,17 +71,12 @@ alias lt='ll -rt'                   # sort by date
 # alias onwifi="sudo netctl start wlp3s0-MERCURY_C1D49C"
 # alias pon="sudo route del default && sudo pon"
 # alias pon="sudo ip link set enp7s0f5 up && sudo pon" 
-alias poff="sudo poff -a"
+# alias poff="sudo poff -a"
 # alias Tps="figlet -c On/Off TouchPad && sh /home/hasky/Documents/script/dotfiles/toggle_psmouse.sh" # 切换触控板
 # alias Mwin7="sudo mkdir -p /mnt/win7 ;sudo mount /dev/sdb1 /mnt/win7" #
 # alias Umwin7="sudo mkdir -p /mnt/win7 ;sudo umount /dev/sdb1" #
-alias elang="export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8"
+# alias elang="export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8"
 # alias subl="LD_PRELOAD=/usr/lib/libsublime-imfix.so subl3" #加到local/bin了
-
-# git 
-alias gitac="git commit -a -m "
-alias gitpusho="git push origin master"
-alias gitrv="git remove -v"
 
 
 # adjust volume
@@ -93,14 +88,14 @@ alias gitrv="git remove -v"
 # start app 
 # alias rename_mp3_dir="find . -iname '*mp3' -exec eyeD3 --rename '$artist - $title' {} >> /Volumes/Caches/Music_rename_log \;"
 # alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
-alias dns="/Users/hasky/Documents/devel/git/ArchDotfiles/chinadns/exec" 
+# alias dns="/Users/hasky/Documents/devel/git/ArchDotfiles/chinadns/exec" 
 # alias goagent="figlet -c goagent && sudo python /Volumes/Caches/goagent-3.0/local/proxy.py"
 # alias trash="sudo gvfs-trash"
 alias youdao="figlet -c YouDaoDict && /Users/hasky/Documents/devel/git/ydcv/ydcv.py -f"
 # alias wifi="wicd-curses"
 # alias gmail="checkgmail -numbers -private -no_cookies &"
 # alias vmxp="vboxmanage startvm xp "
-alias youtube-dl-proxy="proxychains4 -q youtube-dl --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist -o '%(title)s.%(ext)s'"
+alias youtube-dl-proxy="youtube-dl --proxy socks5://127.0.0.1:1080 --no-check-certificate --write-auto-sub --audio-quality 0 --no-playlist -o '%(title)s.%(ext)s'"
 alias iftop="sudo iftop -PnB"
 alias glances="sudo glances --full-quicklook --disable-load"
 # alias tshark="sudo tshark"
@@ -111,30 +106,26 @@ alias glances="sudo glances --full-quicklook --disable-load"
 alias tm="tmux -2 "
 alias tmas="tmux -2 -u attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
-alias subl="reattach-to-user-namespace /usr/local/bin/subl"
-alias open="reattach-to-user-namespace open ."
+# alias subl="reattach-to-user-namespace /usr/local/bin/subl"
 alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"
 alias ctags="ctags -R --c++-kinds=+px --fields=+aiKSz --extra=+q"
 alias clean="sudo rm -rf /var/log/* ; sudo rm -rf /Library/Logs ; rm -rf ~/Library/Logs ; rm -rf /Library/Caches/Homebrew "
 alias goagent="sudo /Users/hasky/Documents/devel/git/goagent/local/proxy.py"
 alias andbug="cd /Users/hasky/Documents/devel/git/AndBug/ && PYTHONPATH=lib ./andbug"
-alias si="echo opening source insight3 && wine ~/.wine/drive_c/Program\ Files/Source\ Insight\ 3/Insight3.exe"
-alias ida="echo opening ida 6.5 && wine /Users/hasky/.wine/drive_c/Program\ Files/IDA\ 6.8/idaq.exe"
-alias ncmpcpp="proxychains4 /usr/local/bin/ncmpcpp"
+# alias ncmpcpp="proxychains4 /usr/local/bin/ncmpcpp"
 alias ndk-build="/usr/local/bin/homebrew/Cellar/android-sdk/24.4/ndk-bundle/ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk"
 
 
 # enter directory & edit
 alias Cd="cd /Users/hasky/Documents/devel/git/ArchDotfiles"
-alias Cg="cd /Users/hasky/Documents/devel/git"
-alias Cc="cd /Volumes/Caches"
+# alias Cg="cd /Users/hasky/Documents/devel/git"
 alias Cw="cd /Volumes/WD320"
-alias Ca="cd /Users/hasky/Documents/devel/alfred.workflows.dev"
+# alias Ca="cd /Users/hasky/Documents/devel/alfred.workflows.dev"
 # alias Ci="cd /home/hasky/Downloads/Image && pcmanfm"
-alias Vgo="vim ~/.proxy.user.ini"
-alias Vt="vim ~/.tmux.conf"
-alias Vtask="vim ~/Documents/task.md"
-alias Vrss="vim ~/.newsbeuter/urls"
+# alias Vgo="vim ~/.proxy.user.ini"
+# alias Vt="vim ~/.tmux.conf"
+# alias Vtask="vim ~/Documents/task.md"
+# alias Vrss="vim ~/.newsbeuter/urls"
 alias Valias="vim ~/Documents/devel/git/ArchDotfiles/bashrc/alias.sh"
 alias Vfunctions="vim ~/Documents/devel/git/ArchDotfiles/bashrc/functions.sh"
 
