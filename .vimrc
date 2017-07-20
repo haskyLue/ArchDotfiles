@@ -58,11 +58,11 @@ filetype on "打开文件类型自动检测功能
 syntax enable
 syntax on
 set t_Co=256
-set background=dark
+set background=light
 " let g:solarized_termcolors=256
 " colorscheme solarized
 " colorscheme molokai
-colorscheme pablo
+" colorscheme bubblegum-256-dark
 " colorscheme Tomorrow-Night-Bright
 
 " 设置标记一列的背景颜色和数字一行颜色一致
@@ -174,7 +174,7 @@ map <F8> :w <CR> :!clear; g++ % -o %< && ./%< <CR>
 "powerline airline"""""
 set noshowmode
 set laststatus=2   " Always show the statusline
-"let g:airline_theme='solarized'
+let g:airline_theme='vice'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -192,7 +192,7 @@ map <leader>n :NERDTreeToggle<CR>
 map <leader>t :TagbarToggle<CR>
 
 " fzf插件"""""
-set rtp+=/usr/local/Cellar/fzf/0.15.9
+set rtp+=/usr/local/Cellar/fzf/0.16.8
 " Open files in horizontal split
 nnoremap <silent> <Leader>s :call fzf#run({
 			\   'down': '40%',
@@ -246,14 +246,13 @@ let g:ycm_filetype_blacklist = {
 			\ 'vimwiki' : 1,
 			\ 'gitcommit' : 1,
 			\}
-let g:ycm_global_ycm_extra_conf="/Users/hasky/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-let g:ycm_key_list_select_completion=["<tab>"]
-let g:ycm_key_list_previous_completion=["<S-tab>"]
-let g:ycm_path_to_python_interpreter="/usr/local/bin/python2"
-
-
-
-" nnoremap <leader>] :YcmCompleter GoToImprecise<CR>
+let g:ycm_global_ycm_extra_conf="/Users/hasky/.ycm_extra_conf.py"
+" 这个快捷键与ultisnips冲突
+" let g:ycm_key_list_select_completion=["<tab>"]
+" let g:ycm_key_list_previous_completion=["<S-tab>"]
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+let g:ycm_path_to_python_interpreter="/usr/local/bin/python3"
 map <C-]> :YcmCompleter GoToImprecise<CR>
 " nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>

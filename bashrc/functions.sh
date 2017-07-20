@@ -31,6 +31,7 @@ shadowsocks(){
 	fi
 }
 
+
 parse_string()
 {
 	echo $1 | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g' 
@@ -225,7 +226,7 @@ netsh_hosts()
 
 Uhosts()
 {
-	local secret="/Users/hasky/Documents/secret"
+	local secret="/Users/hasky/Documents/bin/secret"
 	local hosts_append='
 	# avoid adobe PS activate
 	127.0.0.1 activate.adobe.com
@@ -378,7 +379,7 @@ Uhosts()
 
 # Udns()
 # {
-# 	local secret="/Users/hasky/Documents/secret"
+# 	local secret="/Users/hasky/Documents/bin/secret"
 # 	echo -e "nameserver 223.5.5.5 \nnameserver 223.6.6.6" > /tmp/resolv
 # 	# echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /tmp/resolv
 # 	/bin/cp -fv /etc/dnsmasq-resolv.conf /tmp/
@@ -400,7 +401,7 @@ rename_mp3()
 
 Ugitdir()
 {
-	local DIR="/Users/hasky/Documents/devel/git"
+	local DIR="/Users/hasky/Documents/GIT_PROJECT"
 	for dir in $DIR/*
 	do
 		if [ -d $dir/.git ]; then
@@ -420,22 +421,33 @@ calc()
 {
 	echo "scale=3;$@" | bc -l
 }
-update()
+
+brew_upgrade()
 {
-	figlet -c brew-all-update
 	export ALL_PROXY=socks5://127.0.0.1:1080
+	figlet -c brew_upgrade
 	brew update 
 	brew upgrade 
 	brew cleanup --force
 	brew prune
+
+	figlet -c software_update
+	sudo softwareupdate -ia
 	unset ALL_PROXY
+}
+
+pip_upgrade()
+{
+	figlet -c pip-upgrade
+	pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip2 install -U --no-cache-dir
+	pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --no-cache-dir
 }
 
 decode-apk()
 {
 	local fullPath=$@  
 	local filePath=${fullPath%'.apk'}  
-	baksmali="/Users/hasky/Documents/baksmali-2.1.3.jar"
+	baksmali="/Users/hasky/Documents/bin/baksmali-2.1.3.jar"
 
 	echo 1.开始反编译 $fullPath  
 	apktool -f d $fullPath
@@ -496,4 +508,3 @@ c_jni_header()
 # 	brew rm $(join <(brew leaves) <(brew deps $1))
 # 	brew clean 
 # }
-
