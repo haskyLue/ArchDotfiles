@@ -1,7 +1,7 @@
 #! /bin/bash
 shadowsocks(){
 	# 清理
-	[[ `jobs -l` ]] && pkill Python 
+	[[ `jobs -l` ]] && pkill python 
 
 
 	# 配置shadowsocks
@@ -29,6 +29,34 @@ shadowsocks(){
 	else
 		echo "$shadow_conf 不存在"
 	fi
+}
+
+fuckgfw(){
+	# 下载gfwlist
+	cd /tmp
+	aria2c -q https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
+
+	# 生成user-rule
+	echo "
+||bintray.com
+||gstatic.com
+||apple.com
+||android.com
+||google.com
+||ytimg.com
+||github.com
+||reddit.com
+||android.com
+||googleusercontent.com
+||clips4sale.com
+||datatracker.ietf.org
+||leetcode.com
+||sciencedirect.com
+||xda-developers.com
+	" > user-rule.txt
+
+	# 转pac
+	gfwlist2pac -i gfwlist.txt  -p "SOCKS5 127.0.0.1:1080" --user-rule=user-rule.txt -f proxy.pac
 }
 
 
