@@ -103,7 +103,6 @@ alias glances="sudo glances -t 2 --disable-quicklook --disable-load --disable-al
 # alias bilibili="/Users/hasky/Documents/.dotFile/script/bilibili.sh"
 # alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
-alias tm="tmux -2 "
 alias tmas="tmux -2 -u attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 # alias subl="reattach-to-user-namespace /usr/local/bin/subl"

@@ -7,10 +7,10 @@ color info green black
 reload-time 180	
 reload-threads 6
 
-# proxy localhost:8087
+proxy 127.0.0.1:1080
 always-display-description true
-use-proxy yes
+use-proxy no
 
-html-renderer "w3m -dump -T text/html"
+#html-renderer "w3m -dump -T text/html"
 browser open
-save-path ~/Documents/note
+save-path ~/Documents/TMP/note

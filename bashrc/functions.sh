@@ -1,4 +1,8 @@
 #! /bin/bash
+tm(){
+	sh ~/Documents/.dotFile/script/tmux_traffic/server.sh &
+	tmux -2
+}
 shadowsocks(){
 	# 清理
 	[[ `jobs -l` ]] && pkill python 

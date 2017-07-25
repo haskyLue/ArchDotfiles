@@ -174,7 +174,7 @@ map <F8> :w <CR> :!clear; g++ % -o %< && ./%< <CR>
 "powerline airline"""""
 set noshowmode
 set laststatus=2   " Always show the statusline
-let g:airline_theme='vice'
+let g:airline_theme='term'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
