@@ -117,7 +117,7 @@ alias arm-linux-androideabi-g++="arm-linux-androideabi-g++ --sysroot=/usr/local/
 
 
 # enter directory & edit
-alias Cd="cd /Users/hasky/Documents/TOSHIBA/Git/ArchDotfiles"
+alias Cd="cd /Users/hasky/Documents/.dotfile"
 alias Cg="cd /Users/hasky/Documents/TOSHIBA/Git"
 alias Cw="cd /Volumes/WD320"
 # alias Ca="cd /Users/hasky/Documents/devel/alfred.workflows.dev"

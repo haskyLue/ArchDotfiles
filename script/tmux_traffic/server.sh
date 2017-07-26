@@ -1,23 +1,33 @@
+# 提前运行哦~
+
 __set_kernel(){
 	export KERNEL=$(uname -s)
 }
 __cleanup(){
-	rm -f /tmp/TMUX_TRAFFIC_PID
-	echo "#[bg=default]#[fg=magenta] Oops,Server is Shutdown..." > $TMUX_TRAFFIC_FILE
+	echo "#[bg=default]#[fg=white] Oops, Server was Shutdown..." > $TMUX_TRAFFIC_FILE
+	rm -f $TMUX_TRAFFIC_PID
 	exit
 }
 __init_process(){
+	if [[ -e $TMUX_TRAFFIC_PID ]];then
+		echo "Server was started..."
+		exit 0
+	fi
+
+	TMUX_CACHE_DIR=$([[ -e /Volumes/Toshiba/TMP/ ]] && echo "/Volumes/Toshiba/TMP" ||  echo "/tmp")
+
 	export TMUX_RX_NEW=0
 	export TMUX_TX_NEW=0
 	export TMUX_TIMESTAMP_NEW=0
 	export TMUX_RX_OLD=$TMUX_RX_NEW 
 	export TMUX_TX_OLD=$TMUX_TX_NEW
 	export TMUX_TIMESTAMP_OLD=$TMUX_TIMESTAMP_NEW
+	export TMUX_TRAFFIC_FILE=$TMUX_CACHE_DIR"/tmux_traffic"
+	export TMUX_TRAFFIC_PID=$TMUX_CACHE_DIR/"tmux_traffic.pid"
 
-	export TMUX_TRAFFIC_FILE="/tmp/tmux_traffic"
 	__set_kernel
 	trap "__cleanup"  1 2 3 6 15 # 注册一些singal handler
-	echo "$$"> /tmp/TMUX_TRAFFIC_PID
+	echo "$$"> $TMUX_TRAFFIC_PID
 }
 __set_network_interface(){
 	if [[ $KERNEL = 'Darwin' ]];then
@@ -42,7 +52,7 @@ __get_current_traffic(){
 
 
 
-# main function
+# ---------------------- main function below ------------------------
 __init_process
 while [[ $KERNEL ]];do
 	__set_network_interface
@@ -60,10 +70,10 @@ while [[ $KERNEL ]];do
 		TMUX_TX_OLD=$TMUX_TX_NEW
 		TMUX_TIMESTAMP_OLD=$TMUX_TIMESTAMP_NEW
 
-		echo "#[bg=default]#[fg=green,none]「$DEV ⇓ ${rx_rate}K ⇑ ${tx_rate}K」" > $TMUX_TRAFFIC_FILE
+		echo "#[bg=default]#[fg=green,none]「$DEV ⇲ ${rx_rate}K ⇱ ${tx_rate}K」" > $TMUX_TRAFFIC_FILE
 
 	else
-		echo "#[bg=default]#[fg=magenta] ∅" > $TMUX_TRAFFIC_FILE
+		echo "#[bg=default]#[fg=white] ∅" > $TMUX_TRAFFIC_FILE
 	fi
 
 	sleep 1
