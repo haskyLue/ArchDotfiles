@@ -58,10 +58,11 @@ filetype on "打开文件类型自动检测功能
 syntax enable
 syntax on
 set t_Co=256
-set background=light
+set background=dark
 " let g:solarized_termcolors=256
 " colorscheme solarized
-" colorscheme molokai
+" colorscheme af
+colorscheme molokai
 " colorscheme bubblegum-256-dark
 " colorscheme Tomorrow-Night-Bright
 
@@ -192,7 +193,7 @@ map <leader>n :NERDTreeToggle<CR>
 map <leader>t :TagbarToggle<CR>
 
 " fzf插件"""""
-set rtp+=/usr/local/Cellar/fzf/0.16.10
+set rtp+=/usr/local/Cellar/fzf/0.17.0
 " Open files in horizontal split
 nnoremap <silent> <Leader>s :call fzf#run({
 			\   'down': '40%',

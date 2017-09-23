@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# global
+export TMUX_CACHE_DIR=$([[ -e /Volumes/Toshiba/TMP/ ]] && echo "/Volumes/Toshiba/TMP" ||  echo "/tmp")
+export TMUX_OUTPUT=$TMUX_CACHE_DIR"/tmux_output"
+export TMUX_SERVER_PID=$TMUX_CACHE_DIR"/tmux_server.pid"
+
+# color
+export TMUX_CONTENT="TMUX"
+export TMUX_COLOR_TMPL="#[bg=default]#[fg=COLOR,none]⎡ ${TMUX_CONTENT}⎦ "
+export TMUX_GREEN=${TMUX_COLOR_TMPL/COLOR/GREEN}
+export TMUX_BLUE=${TMUX_COLOR_TMPL/COLOR/BLUE}
+export TMUX_RED=${TMUX_COLOR_TMPL/COLOR/RED}
+export TMUX_MAGENTA=${TMUX_COLOR_TMPL/COLOR/MAGENTA}
+export TMUX_CYAN=${TMUX_COLOR_TMPL/COLOR/CYAN}
+export TMUX_YELLOW=${TMUX_COLOR_TMPL/COLOR/YELLOW}
+
+# network 
+export TMUX_RX_NEW=0
+export TMUX_TX_NEW=0
+export TMUX_TIMESTAMP_NEW=0
+export TMUX_RX_OLD=0
+export TMUX_TX_OLD=0
+export TMUX_TIMESTAMP_OLD=0
+export TMUX_RATE=0
+
+# devices
+export KERNEL
+export NET_INTERFACE

@@ -1,6 +1,6 @@
 [user]
 	name = haskyLue
-	email = ludebing@gmail.com 
+	email = ludebing@gmail.com
 [http]
 	; 用https协议的git url
 	;proxy = http://127.0.0.1:8087

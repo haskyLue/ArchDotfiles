@@ -1,8 +1,15 @@
 #! /bin/bash
 tm(){
-	sh ~/Documents/.dotFile/script/tmux_traffic/server.sh &
 	tmux -2
 }
+
+get_weather_info(){
+	WEATHER_INFO=$( curl -sL "http://www.weather.com.cn/weather/101010100.shtml" | sed -n "/skyid.*on/,/li>/p" )
+	WEA=$(echo "$WEATHER_INFO" | awk -F\" '/wea/ {print $4}') #加引号保持换行格式
+	TEM=$(echo "$WEATHER_INFO" | grep -Eo "\d+℃" | paste -s -d '~' -)
+	echo $WEA $TEM | say -v Ting-Ting &
+}
+
 shadowsocks(){
 	# 清理
 	[[ `jobs -l` ]] && pkill python 
@@ -463,16 +470,16 @@ brew_upgrade()
 	brew cleanup --force
 	brew prune
 
-	figlet -c software_update
-	sudo softwareupdate -ia
+	# figlet -c software_update
+	# sudo softwareupdate -ia
 	unset ALL_PROXY
 }
 
 pip_upgrade()
 {
 	figlet -c pip-upgrade
-	pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip2 install -U --no-cache-dir
-	pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --no-cache-dir
+	pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip2 install -U --no-cache-dir
+	pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U --no-cache-dir
 }
 
 decode-apk()
