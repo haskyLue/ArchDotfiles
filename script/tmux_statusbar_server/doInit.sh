@@ -7,7 +7,7 @@ export TMUX_SERVER_PID=$TMUX_CACHE_DIR"/tmux_server.pid"
 
 # color
 export TMUX_CONTENT="TMUX"
-export TMUX_COLOR_TMPL="#[bg=default]#[fg=COLOR,none]⎡ ${TMUX_CONTENT}⎦ "
+export TMUX_COLOR_TMPL="#[bg=colour237]#[fg=COLOR,none] ${TMUX_CONTENT} #[bg=default]"
 export TMUX_GREEN=${TMUX_COLOR_TMPL/COLOR/GREEN}
 export TMUX_BLUE=${TMUX_COLOR_TMPL/COLOR/BLUE}
 export TMUX_RED=${TMUX_COLOR_TMPL/COLOR/RED}

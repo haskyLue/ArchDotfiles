@@ -96,8 +96,9 @@ __init_process
 while [[ $KERNEL ]];do
 	__get_traffic_rate #这个函数不能放到子shell里执行,否则每次缓存的数据都无效。但是bash只支持状态返回,无法返回字符串,所以就这样吧
 
-	# echo ${TMUX_MAGENTA/$TMUX_CONTENT/"$(__get_uptime)"}\
-	echo ${TMUX_GREEN/$TMUX_CONTENT/"$TMUX_RATE"}\
+	echo ${TMUX_CYAN/$TMUX_CONTENT/"$(uname -rs)"}\
+		${TMUX_MAGENTA/$TMUX_CONTENT/"$(__get_uptime)"}\
+		${TMUX_GREEN/$TMUX_CONTENT/"$TMUX_RATE"}\
 		${TMUX_BLUE/$TMUX_CONTENT/"$(__get_wifi_ssid) $(__get_ip)"}\
 		${TMUX_RED/$TMUX_CONTENT/"$(__get_process_mem)"}\
 		${TMUX_YELLOW/$TMUX_CONTENT/"$(__get_rest_mem)"} > $TMUX_OUTPUT
