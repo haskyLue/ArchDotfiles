@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # global
-export TMUX_CACHE_DIR=$([[ -e /Volumes/Toshiba/TMP/ ]] && echo "/Volumes/Toshiba/TMP" ||  echo "/tmp")
+export TMUX_CACHE_DIR="/tmp"
 export TMUX_OUTPUT=$TMUX_CACHE_DIR"/tmux_output"
 export TMUX_SERVER_PID=$TMUX_CACHE_DIR"/tmux_server.pid"
 
@@ -18,7 +18,7 @@ export TMUX_YELLOW=${TMUX_COLOR_TMPL/COLOR/YELLOW}
 # network 
 export TMUX_RX_NEW=0
 export TMUX_TX_NEW=0
-export TMUX_TIMESTAMP_NEW=0
+export TMUX_TIMESTAMP_NEW=1000
 export TMUX_RX_OLD=0
 export TMUX_TX_OLD=0
 export TMUX_TIMESTAMP_OLD=0

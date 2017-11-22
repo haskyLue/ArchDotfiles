@@ -1,9 +1,17 @@
 #!/bin/bash
 
-source doInit.sh
+export TMUX_WORKING_DIR="/Users/hasky/Documents/.dotFile/script/tmux_statusbar_server"
+source $TMUX_WORKING_DIR/doInit.sh
 
 __set_kernel(){
 	KERNEL=$(uname -s)
+}
+__set_network_interface(){
+	if [[ $KERNEL = 'Darwin' ]];then
+		NET_INTERFACE=$(netstat -nr | head | awk '/default/ {print $6}') # for macos
+	else
+		NET_INTERFACE=$(route -v | awk 'NR==3 {print $8}') # for linux 
+	fi
 }
 __cleanup(){
 	echo ${TMUX_BLUE/$TMUX_CONTENT/"Oops, Server was shutdown..."} > $TMUX_OUTPUT
@@ -11,17 +19,18 @@ __cleanup(){
 	exit
 }
 __init_process(){
-	TMUX_CACHE_DIR=$([[ -e /Volumes/Toshiba/TMP/ ]] && echo "/Volumes/Toshiba/TMP" ||  echo "/tmp")
-	TMUX_OUTPUT=$TMUX_CACHE_DIR"/tmux_output"
-	TMUX_SERVER_PID=$TMUX_CACHE_DIR"/tmux_server.pid"
-
-	if [[ -e $TMUX_SERVER_PID ]];then
+	local serverCounts=$(/bin/ps -axf | grep -ci "[s]erver.sh") # 子进程 + 父进程 [trick : 防止grep自身]
+	if [[  $serverCounts -gt 2 ]];then 
 		echo "Server was started..."
 		exit 0
 	fi
+	rm -f $TMUX_OUTPUT $TMUX_SERVER_PID
 	__set_kernel
+	__set_network_interface
 	trap "__cleanup"  1 2 3 6 15 # 注册一些singal handler
 	echo "$$"> $TMUX_SERVER_PID
+
+	echo "Server start successfully..."
 }
 
 # ------------------ FUNCTIONS ------------------ 
@@ -38,7 +47,7 @@ __get_ip(){
 	fi
 }
 __get_disk_usage(){
-	df -H | awk '/disk/ { print $4"/"$2 }' | xargs 
+	df -H | awk '/Volumes/ { print $4"/"$2 }' | xargs 
 }
 __get_process_mem(){
 	/usr/bin/top -l 1 -o mem -U hasky |  awk '/COMMAND/ {getline; print $2,"("$8,$13")"}'
@@ -46,17 +55,10 @@ __get_process_mem(){
 __get_uptime(){
 	uptime | sed 's/.*averages: //'
 }
-__set_network_interface(){
-	if [[ $KERNEL = 'Darwin' ]];then
-		NET_INTERFACE=$(netstat -nr | head | awk '/default/ {print $6}') # for macos
-	else
-		NET_INTERFACE=$(route -v | awk 'NR==3 {print $8}') # for linux 
-	fi
-}
 __get_current_traffic(){
 	if [[ $KERNEL = 'Darwin' ]];then
-		TMUX_RX_NEW=$( netstat -I $NET_INTERFACE -b | awk 'NR==2 {print $7}' )
-		TMUX_TX_NEW=$( netstat -I $NET_INTERFACE -b | awk 'NR==2 {print $10}')
+		TMUX_RX_NEW=$( netstat -I $NET_INTERFACE -bn | awk 'NR==2 {print $7}' )
+		TMUX_TX_NEW=$( netstat -I $NET_INTERFACE -bn | awk 'NR==2 {print $10}')
 	elif [[ $KERNEL = 'Linux' ]];then
 		TMUX_RX_NEW=$( cat /sys/class/net/$NET_INTERFACE/statistics/$rx_bytes )
 		TMUX_TX_NEW=$( cat /sys/class/net/$NET_INTERFACE/statistics/$tx_bytes )
@@ -64,15 +66,15 @@ __get_current_traffic(){
 	TMUX_TIMESTAMP_NEW=$( date +%s )
 }
 __get_traffic_rate(){
-	__set_network_interface
+	__set_network_interface # 每次获取以处理断网等
 	if [[ ! -z $NET_INTERFACE ]]; then
 		# 1.获取当前流量和时间戳
 		__get_current_traffic
 
 		# 2.计算traffic/second
-		duration=$( /bin/expr $TMUX_TIMESTAMP_NEW \- $TMUX_TIMESTAMP_OLD )
-		rx_rate=$( /bin/expr \( $TMUX_RX_NEW \- $TMUX_RX_OLD \) / 1000 / $duration )
-		tx_rate=$( /bin/expr \( $TMUX_TX_NEW \- $TMUX_TX_OLD \) / 1000 / $duration )
+		duration=$((  $TMUX_TIMESTAMP_NEW - $TMUX_TIMESTAMP_OLD  ))
+		rx_rate=$(( ( $TMUX_RX_NEW - $TMUX_RX_OLD ) / 1000 / $duration  ))
+		tx_rate=$(( ( $TMUX_TX_NEW - $TMUX_TX_OLD ) / 1000 / $duration  ))
 
 		# 3.写入缓存
 		TMUX_RX_OLD=$TMUX_RX_NEW 
@@ -84,6 +86,9 @@ __get_traffic_rate(){
 		TMUX_RATE="Network's off..."
 	fi
 }
+__get_rest_mem(){
+	memory_pressure | awk '/percent/ {print "Mem "$5}'
+}
 
 
 # ---------------------- ENTRY BELOW ------------------------
@@ -91,11 +96,11 @@ __init_process
 while [[ $KERNEL ]];do
 	__get_traffic_rate #这个函数不能放到子shell里执行,否则每次缓存的数据都无效。但是bash只支持状态返回,无法返回字符串,所以就这样吧
 
-	echo ${TMUX_MAGENTA/$TMUX_CONTENT/"$(__get_uptime)"}\
-		${TMUX_GREEN/$TMUX_CONTENT/"$TMUX_RATE"}\
+	# echo ${TMUX_MAGENTA/$TMUX_CONTENT/"$(__get_uptime)"}\
+	echo ${TMUX_GREEN/$TMUX_CONTENT/"$TMUX_RATE"}\
 		${TMUX_BLUE/$TMUX_CONTENT/"$(__get_wifi_ssid) $(__get_ip)"}\
 		${TMUX_RED/$TMUX_CONTENT/"$(__get_process_mem)"}\
-		${TMUX_YELLOW/$TMUX_CONTENT/"$(__get_disk_usage)"} > $TMUX_OUTPUT
+		${TMUX_YELLOW/$TMUX_CONTENT/"$(__get_rest_mem)"} > $TMUX_OUTPUT
 
 	sleep 1
 done

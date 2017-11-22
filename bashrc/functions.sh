@@ -1,6 +1,11 @@
 #! /bin/bash
 tm(){
+	~/Documents/.dotfile/script/tmux_statusbar_server/server.sh &
 	tmux -2
+}
+tmas(){
+	~/Documents/.dotfile/script/tmux_statusbar_server/server.sh &
+	tmux -u attach-session
 }
 
 get_weather_info(){
@@ -10,37 +15,41 @@ get_weather_info(){
 	echo $WEA $TEM | say -v Ting-Ting &
 }
 
-shadowsocks(){
-	# 清理
-	[[ `jobs -l` ]] && pkill python 
-
-
-	# 配置shadowsocks
-	local shadow_conf="/usr/local/etc/shadowsocks-libev.$1.json"
-	if [[ -e $shadow_conf ]] ; then
-		# 设置代理
-		local DEVICE="Wi-Fi";
-		if [[ $2 = "gb" ]]; then 
-			echo "设置全局"
-			sudo networksetup -setautoproxystate $DEVICE off
-			sudo networksetup -setsocksfirewallproxystate $DEVICE on 
-			sudo networksetup -setsocksfirewallproxy $DEVICE localhost 1080
-		else 
-			echo "设置AUTO PAC"
-			sudo networksetup -setsocksfirewallproxystate $DEVICE off 
-			sudo networksetup -setautoproxystate $DEVICE on
-			sudo networksetup -setautoproxyurl $DEVICE "http://127.0.0.1:8000/proxy.pac"
-			cd ~/Downloads/ && python -m SimpleHTTPServer > /dev/null & #启动server
-		fi
-
-		# trap "networksetup -setautoproxystate $DEVICE off;exit" SIGINT
-
-		echo "将使用$shadow_conf"
-		ss-local -c $shadow_conf -v --fast-open; # 启动 shadowsocks
-	else
-		echo "$shadow_conf 不存在"
-	fi
-}
+# shadowsocks(){
+# 	DIR="/usr/local/etc/ssconf"
+#
+# 	# 清理
+# 	# [[ `jobs -l` ]] && pkill python 
+# 	killall client_darwin_amd64
+#
+# 	# 配置shadowsocks
+# 	local shadow_conf="$DIR/shadowsocks-libev.$1.json"
+# 	if [[ -e $shadow_conf ]] ; then
+# 		# kcp
+# 		[[ $1 = "vps" ]] && /Users/hasky/Documents/bin/kcp/client_darwin_amd64 -c /Users/hasky/Documents/bin/kcp/kcpclient.json &
+# 		# 设置代理
+# 		local DEVICE="Wi-Fi";
+# 		if [[ $2 = "gb" ]]; then 
+# 			echo "设置全局"
+# 			sudo networksetup -setautoproxystate $DEVICE off
+# 			sudo networksetup -setsocksfirewallproxystate $DEVICE on 
+# 			sudo networksetup -setsocksfirewallproxy $DEVICE localhost 1080
+# 		else 
+# 			echo "设置AUTO PAC"
+# 			sudo networksetup -setsocksfirewallproxystate $DEVICE off 
+# 			sudo networksetup -setautoproxystate $DEVICE on
+# 			sudo networksetup -setautoproxyurl $DEVICE "http://45.32.29.202:8080/proxy.pac"
+# 			#cd $DIR && python -m SimpleHTTPServer > /dev/null & #启动server
+# 		fi
+#
+# 		# trap "networksetup -setautoproxystate $DEVICE off;exit" SIGINT
+#
+# 		echo "将使用$shadow_conf"
+# 		ss-local -c $shadow_conf -v --fast-open -u; # 启动 shadowsocks
+# 	else
+# 		echo "$shadow_conf 不存在"
+# 	fi
+# }
 
 fuckgfw(){
 	# 下载gfwlist
@@ -54,6 +63,7 @@ fuckgfw(){
 ||apple.com
 ||android.com
 ||google.com
+||gmail.com
 ||ytimg.com
 ||github.com
 ||reddit.com
@@ -64,10 +74,10 @@ fuckgfw(){
 ||leetcode.com
 ||sciencedirect.com
 ||xda-developers.com
-	" > user-rule.txt
+||vultr.com" > user-rule.txt
 
 	# 转pac
-	gfwlist2pac -i gfwlist.txt  -p "SOCKS5 127.0.0.1:1080" --user-rule=user-rule.txt -f proxy.pac
+	gfwlist2pac -i gfwlist.txt  -p "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT;" --user-rule=user-rule.txt --precise -f /usr/local/etc/ssconf/proxy.pac
 }
 
 
@@ -478,8 +488,8 @@ brew_upgrade()
 pip_upgrade()
 {
 	figlet -c pip-upgrade
-	pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip2 install -U --no-cache-dir
-	pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U --no-cache-dir
+	python2 -m pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H proxychains4 -q python2 -m pip install -U --no-cache-dir
+	python3 -m pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H proxychains4 -q python3 -m pip install -U --no-cache-dir
 }
 
 decode-apk()

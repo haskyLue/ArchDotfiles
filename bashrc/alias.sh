@@ -10,7 +10,7 @@ alias ..='cd ..'
 alias da='date "+%A, %B %d, %Y [%T]"'
 alias pg='ps -axf | grep -i $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 # alias top="top -i 2"
-alias top="sudo top -d -s 2 -u -F"
+alias top="top -d -s 2 -u -F"
 alias aria2c="aria2c --file-allocation none -x 5 -s 10 -c"
 # alias htop="sudo htop -d 20"
 # alias pstree="pstree -ha"
@@ -103,12 +103,11 @@ alias glances="sudo glances -t 2 --disable-quicklook --disable-load --disable-al
 # alias bilibili="/Users/hasky/Documents/.dotFile/script/bilibili.sh"
 # alias cmatrix="cmatrix -C green"
 # tmux will always set TERM=screen inside, -2 and TERM=xterm-256color outside only tell tmux that it can output 256 colours if needed.You need to set -g default-terminal screen-256color
-alias tmas="tmux -2 -u attach-session"
 # alias Udate="sudo ntpdate 3.cn.pool.ntp.org ; date |xargs -I {} sudo hwclock --set --date={}"
 # alias subl="reattach-to-user-namespace /usr/local/bin/subl"
 alias add_space_to_docker="defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}"
 alias ctags="ctags -R --c++-kinds=+px --fields=+aiKSz --extra=+q"
-alias clean="sudo rm -rf /var/log/* ; sudo rm -rf /Library/Logs ; rm -rf ~/Library/Logs ; rm -rf ~/Library/Caches/Homebrew "
+alias clean="sudo rm -rf /var/log/* ; sudo rm -rf /Library/Logs/* ; rm -rf ~/Library/Logs/* ; rm -rf ~/Library/Caches/Homebrew/* "
 alias andbug="cd /Users/hasky/Documents/TOSHIBA/Git/AndBug/ && PYTHONPATH=lib ./andbug"
 # alias ncmpcpp="proxychains4 /usr/local/bin/ncmpcpp"
 alias ndk-build="/usr/local/Cellar/android-ndk/r14b/bin/ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk NDK_APPLICATION_MK=Application.mk"
@@ -140,5 +139,13 @@ alias play_pvp_sumeng="mpv http://hdl61.kascend.com/chushou_live/dc0d0eed707d429
 #douyu
 alias play_pvp_tuomi="streamlink -p mpv https://www.douyu.com/793400 worst"
 alias play_pvp_zhangdaxian="streamlink -p mpv https://www.douyu.com/688 worst"
+alias play_pvp_hanye="streamlink -p mpv https://www.douyu.com/1976204 worst"
 #huya
 alias play_pvp_menglei="streamlink -p mpv http://star.longzhu.com/153064\?from\=videos2 low"
+
+alias vultr_jp="ssh -i ~/.ssh/id_rsa1 root@45.32.29.202"
+alias bypy_aria2c="bypy --downloader aria2"
+# alias login_vultr_vps="ssh -o ProxyCommand='nc -x 127.0.0.1:1080 %h %p' -i ~/.ssh/id_rsa1 root@45.32.29.202"
+
+alias setdns="networksetup -setdnsservers Wi-Fi 127.0.0.1"
+alias cleardns="networksetup -setdnsservers Wi-Fi Empty"

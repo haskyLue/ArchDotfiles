@@ -1,15 +1,19 @@
-color listfocus black blue
-color listnormal white default
-color listnormal_unread red default
-color listfocus_unread white blue
-color info green black
+show-read-feeds no
+feed-sort-order unreadarticlecount-asc
+
+color info default default reverse
+color listnormal_unread yellow default
+color listfocus blue default reverse bold
+color listfocus_unread blue default reverse bold
+
+text-width 80
 
 reload-time 180	
 reload-threads 6
 
-proxy 127.0.0.1:1080
 always-display-description true
-use-proxy no
+use-proxy yes
+proxy http://127.0.0.1:1087
 
 #html-renderer "w3m -dump -T text/html"
 browser open
