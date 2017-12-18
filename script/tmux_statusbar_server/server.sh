@@ -47,7 +47,7 @@ __get_ip(){
 	fi
 }
 __get_disk_usage(){
-	df -H | awk '/Volumes/ { print $4"/"$2 }' | xargs 
+	df -lh | awk 'NR!=1&&NR!=3 {print $5}' | xargs echo ◎
 }
 __get_process_mem(){
 	/usr/bin/top -l 1 -o mem -U hasky |  awk '/COMMAND/ {getline; print $2,"("$8,$13")"}'
@@ -87,7 +87,7 @@ __get_traffic_rate(){
 	fi
 }
 __get_rest_mem(){
-	memory_pressure | awk '/percent/ {print "Mem "$5}'
+	memory_pressure | awk '/percent/ {print "◉ "$5}'
 }
 
 
@@ -101,7 +101,7 @@ while [[ $KERNEL ]];do
 		${TMUX_GREEN/$TMUX_CONTENT/"$TMUX_RATE"}\
 		${TMUX_BLUE/$TMUX_CONTENT/"$(__get_wifi_ssid) $(__get_ip)"}\
 		${TMUX_RED/$TMUX_CONTENT/"$(__get_process_mem)"}\
-		${TMUX_YELLOW/$TMUX_CONTENT/"$(__get_rest_mem)"} > $TMUX_OUTPUT
+		${TMUX_YELLOW/$TMUX_CONTENT/"$(__get_rest_mem) $(__get_disk_usage)"} > $TMUX_OUTPUT
 
 	sleep 1
 done

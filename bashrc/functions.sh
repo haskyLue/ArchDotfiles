@@ -1,10 +1,9 @@
 #! /bin/bash
 tm(){
-	~/Documents/.dotfile/script/tmux_statusbar_server/server.sh &
+	launchctl load ~/Documents/.dotfile/script/tmux_statusbar_server/tmux.statusbar.plist 
 	tmux -2
 }
 tmas(){
-	~/Documents/.dotfile/script/tmux_statusbar_server/server.sh &
 	tmux -u attach-session
 }
 

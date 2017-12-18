@@ -193,7 +193,7 @@ map <leader>n :NERDTreeToggle<CR>
 map <leader>t :TagbarToggle<CR>
 
 " fzf插件"""""
-set rtp+=/usr/local/Cellar/fzf/0.17.0-2
+set rtp+=/usr/local/Cellar/fzf/0.17.3
 " Open files in horizontal split
 nnoremap <silent> <Leader>s :call fzf#run({
 			\   'down': '40%',

@@ -44,6 +44,7 @@ alias lr='ls -R'                    # recursive ls
 # alias lx='ll -BX'                   # sort by extension
 alias lz='ll -rS'                   # sort by size
 alias lt='ll -rt'                   # sort by date
+alias cat='ccat'
 
 
 # pacman aliases
@@ -97,7 +98,7 @@ alias youdao="figlet -c YouDaoDict && /Users/hasky/Documents/TOSHIBA/Git/ydcv/yd
 alias youtube-dl-proxy="youtube-dl --proxy socks5://127.0.0.1:1080/  --write-auto-sub --audio-quality 0 --no-playlist -o '%(title)s.%(ext)s'"
 alias you-get-proxy="you-get -s 127.0.0.1:1080"
 alias iftop="sudo iftop -PnB"
-alias glances="sudo glances -t 2 --disable-quicklook --disable-load --disable-alert --disable-now --disable-fs --byte"
+alias glances="sudo glances -t 2 --disable-quicklook --disable-load --disable-alert --disable-now --disable-fs --disable-network --byte"
 # alias tshark="sudo tshark"
 # alias winfo="watch -n 2 --no-title --color /Users/hasky/Documents/.dotFile/script/getinfo.sh"
 # alias bilibili="/Users/hasky/Documents/.dotFile/script/bilibili.sh"
