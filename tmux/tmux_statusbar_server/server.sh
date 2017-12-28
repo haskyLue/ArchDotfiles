@@ -49,7 +49,8 @@ __get_disk_usage(){
 	df -lh | awk 'NR!=1&&NR!=3 {print $5}' | xargs echo ☯︎ 
 }
 __get_process_mem(){
-	/usr/bin/top -l 1 -o MEM -U hasky | awk '/COMMAND/ {getline; print "◉ "$2"⎡ "$(NF-28)"⎤"}'
+	# /usr/bin/top -l 1 -o MEM -U hasky | awk '/COMMAND/ {getline; print "◉ "$2"⎡ "$(NF-28)"⎤"}'
+	/usr/bin/top -l 1 -o mem -U hasky -n1 -stats COMMAND,MEM | tail -n1 | sed 's/\(.*\)\ \(.*\)/◉ \1<\2>/'  # 这个正则不错，利用贪心匹配得到最后一个空格
 }
 __get_uptime(){
 	# uptime | sed 's/.*averages: //'
