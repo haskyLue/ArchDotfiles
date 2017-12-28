@@ -94,7 +94,6 @@ set showtabline=2 "标签栏
 "设置静音模式
 set noerrorbells
 set novisualbell
-set t_vb=
 
 "不要备份文件
 set nobackup

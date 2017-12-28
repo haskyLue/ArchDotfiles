@@ -135,14 +135,18 @@ alias jadx="/opt/jadx-0.6.1/bin/jadx-gui"
 #chushou
 alias play_pvp_at="mpv http://hdl61.kascend.com/chushou_live/a9c9f3b4498247268a5fc0e80e0546cf.flv\?sign\=1500801175-7b23a9b469b9d560690c75270d812022\&\?\=0.4948230148293078"
 alias play_pvp_lanyan="mpv http://hdl61.kascend.com/chushou_live/a2335f8bc29346beaaf72b9c484c6e3f.flv\?sign\=1497771691-f8c5d675da7f75efac7448f1c686aca7\&"
-alias play_pvp_jianxian="mpv http://hdl71.kascend.com/chushou_live/5eeef5ed70cc4b6d9f677dbbe3f5592a.flv"
+alias play_pvp_jianxian="mpv 'http://hdl71.kascend.com/chushou_live/5eeef5ed70cc4b6d9f677dbbe3f5592a.flv?txSecret=63eaeec61e6aee78a0ace47f87a1eb46&txTime=5a3a6cd9&'"
 alias play_pvp_sumeng="mpv http://hdl61.kascend.com/chushou_live/dc0d0eed707d4298b038d08f90698c23.flv\?sign\=1498903738-7db2e6aad60b5f6d3f3bef06dd64672d\&\?\=0.11237293761223555"
 #douyu
 alias play_pvp_tuomi="streamlink -p mpv https://www.douyu.com/793400 worst"
-alias play_pvp_zhangdaxian="streamlink -p mpv https://www.douyu.com/688 worst"
-alias play_pvp_hanye="streamlink -p mpv https://www.douyu.com/1976204 worst"
 #huya
-alias play_pvp_menglei="streamlink -p mpv http://star.longzhu.com/153064\?from\=videos2 low"
+alias play_pvp_vv="streamlink -p mpv http://www.huya.com/agvv worst"
+alias play_pvp_menglei="streamlink -p mpv http://www.huya.com/agmenglei worst"
+alias play_pvp_laoshuai="streamlink -p mpv http://www.huya.com/aglaoshuai worst"
+#xiongmao
+alias play_pvp_hurt="streamlink -p mpv 'https://www.panda.tv/hds/qg2017.html?roomid=885228' worst"
+alias play_pvp_fly="streamlink -p mpv 'https://www.panda.tv/hds/qg2017.html?roomid=893619' worst"
+alias play_pvp_alan="streamlink -p mpv 'https://www.panda.tv/hds/qg2017.html?roomid=885255' worst"
 
 alias vultr_jp="ssh -i ~/.ssh/id_rsa1 root@45.32.29.202"
 alias bypy_aria2c="bypy --downloader aria2"

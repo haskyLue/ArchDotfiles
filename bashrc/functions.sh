@@ -1,6 +1,6 @@
 #! /bin/bash
 tm(){
-	launchctl load ~/Documents/.dotfile/script/tmux_statusbar_server/tmux.statusbar.plist 
+	launchctl load ~/Documents/.dotfile/tmux/tmux_statusbar_server/tmux.statusbar.plist
 	tmux -2
 }
 tmas(){
@@ -472,8 +472,9 @@ calc()
 
 brew_upgrade()
 {
-	export ALL_PROXY=socks5://127.0.0.1:1080
 	figlet -c brew_upgrade
+	export http_proxy=http://127.0.0.1:1087
+	export https_proxy=http://127.0.0.1:1087
 	brew update 
 	brew upgrade 
 	brew cleanup --force
@@ -481,7 +482,8 @@ brew_upgrade()
 
 	# figlet -c software_update
 	# sudo softwareupdate -ia
-	unset ALL_PROXY
+	unset http_proxy 
+	unset https_proxy 
 }
 
 pip_upgrade()

@@ -3,7 +3,6 @@
 # global
 export TMUX_CACHE_DIR="/tmp"
 export TMUX_OUTPUT=$TMUX_CACHE_DIR"/tmux_output"
-export TMUX_SERVER_PID=$TMUX_CACHE_DIR"/tmux_server.pid"
 
 # color
 export TMUX_CONTENT="TMUX"
