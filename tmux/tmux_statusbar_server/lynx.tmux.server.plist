@@ -8,8 +8,11 @@
 		<string>lynx.tmux.server</string>
 		<key>ProgramArguments</key>
 		<array>
-			<string>/usr/local/bin/python3</string>
-			<string>/Users/hasky/Documents/.dotfile/tmux/tmux_statusbar_server/server.py</string>
+			<!-- python版的cpu占用还是太高了点=.= -->
+			<!-- <string>/usr/local/bin/python3</string> -->
+			<!-- <string>/Users/hasky/Documents/.dotfile/tmux/tmux_statusbar_server/server.py</string> -->
+
+			<string>/Users/hasky/Documents/.dotfile/tmux/tmux_statusbar_server/server.zsh</string>
 		</array>
 	</dict>
 </plist>

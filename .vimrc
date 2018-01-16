@@ -13,7 +13,7 @@ Plugin 'vim-scripts/surround.vim' "符号处理
 Plugin 'vim-scripts/tComment' "注释
 Plugin 'terryma/vim-multiple-cursors' "多行选中
 Plugin 'Valloric/YouCompleteMe'  "出现 python 之类的报错，一般在更新 python 后重新编译vim
-Plugin 'google/yapf'
+Plugin 'google/yapf', { 'rtp': 'plugins/vim' } 
 
 " snippets
 Plugin 'honza/vim-snippets' 
