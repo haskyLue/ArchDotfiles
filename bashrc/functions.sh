@@ -1,6 +1,6 @@
 #! /bin/bash
 tm(){
-	launchctl load ~/Documents/.dotfile/tmux/tmux_statusbar_server/tmux.statusbar.plist
+	launhctl load /Users/hasky/Documents/.dotFile/tmux/tmux_statusbar_server/lynx.tmux.server.plist 
 	tmux -2
 }
 tmas(){
