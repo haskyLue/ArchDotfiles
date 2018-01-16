@@ -91,7 +91,7 @@ alias cat='ccat'
 # alias fssh="ssh -TnN -D 7070 fastssh.com-ldb1992@jp-public.serverip.co"
 # alias dns="/Users/hasky/Documents/TOSHIBA/Git/ArchDotfiles/chinadns/exec" 
 # alias trash="sudo gvfs-trash"
-alias youdao="figlet -c YouDaoDict && /Users/hasky/Documents/TOSHIBA/Git/ydcv/ydcv.py -f"
+alias youdao="figlet -c YouDaoDict && python -m ydcv"
 # alias wifi="wicd-curses"
 # alias gmail="checkgmail -numbers -private -no_cookies &"
 # alias vmxp="vboxmanage startvm xp "
@@ -148,9 +148,9 @@ alias play_pvp_hurt="streamlink -p mpv 'https://www.panda.tv/hds/qg2017.html?roo
 alias play_pvp_fly="streamlink -p mpv 'https://www.panda.tv/hds/qg2017.html?roomid=893619' worst"
 alias play_pvp_alan="streamlink -p mpv 'https://www.panda.tv/hds/qg2017.html?roomid=885255' worst"
 
-alias vultr_jp="ssh -i ~/.ssh/id_rsa1 root@45.32.29.202"
+alias vultr_jp_6="mosh --predict=experimental --ssh=\"/usr/local/bin/ssh -i ~/.ssh/id_rsa1\" root@2001:19f0:7001:2082:5400:01ff:fe36:a93d"
+alias vultr_jp_4="mosh --ssh=\"/usr/local/bin/ssh -i ~/.ssh/id_rsa1\" root@45.32.29.202"
 alias bypy_aria2c="bypy --downloader aria2"
-# alias login_vultr_vps="ssh -o ProxyCommand='nc -x 127.0.0.1:1080 %h %p' -i ~/.ssh/id_rsa1 root@45.32.29.202"
 
 alias setdns="networksetup -setdnsservers Wi-Fi 127.0.0.1"
 alias cleardns="networksetup -setdnsservers Wi-Fi Empty"

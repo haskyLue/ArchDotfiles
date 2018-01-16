@@ -13,7 +13,7 @@ Plugin 'vim-scripts/surround.vim' "符号处理
 Plugin 'vim-scripts/tComment' "注释
 Plugin 'terryma/vim-multiple-cursors' "多行选中
 Plugin 'Valloric/YouCompleteMe'  "出现 python 之类的报错，一般在更新 python 后重新编译vim
-" Plugin 'scrooloose/syntastic'  " 语法检查
+Plugin 'google/yapf'
 
 " snippets
 Plugin 'honza/vim-snippets' 
@@ -21,14 +21,13 @@ Plugin 'SirVer/ultisnips'
 
 " 语法高亮
 Plugin 'manzur/vim-java-syntax'
-" Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
 Plugin 'kelwin/vim-smali'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
 " 文件项目
 Plugin 'scrooloose/nerdtree'
-Plugin 'danro/rename.vim'
+" Plugin 'danro/rename.vim'
 Plugin 'majutsushi/tagbar'
 
 " 外观
@@ -40,6 +39,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'godlygeek/tabular' " Code Format
 " Plugin 'CodeFalling/fcitx-vim-osx' 
+Plugin 'Yggdroot/indentLine'
 
 call vundle#end()      
 
@@ -65,6 +65,8 @@ set background=dark
 " colorscheme molokai
 " colorscheme bubblegum-256-dark
 " colorscheme Tomorrow-Night-Bright
+
+set list lcs=tab:\|\ 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
@@ -143,6 +145,7 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 " w!! to sudo & write a file
 cmap w!! w !sudo tee >/dev/null %
 
+let g:pymode_python = 'python3'
 
 " 更改<leader>前缀
 let mapleader=";"
@@ -257,7 +260,6 @@ map <C-]> :YcmCompleter GoToImprecise<CR>
 " nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>
 
-
 "  Ultisnips""""" (https://github.com/SirVer/ultisnips/issues/376)
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
@@ -273,12 +275,6 @@ function! <SID>ExpandSnippetOrReturn()
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
-" syntasic"""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
+
 " }}}

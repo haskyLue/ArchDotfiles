@@ -137,78 +137,8 @@ parse_string()
 # }
 # }}}
 
-# {{{ bilibili 
-# you-get 只用来下载弹幕,谁叫你老抽风呢
 
-bili.download()
-{
-	# niconvert(bili.ass1)/you-get(bili.ass2)下载处理弹幕,youtube-dl下载视频,mpv播放
 
-	figlet -c bilibili-dw
-	# _file=$(you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//')
-	# _type=$(you-get -i $1 | awk -F'/' '/Type/ {print $2}' | tr -d ')')
-
-	echo "\e[0;35m get video name from remote \e[0m" 
-	_name_ext="$(youtube-dl --get-filename $1)"
-	_name="$( basename $_name_ext .flv | xargs -I {} basename {} .mp4 )" # 视频文件名称
-
-	# echo "\e[0;35m download file of danmu \e[0m" && bili.ass1 -o $_name $1
-	echo "\e[0;35m download video \e[0m"			 && youtube-dl $1
-	echo "\e[0;35m download file of danmu \e[0m" && bili.ass2 $1 $_name $_name_ext
-	echo "\e[0;35m playing video \e[0m"				 && bili.play $_name_ext 
-}
-
-bili.ass1()
-{
-	# 自动处理为ass文件 @niconvert // 只是弹幕行为比较单一
-	niconvert="/Users/hasky/Documents/devel/git/niconvert/niconvert.pyw"
-	echo " for cid mesg or some other parameters : open url -> jsconsole -> \$('#bofqi').attr('src') \n"
-	$niconvert -B -G -V +l 0 +a async $1
-}
-
-bili.ass2()
-{
-	# 转换xml弹幕 @danmaku2ass/you-get
-	# you-get下载cmt.xml / danmuku2ass处理为ass,所需的参数由媒体文件提供
-
-	if [[ $# -eq 3 && -f $3 ]] ;then 
-		danmaku2assDir="/Users/hasky/Documents/devel/git/danmaku2ass"
-
-		echo "\e[0;35m getting the name of xxx.cmt.xml ...\e[0m"
-		_name=$( you-get -i $1 | awk -F':' '/Title/ {print $2}' | sed -e 's/^ *//' -e 's/ *$//' )
-		url=$1
-		name=$2 #真实的文件名(由youtube-dl下载的为准)
-		name_ext=$3
-		echo $name $name_ext 
-
-		echo "\e[0;35m downloading xxx.cmt.xml...\e[0m" && you-get -u $url
-
-		if [[ -e "$_name".cmt.xml ]];then # 判断xml弹幕文件是否下载完成
-			local height=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/height/ {print $2}')
-			local width=$(ffprobe  -v quiet -show_streams "$name_ext" | awk -F'=' '/width/  {print $2}')
-			$danmaku2assDir/danmaku2ass.py -o "$name".ass -fs 30 -dm 10 -s "$height"x"$width" "$_name".cmt.xml
-		else
-			echo "\e[0;34m no "$_name".cmt.xml file found"
-		fi
-	else
-		echo -e "\e[0;33m provide the title and name of the media file \n or check the existence of the media file" 
-	fi
-}
-
-bili.play()
-{
-	name=$(echo $1 | grep -q .flv$ && basename -s .flv $1 || basename -s .mp4 $1) # 非flv即mp4
-	mpv --geometry=50%:50% --autofit-larger=80% --sub-scale-with-window=yes --sub-file=$name.ass --vf='lavfi="fps=fps=60:round=down"' $1
-}
-
-bili.online()
-{
-	cd /Users/hasky/Documents/devel/git/biligrab-danmaku2ass/ 
-
-	local c="$( cat ./cookie )"
-	./bilidan.py -c $c --hd $1
-}
-# }}}
 
 #{{{ fuck gwf 
 # Upac()
@@ -489,8 +419,8 @@ brew_upgrade()
 pip_upgrade()
 {
 	figlet -c pip-upgrade
-	python2 -m pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H proxychains4 -q python2 -m pip install -U --no-cache-dir
-	python3 -m pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H proxychains4 -q python3 -m pip install -U --no-cache-dir
+	python2 -m pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 proxychains4 -q python2 -m pip install -U --no-cache-dir
+	python3 -m pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 proxychains4 -q python3 -m pip install -U --no-cache-dir
 }
 
 decode-apk()

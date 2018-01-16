@@ -8,7 +8,7 @@
 		<string>tmux.statusbar.server</string>
 		<key>ProgramArguments</key>
 		<array>
-			<string>/Users/hasky/Documents/.dotfile/tmux/tmux_statusbar_server/server.sh</string>
+			<string>/Users/hasky/Documents/.dotfile/tmux/tmux_statusbar_server/server</string>
 		</array>
 	</dict>
 </plist>
