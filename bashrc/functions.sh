@@ -14,41 +14,70 @@ get_weather_info(){
 	echo $WEA $TEM | say -v Ting-Ting &
 }
 
-# shadowsocks(){
-# 	DIR="/usr/local/etc/ssconf"
-#
-# 	# 清理
-# 	# [[ `jobs -l` ]] && pkill python 
-# 	killall client_darwin_amd64
-#
-# 	# 配置shadowsocks
-# 	local shadow_conf="$DIR/shadowsocks-libev.$1.json"
-# 	if [[ -e $shadow_conf ]] ; then
-# 		# kcp
-# 		[[ $1 = "vps" ]] && /Users/hasky/Documents/bin/kcp/client_darwin_amd64 -c /Users/hasky/Documents/bin/kcp/kcpclient.json &
-# 		# 设置代理
-# 		local DEVICE="Wi-Fi";
-# 		if [[ $2 = "gb" ]]; then 
-# 			echo "设置全局"
-# 			sudo networksetup -setautoproxystate $DEVICE off
-# 			sudo networksetup -setsocksfirewallproxystate $DEVICE on 
-# 			sudo networksetup -setsocksfirewallproxy $DEVICE localhost 1080
-# 		else 
-# 			echo "设置AUTO PAC"
-# 			sudo networksetup -setsocksfirewallproxystate $DEVICE off 
-# 			sudo networksetup -setautoproxystate $DEVICE on
-# 			sudo networksetup -setautoproxyurl $DEVICE "http://45.32.29.202:8080/proxy.pac"
-# 			#cd $DIR && python -m SimpleHTTPServer > /dev/null & #启动server
-# 		fi
-#
-# 		# trap "networksetup -setautoproxystate $DEVICE off;exit" SIGINT
-#
-# 		echo "将使用$shadow_conf"
-# 		ss-local -c $shadow_conf -v --fast-open -u; # 启动 shadowsocks
-# 	else
-# 		echo "$shadow_conf 不存在"
-# 	fi
-# }
+shadowsocks(){
+	local dir="/Users/hasky/Documents/.dotfile/shadowsocks"
+	local device="Wi-Fi";
+	local pac="http://45.32.29.202:8080/proxy.pac"
+	local shadow_conf=""
+	local kcptun_conf=""
+
+	# 清理
+	# [[ `jobs -l` ]] && pkill python 
+	killall client_darwin_amd64 2> /dev/null
+	killall ss-local 2> /dev/null
+	killall sslocal 2> /dev/null
+
+	# 配置shadowsocks
+	if [[ -e $dir ]] ; then
+
+		# 设置系统代理
+		# trap "networksetup -setautoproxystate $device off;" INT TERM EXIT
+		if [[ $* =~ "-g" ]]; then  # 参数包含
+			echo "--GLOBAL"
+			sudo networksetup -setautoproxystate $device off
+			sudo networksetup -setsocksfirewallproxystate $device on 
+			sudo networksetup -setsocksfirewallproxy $device localhost 1080
+		else 
+			echo "--AUTO-PAC"
+			sudo networksetup -setsocksfirewallproxystate $device off 
+			sudo networksetup -setautoproxystate $device on
+			sudo networksetup -setautoproxyurl $device $pac 
+			#cd $DIR && python -m SimpleHTTPServer > /dev/null & #启动server
+		fi
+
+		#是否使用ipv6
+		if [[ $* =~ "-6" ]];then
+			echo "--IPV6"
+
+			#是否启用kcptun
+			if [[ $* =~ "-kcp" ]];then
+				echo "--KCP"
+				kcptun_conf="$dir/kcptun-config-v6.json"
+				shadow_conf="$dir/ss-kcp-config.json"
+			else
+				echo "--LOCAL"
+				shadow_conf="$dir/ss-local-config-v6.json"
+			fi
+		else
+			echo "--IPV4"
+			if [[ $* =~ "-kcp" ]];then
+				echo "--KCP"
+				kcptun_conf="$dir/kcptun-config.json"
+				shadow_conf="$dir/ss-kcp-config.json"
+			else
+				echo "--LOCAL"
+				shadow_conf="$dir/ss-local-config.json"
+			fi
+		fi
+
+		echo "using $shadow_conf $kcptun_conf"
+		[[ ! -z $kcptun_conf ]] && /Users/hasky/Documents/bin/kcp/client_darwin_amd64 -c $kcptun_conf 2> /dev/null &
+		# /usr/local/bin/ss-local -c $shadow_conf -v --fast-open -u;
+		/usr/local/bin/sslocal -c $shadow_conf -v --fast-open ;
+	else
+		echo "$dir不存在"
+	fi
+}
 
 fuckgfw(){
 	# 下载gfwlist
@@ -403,8 +432,6 @@ calc()
 brew_upgrade()
 {
 	figlet -c brew_upgrade
-	export http_proxy=http://127.0.0.1:1087
-	export https_proxy=http://127.0.0.1:1087
 	brew update 
 	brew upgrade 
 	brew cleanup --force
@@ -412,8 +439,6 @@ brew_upgrade()
 
 	# figlet -c software_update
 	# sudo softwareupdate -ia
-	unset http_proxy 
-	unset https_proxy 
 }
 
 pip_upgrade()

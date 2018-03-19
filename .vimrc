@@ -208,7 +208,7 @@ nnoremap <silent> <Leader>v :call fzf#run({
 
 nnoremap <silent> <Leader>e :call fzf#run({
 			\   'down': '40%',
-			\	'source': 'mdfind -onlyin ./ .',
+			\	'source': 'find . -type f',
 			\   'sink': 'e' })<CR>
 
 "Choose color scheme
@@ -274,7 +274,4 @@ function! <SID>ExpandSnippetOrReturn()
 	endif
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
-
-autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
-
 " }}}

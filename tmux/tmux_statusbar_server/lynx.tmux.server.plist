@@ -12,7 +12,8 @@
 			<!-- <string>/usr/local/bin/python3</string> -->
 			<!-- <string>/Users/hasky/Documents/.dotfile/tmux/tmux_statusbar_server/server.py</string> -->
 
-			<string>/Users/hasky/Documents/.dotfile/tmux/tmux_statusbar_server/server.zsh</string>
+			<string>/usr/local/bin/zsh</string>
+			<string>/Users/hasky/Documents/.dotFile/tmux/tmux_statusbar_server/Server.zsh</string>
 		</array>
 	</dict>
 </plist>
