@@ -33,4 +33,6 @@
 *pid
 *journal
 
+*.vscode
+
 shadowsocks
