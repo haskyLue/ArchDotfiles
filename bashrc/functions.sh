@@ -435,7 +435,6 @@ brew_upgrade()
 	brew update 
 	brew upgrade 
 	brew cleanup --force
-	brew prune
 
 	# figlet -c software_update
 	# sudo softwareupdate -ia
